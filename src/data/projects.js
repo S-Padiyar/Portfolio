@@ -3,7 +3,7 @@ export const PROJECTS = [
   {
     title: "Project one",
     desc: "One sentence explaining what it does.",
-    tags: "REACT / TYPESCRIPT",
+    tags: "React / TypeScript",
     icon: "monitor",
     year: "2025",
     role: "Solo build",
@@ -16,7 +16,7 @@ export const PROJECTS = [
   {
     title: "Project two",
     desc: "One sentence explaining what it does.",
-    tags: "JAVA / ROBOTICS",
+    tags: "Java / Robotics",
     icon: "robot",
     year: "2024",
     role: "Team project",
@@ -29,7 +29,7 @@ export const PROJECTS = [
   {
     title: "Project three",
     desc: "One sentence explaining what it does.",
-    tags: "PYTHON / AI",
+    tags: "Python / AI",
     icon: "gear",
     year: "2024",
     role: "Research",

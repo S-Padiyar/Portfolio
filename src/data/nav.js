@@ -3,6 +3,5 @@ export const NAV_ITEMS = [
   { id: "projects", label: "Trophy Case", icon: "monitor" },
   { id: "experience", label: "Guild Hall", icon: "briefcase" },
   { id: "skills", label: "Skill Tree", icon: "bolt" },
-  { id: "games", label: "Arcade", icon: "gamepad" },
   { id: "contact", label: "Mailbox", icon: "mail" },
 ];

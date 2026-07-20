@@ -1,6 +1,7 @@
 import PortfolioSection100 from "./PortfolioSection100";
 import PortfolioSection109 from "./PortfolioSection109";
 import PortfolioSection107 from "./PortfolioSection107";
+import PixelSprite from "../components/PixelSprite";
 function PortfolioSection110({
   ACHIEVEMENTS,
   AVATAR_IMAGES,
@@ -42,6 +43,7 @@ function PortfolioSection110({
   openLetter,
   pixelFont,
   readLetters,
+  readableFont,
   sendAiMessage,
   sendMail,
   setAiInput,
@@ -52,6 +54,7 @@ function PortfolioSection110({
   setFontScale,
   setHiddenRoomOpen,
   setMailTab,
+  setReadableFont,
   setSelectedProjectId,
   setSelectedQuestId,
   setSelectedSkillId,
@@ -76,7 +79,7 @@ function PortfolioSection110({
     overflow: isMobile ? "auto" : "hidden"
   }}>
         {/* Settings drawer */}
-        {settingsOpen && <PortfolioSection100 ACHIEVEMENTS={ACHIEVEMENTS} PixelFrame={PixelFrame} PixelIcon={PixelIcon} T={T} THEMES={THEMES} beep={beep} fontScale={fontScale} isMobile={isMobile} pixelFont={pixelFont} setFontScale={setFontScale} setSettingsOpen={setSettingsOpen} setSoundOn={setSoundOn} setThemeKey={setThemeKey} soundOn={soundOn} themeKey={themeKey} unlockAchievement={unlockAchievement} unlockedAchievements={unlockedAchievements} />}
+        {settingsOpen && <PortfolioSection100 ACHIEVEMENTS={ACHIEVEMENTS} PixelFrame={PixelFrame} PixelIcon={PixelIcon} T={T} THEMES={THEMES} beep={beep} fontScale={fontScale} isMobile={isMobile} pixelFont={pixelFont} readableFont={readableFont} setFontScale={setFontScale} setReadableFont={setReadableFont} setSettingsOpen={setSettingsOpen} setSoundOn={setSoundOn} setThemeKey={setThemeKey} settingsView={settingsOpen} soundOn={soundOn} themeKey={themeKey} unlockAchievement={unlockAchievement} unlockedAchievements={unlockedAchievements} />}
 
         {/* Left sidebar */}
         <PortfolioSection109 AVATAR_IMAGES={AVATAR_IMAGES} NAV_ITEMS={NAV_ITEMS} PixelFrame={PixelFrame} PixelHeart={PixelHeart} PixelIcon={PixelIcon} T={T} active={active} avatarRef={avatarRef} beep={beep} commits={commits} commitsError={commitsError} companion={companion} fontScale={fontScale} handleAvatarClick={handleAvatarClick} handleNavClick={handleNavClick} hiddenRoomUnlocked={hiddenRoomUnlocked} isMobile={isMobile} isTablet={isTablet} level={level} pixelFont={pixelFont} setHiddenRoomOpen={setHiddenRoomOpen} themeKey={themeKey} xp={xp} xpGain={xpGain} />
@@ -137,21 +140,21 @@ function PortfolioSection110({
             justifyContent: "center",
             background: T.accent
           }}>
-                  <PixelIcon name="robot" size={16} color={T.bg} />
+                  <PixelSprite frame="idle" size={18} color={T.bg} />
                 </PixelFrame>
                 <div>
                   <div style={{
               fontFamily: pixelFont,
               fontSize: `${9 * fontScale}px`,
               lineHeight: 1.6
-            }}>AI ASSISTANT</div>
+            }}>AI Assistant</div>
                   <div style={{
               fontSize: `${9 * fontScale}px`,
               color: T.textDim
-            }}>PLACEHOLDER</div>
+            }}>Placeholder</div>
                 </div>
               </div>
-              <div onClick={() => setAiOpen(false)} style={{
+              <div onClick={() => { beep(220); setAiOpen(false); }} title="Close" style={{
           cursor: "pointer"
         }}>
                 <PixelIcon name="close" size={12} color={T.textDim} />
@@ -171,6 +174,7 @@ function PortfolioSection110({
         minHeight: 220
       }}>
               {aiMessages.map((m, i) => <div key={i} style={{
+          fontFamily: "var(--copy-font)",
           alignSelf: m.from === "user" ? "flex-end" : "flex-start",
           background: m.from === "user" ? T.accent : T.panel,
           color: m.from === "user" ? T.bg : T.text,
@@ -187,23 +191,23 @@ function PortfolioSection110({
         display: "flex",
         gap: 6
       }}>
-              <input value={aiInput} onChange={e => setAiInput(e.target.value)} onKeyDown={e => e.key === "Enter" && sendAiMessage()} placeholder="Ask about my work..." style={{
+              <input value={aiInput} onChange={e => setAiInput(e.target.value)} onKeyDown={e => e.key === "Enter" && sendAiMessage()} placeholder="Ask about my work..." title="Question" style={{
           flex: 1,
           background: T.panelAlt,
           border: `2px solid ${T.border}`,
           color: T.text,
           padding: "8px 10px",
           fontSize: `${10 * fontScale}px`,
-          fontFamily: pixelFont,
+          fontFamily: bodyFont,
           outline: "none"
         }} />
-              <PixelFrame theme={T} onClick={sendAiMessage} style={{
+              <PixelFrame theme={T} onClick={sendAiMessage} title="Send" style={{
           padding: "8px 12px",
           display: "flex",
           alignItems: "center",
           fontSize: `${10 * fontScale}px`
         }}>
-                ENTER
+                Enter
               </PixelFrame>
             </div>
           </div>}

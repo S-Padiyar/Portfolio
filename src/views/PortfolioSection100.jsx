@@ -8,10 +8,13 @@ function PortfolioSection100({
   fontScale,
   isMobile,
   pixelFont,
+  readableFont,
   setFontScale,
+  setReadableFont,
   setSettingsOpen,
   setSoundOn,
   setThemeKey,
+  settingsView,
   soundOn,
   themeKey,
   unlockAchievement,
@@ -40,8 +43,8 @@ function PortfolioSection100({
         fontSize: `${11 * fontScale}px`,
         color: T.accent,
         lineHeight: 1.6
-      }}>SETTINGS</div>
-              <div onClick={() => setSettingsOpen(false)} style={{
+      }}>{settingsView === "achievements" ? "Achievements" : "Settings"}</div>
+              <div onClick={() => { beep(220); setSettingsOpen(false); }} title="Close" style={{
         cursor: "pointer"
       }}>
                 <PixelIcon name="close" size={14} color={T.textDim} />
@@ -49,6 +52,7 @@ function PortfolioSection100({
             </div>
 
             <div style={{
+      display: settingsView === "settings" ? "block" : "none",
       marginBottom: 22
     }}>
               <div style={{
@@ -56,7 +60,35 @@ function PortfolioSection100({
         color: T.textDim,
         marginBottom: 10,
         letterSpacing: "1px"
-      }}>THEME</div>
+      }}>
+                Font style
+              </div>
+              {/* One switch changes both heading and body fonts across every view. */}
+              <PixelFrame theme={T} active={readableFont} onClick={() => { beep(320); setReadableFont(v => !v); }} title="Font" style={{
+        padding: "8px 10px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        fontSize: `${11 * fontScale}px`
+      }}>
+                <span style={{
+          color: readableFont ? T.bg : T.text
+        }}>
+                  {readableFont ? "Readable" : "Pixel"}
+                </span>
+              </PixelFrame>
+            </div>
+
+            <div style={{
+      display: settingsView === "settings" ? "block" : "none",
+      marginBottom: 22
+    }}>
+              <div style={{
+        fontSize: `${10 * fontScale}px`,
+        color: T.textDim,
+        marginBottom: 10,
+        letterSpacing: "1px"
+      }}>Theme</div>
               <div style={{
         display: "flex",
         flexDirection: "column",
@@ -66,7 +98,7 @@ function PortfolioSection100({
           if (themeKey !== key) unlockAchievement("shape_shifter");
           setThemeKey(key);
           beep(380);
-        }} style={{
+        }} title="Theme" style={{
           padding: "8px 10px",
           display: "flex",
           alignItems: "center",
@@ -76,7 +108,7 @@ function PortfolioSection100({
                     <span style={{
             color: themeKey === key ? T.bg : T.text
           }}>
-                      {THEMES[key].name.toUpperCase()}
+                      {THEMES[key].name}
                     </span>
                     <span style={{
             width: 14,
@@ -89,6 +121,7 @@ function PortfolioSection100({
             </div>
 
             <div style={{
+      display: settingsView === "settings" ? "block" : "none",
       marginBottom: 22
     }}>
               <div style={{
@@ -96,8 +129,8 @@ function PortfolioSection100({
         color: T.textDim,
         marginBottom: 10,
         letterSpacing: "1px"
-      }}>SOUND</div>
-              <PixelFrame theme={T} active={soundOn} onClick={() => setSoundOn(v => !v)} style={{
+      }}>Sound</div>
+              <PixelFrame theme={T} active={soundOn} onClick={() => { if (soundOn) beep(280); setSoundOn(v => !v); }} title="Sound" style={{
         padding: "8px 10px",
         display: "flex",
         alignItems: "center",
@@ -111,26 +144,28 @@ function PortfolioSection100({
           color: soundOn ? T.bg : T.text
         }}>
                   <PixelIcon name="speaker" size={12} color={soundOn ? T.bg : T.textDim} />
-                  {soundOn ? "ON" : "OFF"}
+                  {soundOn ? "On" : "Off"}
                 </span>
               </PixelFrame>
             </div>
 
-            <div>
+            <div style={{
+      display: settingsView === "settings" ? "block" : "none"
+    }}>
               <div style={{
         fontSize: `${10 * fontScale}px`,
         color: T.textDim,
         marginBottom: 10,
         letterSpacing: "1px"
       }}>
-                FONT SIZE
+                Font size
               </div>
               <div style={{
         display: "flex",
         alignItems: "center",
         gap: 8
       }}>
-                <PixelFrame theme={T} onClick={() => setFontScale(v => Math.max(0.85, +(v - 0.1).toFixed(2)))} style={{
+                <PixelFrame theme={T} onClick={() => { beep(240); setFontScale(v => Math.max(1, +(v - 0.1).toFixed(2))); }} title="Smaller" style={{
           width: 30,
           height: 30,
           display: "flex",
@@ -150,7 +185,7 @@ function PortfolioSection100({
         }}>
                   {Math.round(fontScale * 100)}%
                 </div>
-                <PixelFrame theme={T} onClick={() => setFontScale(v => Math.min(1.4, +(v + 0.1).toFixed(2)))} style={{
+                <PixelFrame theme={T} onClick={() => { beep(360); setFontScale(v => Math.min(1.4, +(v + 0.1).toFixed(2))); }} title="Larger" style={{
           width: 30,
           height: 30,
           display: "flex",
@@ -164,9 +199,7 @@ function PortfolioSection100({
             </div>
 
             <div style={{
-      marginTop: 24,
-      paddingTop: 14,
-      borderTop: `2px dashed ${T.border}`
+      display: settingsView === "achievements" ? "block" : "none"
     }}>
               <div style={{
         fontSize: `${10 * fontScale}px`,
@@ -177,10 +210,10 @@ function PortfolioSection100({
         justifyContent: "space-between",
         alignItems: "center"
       }}>
-                <span>ACHIEVEMENTS</span>
+                <span>Achievements</span>
                 <span style={{
           color: T.textFaint,
-          fontSize: `${8 * fontScale}px`
+          fontSize: `${9 * fontScale}px`
         }}>
                   {Object.keys(unlockedAchievements).length}/{ACHIEVEMENTS.length}
                 </span>
@@ -208,20 +241,21 @@ function PortfolioSection100({
             }}>
                         <span style={{
                 fontFamily: pixelFont,
-                fontSize: `${8 * fontScale}px`,
+                fontSize: `${10 * fontScale}px`,
                 color: isUnlocked ? T.accent : T.textFaint,
                 letterSpacing: "0.5px"
               }}>
                           {isUnlocked ? a.label : "???"}
                         </span>
                         <span style={{
-                fontSize: `${7 * fontScale}px`,
+                fontSize: `${9 * fontScale}px`,
                 color: T.textFaint,
                 flexShrink: 0
               }}>+{a.xp} XP</span>
                       </div>
                       <div style={{
-              fontSize: `${7 * fontScale}px`,
+              fontFamily: "var(--copy-font)",
+              fontSize: `${11 * fontScale}px`,
               color: T.textDim,
               lineHeight: 1.5
             }}>

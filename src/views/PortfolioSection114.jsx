@@ -1,6 +1,7 @@
 function PortfolioSection114({
   PixelIcon,
   T,
+  beep,
   fontScale,
   pixelFont,
   setHiddenRoomOpen
@@ -14,10 +15,10 @@ function PortfolioSection114({
     alignItems: "center",
     justifyContent: "center",
     padding: 20
-  }} onClick={() => setHiddenRoomOpen(false)}>
+  }} onClick={() => { beep(220); setHiddenRoomOpen(false); }} title="Close">
           <div onClick={e => e.stopPropagation()} style={{
       background: T.panel,
-      border: `3px solid ${T.border}`,
+      border: `2px solid ${T.border}`,
       boxShadow: `4px 4px 0 ${T.bg}`,
       padding: 24,
       maxWidth: 420,
@@ -36,13 +37,14 @@ function PortfolioSection114({
           color: T.accent,
           lineHeight: 1.6
         }}>HIDDEN DUNGEON</div>
-              <div onClick={() => setHiddenRoomOpen(false)} style={{
+              <div onClick={() => { beep(220); setHiddenRoomOpen(false); }} title="Close" style={{
           cursor: "pointer"
         }}>
                 <PixelIcon name="close" size={14} color={T.textDim} />
               </div>
             </div>
             <div style={{
+        fontFamily: "var(--copy-font)",
         fontSize: `${10 * fontScale}px`,
         color: T.textDim,
         lineHeight: 1.7

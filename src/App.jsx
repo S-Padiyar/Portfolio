@@ -39,7 +39,9 @@ export default function PortfolioHome() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [aiOpen, setAiOpen] = useState(false);
   const [soundOn, setSoundOn] = useState(true);
-  const [fontScale, setFontScale] = useState(1);
+  const [fontScale, setFontScale] = useState(1.05);
+  // Accessibility option: swap decorative pixel fonts for familiar system fonts.
+  const [readableFont, setReadableFont] = useState(false);
   const [aiInput, setAiInput] = useState("");
   const [aiMessages, setAiMessages] = useState([{
     from: "ai",
@@ -61,6 +63,7 @@ export default function PortfolioHome() {
   const [xp, setXp] = useState(0);
   const [level, setLevel] = useState(12);
   const [unlockedAchievements, setUnlockedAchievements] = useState({});
+  const [achievementToast, setAchievementToast] = useState(null);
   const [xpGain, setXpGain] = useState(null); // { amount, id } for floating "+N XP" popup
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [nameEggShown, setNameEggShown] = useState(false);
@@ -72,10 +75,10 @@ export default function PortfolioHome() {
   const [composeEmail, setComposeEmail] = useState("");
   const [composeMsg, setComposeMsg] = useState("");
   const [mailSent, setMailSent] = useState(false);
-  const CONTACT_EMAIL = "you@example.com";
-  const [selectedSkillId, setSelectedSkillId] = useState(null);
-  const [selectedProjectId, setSelectedProjectId] = useState(null);
-  const [selectedQuestId, setSelectedQuestId] = useState(null);
+  const CONTACT_EMAIL = "sunmay.padiyar.dev@gmail.com";
+  const [selectedSkillId, setSelectedSkillIdState] = useState(null);
+  const [selectedProjectId, setSelectedProjectIdState] = useState(null);
+  const [selectedQuestId, setSelectedQuestIdState] = useState(null);
   const GITHUB_USERNAME = "S-Padiyar";
   const { commits, commitsError } = useGithubQuestLog(GITHUB_USERNAME);
   const vw = useViewportWidth();
@@ -96,7 +99,8 @@ export default function PortfolioHome() {
     return now.toLocaleTimeString("en-US", {
       hour: "2-digit",
       minute: "2-digit",
-      hour12: false
+      hour12: false,
+      timeZone: "America/New_York"
     });
   }
 
@@ -125,7 +129,9 @@ export default function PortfolioHome() {
     unlockAchievement
   });
   const xpGainIdRef = useRef(0);
-  function gainXp(amount, key) {
+  const xpRef = useRef(0);
+  const levelRef = useRef(12);
+  function gainXp(amount) {
     xpGainIdRef.current += 1;
     const id = xpGainIdRef.current;
     setXpGain({
@@ -135,23 +141,23 @@ export default function PortfolioHome() {
     setTimeout(() => {
       setXpGain(cur => cur && cur.id === id ? null : cur);
     }, 900);
-    setXp(prev => {
-      let total = prev + amount;
-      let leveledUp = false;
-      while (total >= 100) {
-        total -= 100;
-        leveledUp = true;
-      }
-      if (leveledUp) {
-        setLevel(l => l + 1);
-        setShowLevelUp(true);
-        beep(660, 0.06);
-        setTimeout(() => beep(880, 0.09), 100);
-        setTimeout(() => beep(1180, 0.12), 200);
-        setTimeout(() => setShowLevelUp(false), 1800);
-      }
-      return total;
-    });
+    // Keep XP within the current 0–99 level and carry overflow into level-ups.
+    const totalXp = xpRef.current + amount;
+    const levelsGained = Math.floor(totalXp / 100);
+    xpRef.current = totalXp % 100;
+    setXp(xpRef.current);
+
+    // Side effects stay outside React state updaters so Strict Mode cannot
+    // accidentally apply the same level-up twice.
+    if (levelsGained > 0) {
+      levelRef.current += levelsGained;
+      setLevel(levelRef.current);
+      setShowLevelUp(true);
+      beep(660, 0.06);
+      setTimeout(() => beep(880, 0.09), 100);
+      setTimeout(() => beep(1180, 0.12), 200);
+      setTimeout(() => setShowLevelUp(false), 1800);
+    }
   }
   const claimedQuestsRef = useRef({});
   function claimQuestXp(q) {
@@ -160,6 +166,7 @@ export default function PortfolioHome() {
     gainXp(q.reward);
   }
   const unlockedRef = useRef({});
+  const achievementToastIdRef = useRef(0);
   function unlockAchievement(id) {
     if (unlockedRef.current[id]) return;
     unlockedRef.current[id] = true;
@@ -168,7 +175,15 @@ export default function PortfolioHome() {
       [id]: true
     }));
     const ach = ACHIEVEMENTS.find(a => a.id === id);
-    if (ach) gainXp(ach.xp);
+    if (ach) {
+      gainXp(ach.xp);
+      achievementToastIdRef.current += 1;
+      const toastId = achievementToastIdRef.current;
+      setAchievementToast({ ...ach, toastId });
+      setTimeout(() => {
+        setAchievementToast(current => current?.toastId === toastId ? null : current);
+      }, 3200);
+    }
   }
   function handleAvatarClick() {
     beep(400 + avatarClicks * 20, 0.03);
@@ -203,10 +218,12 @@ export default function PortfolioHome() {
   const T = THEMES[themeKey];
   function handleNavClick(id) {
     setActive(id);
+    if (id === "about") unlockAchievement("character_loaded");
     beep(320, 0.04);
   }
   function sendAiMessage() {
     if (!aiInput.trim()) return;
+    unlockAchievement("first_chat");
     beep(440, 0.04);
     setAiMessages(m => [...m, {
       from: "user",
@@ -218,6 +235,7 @@ export default function PortfolioHome() {
     setAiInput("");
   }
   function openLetter(id) {
+    unlockAchievement("mail_reader");
     beep(300, 0.05);
     setOpenLetterId(id);
     setReadLetters(r => ({
@@ -225,26 +243,69 @@ export default function PortfolioHome() {
       [id]: true
     }));
   }
-  function sendMail() {
-    if (!composeEmail.trim() || !composeMsg.trim()) return;
-    beep(500, 0.05);
+  async function sendMail() {
+    const senderEmail = composeEmail.trim();
+    const message = composeMsg.trim();
+    if (mailSent === "sending") return;
+    if (!senderEmail || !message || !/^\S+@\S+\.\S+$/.test(senderEmail)) {
+      setMailSent("invalid");
+      return;
+    }
+    setMailSent("sending");
     const subject = encodeURIComponent(`Portfolio message from ${composeName || "a visitor"}`);
     const body = encodeURIComponent(`${composeMsg}\n\n— ${composeName || "Anonymous"} (${composeEmail})`);
-    window.open(`mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`, "_blank");
-    setMailSent(true);
-    setTimeout(() => setMailSent(false), 3000);
-    setComposeName("");
-    setComposeEmail("");
-    setComposeMsg("");
+    try {
+      const response = await fetch("https://formspree.io/f/xpqvrwzq", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: composeName.trim() || "Portfolio visitor",
+          email: senderEmail,
+          message
+        })
+      });
+      if (!response.ok) throw new Error("Formspree rejected the form submission.");
+      unlockAchievement("message_sent");
+      beep(500, 0.05);
+      setMailSent("sent");
+      setTimeout(() => setMailSent(false), 5000);
+      setComposeName("");
+      setComposeEmail("");
+      setComposeMsg("");
+    } catch (error) {
+      console.error("Contact form failed:", error);
+      setMailSent("error");
+    }
   }
   const unreadCount = MAIL_ITEMS.filter(m => !readLetters[m.id]).length;
-  const pixelFont = "'Press Start 2P', 'Courier New', monospace";
-  const bodyFont = "'Silkscreen', 'Courier New', monospace";
+  function setSelectedProjectId(id) {
+    if (id === "__game__" || id === "__vault_game__") {
+      unlockAchievement(id === "__vault_game__" ? "vault_raider" : "game_on");
+      return;
+    }
+    setSelectedProjectIdState(id);
+    if (id !== null) unlockAchievement("artifact_hunter");
+  }
+  function setSelectedQuestId(id) {
+    setSelectedQuestIdState(id);
+    if (id !== null) unlockAchievement("career_lore");
+  }
+  function setSelectedSkillId(id) {
+    setSelectedSkillIdState(id);
+    if (id !== null) unlockAchievement("skill_inspector");
+  }
+  // All child views use these shared values, so the font switch updates the whole UI.
+  const pixelFont = readableFont ? "'IBM Plex Mono', 'Courier New', monospace" : "'Silkscreen', 'Courier New', monospace";
+  // Keep the original pixel body style; paragraph descriptions opt into a
+  // separate readable face inside their individual views.
+  const bodyFont = readableFont ? "'IBM Plex Mono', 'Courier New', monospace" : "'Silkscreen', 'Courier New', monospace";
   return <div className="pixel-root" style={{
     fontFamily: bodyFont,
+    "--copy-font": readableFont ? "'IBM Plex Mono', 'Courier New', monospace" : "'Pixelify Sans', 'Courier New', sans-serif",
+    "--ui-font": pixelFont,
     background: T.bg,
     color: T.text,
-    minHeight: "100vh", height: "100%",
+    minHeight: "100vh",
     width: "100%", maxWidth: "100vw", boxSizing: "border-box",
     display: "flex", flexDirection: "column",
     fontSize: `${14 * fontScale}px`,
@@ -253,7 +314,7 @@ export default function PortfolioHome() {
     border: `3px solid ${T.border}`,
     position: "relative"
   }}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap');
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap');
         html, body, #root { width: 100%; max-width: 100%; min-width: 0; overflow-x: hidden; }
         *, *::before, *::after { box-sizing: border-box; }
         .pixel-root ::-webkit-scrollbar { display: none; }
@@ -274,7 +335,27 @@ export default function PortfolioHome() {
         }
       `}</style>
 
-      <PortfolioSection116 ACHIEVEMENTS={ACHIEVEMENTS} AVATAR_IMAGES={AVATAR_IMAGES} BrickBackground={BrickBackground} GUILD_QUESTS={GUILD_QUESTS} GithubLogo={GithubLogo} LOGO_IMAGES={LOGO_IMAGES} LinkedInLogo={LinkedInLogo} MAIL_ITEMS={MAIL_ITEMS} NAV_ITEMS={NAV_ITEMS} PROJECTS={PROJECTS} PixelFrame={PixelFrame} PixelHeart={PixelHeart} PixelIcon={PixelIcon} PixelSprite={PixelSprite} SKILL_NODES={SKILL_NODES} ScanlineOverlay={ScanlineOverlay} T={T} THEMES={THEMES} active={active} aiInput={aiInput} aiMessages={aiMessages} aiOpen={aiOpen} avatarRef={avatarRef} beep={beep} bodyFont={bodyFont} claimQuestXp={claimQuestXp} commits={commits} commitsError={commitsError} companion={companion} companionFacing={companionFacing} companionFrame={companionFrame} composeEmail={composeEmail} composeMsg={composeMsg} composeName={composeName} encounterMsg={encounterMsg} fontScale={fontScale} handleAvatarClick={handleAvatarClick} handleLogoDoubleClick={handleLogoDoubleClick} handleNavClick={handleNavClick} hiddenRoomOpen={hiddenRoomOpen} hiddenRoomUnlocked={hiddenRoomUnlocked} isMobile={isMobile} isTablet={isTablet} konamiActive={konamiActive} landingBursts={landingBursts} level={level} localTime={localTime} logoSparkle={logoSparkle} logoSpin={logoSpin} mailSent={mailSent} mailTab={mailTab} nameEggShown={nameEggShown} openLetter={openLetter} openLetterId={openLetterId} pixelFont={pixelFont} readLetters={readLetters} revealed={revealed} selectedProjectId={selectedProjectId} selectedQuestId={selectedQuestId} selectedSkillId={selectedSkillId} sendAiMessage={sendAiMessage} sendMail={sendMail} setAiInput={setAiInput} setAiOpen={setAiOpen} setCompanion={setCompanion} setComposeEmail={setComposeEmail} setComposeMsg={setComposeMsg} setComposeName={setComposeName} setFontScale={setFontScale} setHiddenRoomOpen={setHiddenRoomOpen} setMailTab={setMailTab} setOpenLetterId={setOpenLetterId} setSelectedProjectId={setSelectedProjectId} setSelectedQuestId={setSelectedQuestId} setSelectedSkillId={setSelectedSkillId} setSettingsOpen={setSettingsOpen} setSoundOn={setSoundOn} setThemeKey={setThemeKey} settingsOpen={settingsOpen} showClickEgg={showClickEgg} showLevelUp={showLevelUp} soundOn={soundOn} themeKey={themeKey} unlockAchievement={unlockAchievement} unlockedAchievements={unlockedAchievements} unreadCount={unreadCount} xp={xp} xpGain={xpGain} />
+      <PortfolioSection116 ACHIEVEMENTS={ACHIEVEMENTS} AVATAR_IMAGES={AVATAR_IMAGES} BrickBackground={BrickBackground} GUILD_QUESTS={GUILD_QUESTS} GithubLogo={GithubLogo} LOGO_IMAGES={LOGO_IMAGES} LinkedInLogo={LinkedInLogo} MAIL_ITEMS={MAIL_ITEMS} NAV_ITEMS={NAV_ITEMS} PROJECTS={PROJECTS} PixelFrame={PixelFrame} PixelHeart={PixelHeart} PixelIcon={PixelIcon} PixelSprite={PixelSprite} SKILL_NODES={SKILL_NODES} ScanlineOverlay={ScanlineOverlay} T={T} THEMES={THEMES} active={active} aiInput={aiInput} aiMessages={aiMessages} aiOpen={aiOpen} avatarRef={avatarRef} beep={beep} bodyFont={bodyFont} claimQuestXp={claimQuestXp} commits={commits} commitsError={commitsError} companion={companion} companionFacing={companionFacing} companionFrame={companionFrame} composeEmail={composeEmail} composeMsg={composeMsg} composeName={composeName} encounterMsg={encounterMsg} fontScale={fontScale} handleAvatarClick={handleAvatarClick} handleLogoDoubleClick={handleLogoDoubleClick} handleNavClick={handleNavClick} hiddenRoomOpen={hiddenRoomOpen} hiddenRoomUnlocked={hiddenRoomUnlocked} isMobile={isMobile} isTablet={isTablet} konamiActive={konamiActive} landingBursts={landingBursts} level={level} localTime={localTime} logoSparkle={logoSparkle} logoSpin={logoSpin} mailSent={mailSent} mailTab={mailTab} nameEggShown={nameEggShown} openLetter={openLetter} openLetterId={openLetterId} pixelFont={pixelFont} readLetters={readLetters} readableFont={readableFont} revealed={revealed} selectedProjectId={selectedProjectId} selectedQuestId={selectedQuestId} selectedSkillId={selectedSkillId} sendAiMessage={sendAiMessage} sendMail={sendMail} setAiInput={setAiInput} setAiOpen={setAiOpen} setCompanion={setCompanion} setComposeEmail={setComposeEmail} setComposeMsg={setComposeMsg} setComposeName={setComposeName} setFontScale={setFontScale} setHiddenRoomOpen={setHiddenRoomOpen} setMailTab={setMailTab} setOpenLetterId={setOpenLetterId} setReadableFont={setReadableFont} setSelectedProjectId={setSelectedProjectId} setSelectedQuestId={setSelectedQuestId} setSelectedSkillId={setSelectedSkillId} setSettingsOpen={setSettingsOpen} setSoundOn={setSoundOn} setThemeKey={setThemeKey} settingsOpen={settingsOpen} showClickEgg={showClickEgg} showLevelUp={showLevelUp} soundOn={soundOn} themeKey={themeKey} unlockAchievement={unlockAchievement} unlockedAchievements={unlockedAchievements} unreadCount={unreadCount} xp={xp} xpGain={xpGain} />
+
+      {achievementToast && <div role="status" aria-live="polite" style={{
+        position: "fixed", left: "50%",
+        bottom: 24 + [showClickEgg, showLevelUp, encounterMsg, nameEggShown].filter(Boolean).length * 72,
+        transform: "translateX(-50%)",
+        width: "min(340px, calc(100vw - 36px))", zIndex: 1200,
+        display: "flex", alignItems: "center", gap: 12,
+        padding: "12px 14px", background: T.panel, color: T.text,
+        border: `1px solid ${T.border}`, borderLeft: `3px solid ${T.accent}`,
+        boxShadow: `2px 2px 0 ${T.bg}`,
+        transition: "bottom 180ms ease"
+      }}>
+        <PixelIcon name="star" size={18} color={T.accent} />
+        <div style={{ minWidth: 0 }}>
+          <div style={{ fontFamily: pixelFont, fontSize: `${9 * fontScale}px` }}>Achievement unlocked</div>
+          <div style={{ fontFamily: "var(--copy-font)", fontSize: `${12 * fontScale}px`, color: T.textDim, lineHeight: 1.4, marginTop: 3 }}>
+            {achievementToast.label} · +{achievementToast.xp} XP
+          </div>
+        </div>
+      </div>}
 
     </div>;
 }

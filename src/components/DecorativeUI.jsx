@@ -42,7 +42,7 @@ export function ScanlineOverlay() {
         pointerEvents: "none",
         backgroundImage: "repeating-linear-gradient(0deg, rgba(0,0,0,0.12) 0px, rgba(0,0,0,0.12) 1px, transparent 1px, transparent 3px)",
         mixBlendMode: "multiply",
-        opacity: 0.35,
+        opacity: 0.12,
       }}
     />
   );

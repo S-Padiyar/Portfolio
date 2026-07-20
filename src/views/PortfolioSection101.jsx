@@ -1,3 +1,5 @@
+import PixelSprite from "../components/PixelSprite";
+
 function PortfolioSection101({
   GithubLogo,
   LOGO_IMAGES,
@@ -17,7 +19,8 @@ function PortfolioSection101({
   setAiOpen,
   setSettingsOpen,
   settingsOpen,
-  themeKey
+  themeKey,
+  unlockAchievement
 }) {
   return <div style={{
     display: "flex",
@@ -41,7 +44,7 @@ function PortfolioSection101({
         height: 34,
         flexShrink: 0
       }}>
-            <PixelFrame theme={T} onClick={handleLogoDoubleClick} style={{
+            <PixelFrame theme={T} onClick={handleLogoDoubleClick} title="Logo" style={{
           width: 34,
           height: 34,
           display: "flex",
@@ -114,7 +117,7 @@ function PortfolioSection101({
           letterSpacing: "1px",
           lineHeight: 1,
           margin: 0
-        }} title="you found a tooltip. congrats, I guess.">SUNMAY PADIYAR</div>
+        }} title="Portfolio">SUNMAY PADIYAR</div>
             <div style={{
           fontSize: `${9 * fontScale}px`,
           color: T.textDim,
@@ -130,7 +133,7 @@ function PortfolioSection101({
       alignItems: "center",
       flexWrap: "wrap"
     }}>
-          <PixelFrame theme={T} onClick={() => beep(300)} style={{
+          <PixelFrame theme={T} onClick={() => beep(300)} title="Resume" style={{
         padding: "6px 10px",
         display: "flex",
         alignItems: "center",
@@ -140,7 +143,10 @@ function PortfolioSection101({
             <PixelIcon name="briefcase" size={12} />
             {!isTablet && "RESUME"}
           </PixelFrame>
-          <PixelFrame theme={T} onClick={() => beep(300)} style={{
+          <PixelFrame theme={T} onClick={() => {
+        beep(300);
+        window.location.href = "mailto:sunmay.padiyar.dev@gmail.com";
+      }} title="mailto:sunmay.padiyar.dev@gmail.com" style={{
         padding: "6px 10px",
         display: "flex",
         alignItems: "center",
@@ -150,7 +156,7 @@ function PortfolioSection101({
             <PixelIcon name="mail" size={12} />
             {!isTablet && "EMAIL"}
           </PixelFrame>
-          <PixelFrame theme={T} onClick={() => beep(300)} style={{
+          <PixelFrame theme={T} onClick={() => beep(300)} title="Calendar" style={{
         padding: "6px 10px",
         display: "flex",
         alignItems: "center",
@@ -160,7 +166,10 @@ function PortfolioSection101({
             <PixelIcon name="calendar" size={12} />
             {!isTablet && "CALENDAR"}
           </PixelFrame>
-          <PixelFrame theme={T} onClick={() => beep(300)} style={{
+          <PixelFrame theme={T} onClick={() => {
+        beep(300);
+        window.open("https://www.linkedin.com/in/sunmay-padiyar/", "_blank", "noopener,noreferrer");
+      }} title="https://www.linkedin.com/in/sunmay-padiyar/" style={{
         padding: "6px 10px",
         display: "flex",
         alignItems: "center",
@@ -170,7 +179,10 @@ function PortfolioSection101({
             <LinkedInLogo size={13} color={T.text} />
             {!isTablet && "LINKEDIN"}
           </PixelFrame>
-          <PixelFrame theme={T} onClick={() => beep(300)} style={{
+          <PixelFrame theme={T} onClick={() => {
+        beep(300);
+        window.open("https://github.com/S-Padiyar", "_blank", "noopener,noreferrer");
+      }} title="https://github.com/S-Padiyar" style={{
         padding: "6px 10px",
         display: "flex",
         alignItems: "center",
@@ -187,28 +199,47 @@ function PortfolioSection101({
         margin: "0 4px"
       }} />
           <PixelFrame theme={T} active={aiOpen} onClick={() => {
-        setAiOpen(v => !v);
+        setAiOpen(v => {
+          const next = !v;
+          if (next) setSettingsOpen(false);
+          return next;
+        });
         beep(500);
-      }} style={{
+      }} title="Assistant" style={{
         width: 34,
         height: 34,
         display: "flex",
         alignItems: "center",
         justifyContent: "center"
       }}>
-            <PixelIcon name="robot" size={16} color={aiOpen ? T.bg : T.accent} />
+            <PixelSprite frame="idle" size={18} color={aiOpen ? T.bg : T.accent} />
           </PixelFrame>
-          <PixelFrame theme={T} active={settingsOpen} onClick={() => {
-        setSettingsOpen(v => !v);
-        beep(260);
-      }} style={{
+          <PixelFrame theme={T} active={settingsOpen === "achievements"} onClick={() => {
+        setAiOpen(false);
+        setSettingsOpen(v => v === "achievements" ? false : "achievements");
+        unlockAchievement("achievement_hunter");
+        beep(420);
+      }} title="Achievements" style={{
         width: 34,
         height: 34,
         display: "flex",
         alignItems: "center",
         justifyContent: "center"
       }}>
-            <PixelIcon name="gear" size={16} color={settingsOpen ? T.bg : T.accent} />
+            <PixelIcon name="star" size={16} color={settingsOpen === "achievements" ? T.bg : T.accent} />
+          </PixelFrame>
+          <PixelFrame theme={T} active={settingsOpen === "settings"} onClick={() => {
+        setAiOpen(false);
+        setSettingsOpen(v => v === "settings" ? false : "settings");
+        beep(260);
+      }} title="Settings" style={{
+        width: 34,
+        height: 34,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+      }}>
+            <PixelIcon name="gear" size={16} color={settingsOpen === "settings" ? T.bg : T.accent} />
           </PixelFrame>
           <div style={{
         width: 2,
@@ -224,7 +255,7 @@ function PortfolioSection101({
             <PixelIcon name="clock" size={12} color={T.accent} />
             <span style={{
           fontFamily: pixelFont,
-          fontSize: `${11 * fontScale}px`,
+          fontSize: `${14 * fontScale}px`,
           color: T.text,
           lineHeight: 1
         }}>{localTime()}</span>

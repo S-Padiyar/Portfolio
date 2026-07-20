@@ -1,13 +1,14 @@
 function PortfolioSection113({
   PixelIcon,
   T,
+  beep,
   bodyFont,
   fontScale,
   letter,
   pixelFont,
   setOpenLetterId
 }) {
-  return <div onClick={() => setOpenLetterId(null)} style={{
+  return <div onClick={() => { beep(220); setOpenLetterId(null); }} title="Close" style={{
     position: "fixed",
     inset: 0,
     background: `${T.bg}cc`,
@@ -18,23 +19,44 @@ function PortfolioSection113({
     padding: 20
   }}>
             <div onClick={e => e.stopPropagation()} style={{
-      background: "linear-gradient(160deg, #d9c48e, #c7ab72)",
-      border: `3px solid ${T.border}`,
+      background: T.panel,
+      border: `2px solid ${T.border}`,
       boxShadow: `4px 4px 0 ${T.bg}`,
-      padding: "30px 26px 34px",
+      padding: "30px 26px",
       maxWidth: 440,
       width: "100%",
       position: "relative",
-      transform: "rotate(-0.5deg)",
-      clipPath: "polygon(0% 0%, 100% 0%, 100% 96%, 96% 100%, 90% 96%, 84% 100%, 78% 96%, 72% 100%, 66% 96%, 60% 100%, 54% 96%, 48% 100%, 42% 96%, 36% 100%, 30% 96%, 24% 100%, 18% 96%, 12% 100%, 6% 96%, 0% 100%)"
+      margin: "10px"
     }}>
-              <div onClick={() => setOpenLetterId(null)} style={{
+              {/* Theme-colored scroll rails keep the silhouette readable
+                  without introducing a separate parchment palette. */}
+              <div aria-hidden="true" style={{
         position: "absolute",
-        top: 12,
+        left: -10,
+        right: -10,
+        top: -8,
+        height: 12,
+        background: T.panelAlt,
+        border: `2px solid ${T.border}`,
+        boxShadow: `2px 2px 0 ${T.bg}`
+      }} />
+              <div aria-hidden="true" style={{
+        position: "absolute",
+        left: -10,
+        right: -10,
+        bottom: -8,
+        height: 12,
+        background: T.panelAlt,
+        border: `2px solid ${T.border}`,
+        boxShadow: `2px 2px 0 ${T.bg}`
+      }} />
+              <div onClick={() => { beep(220); setOpenLetterId(null); }} title="Close" style={{
+        position: "absolute",
+        top: 16,
         right: 14,
         cursor: "pointer"
       }}>
-                <PixelIcon name="close" size={12} color="#3d2f1a" />
+                <PixelIcon name="close" size={12} color={T.textDim} />
               </div>
               <div style={{
         display: "flex",
@@ -43,11 +65,11 @@ function PortfolioSection113({
       }}>
                 <div style={{
           fontFamily: pixelFont,
-          fontSize: `${7 * fontScale}px`,
-          color: "#3d5c26",
+          fontSize: `${9 * fontScale}px`,
+                  color: T.textFaint,
           letterSpacing: "1px"
         }}>
-                  ★ LOOT ACQUIRED ★
+                  Message
                 </div>
               </div>
               <div style={{
@@ -70,15 +92,15 @@ function PortfolioSection113({
       }}>
                 <div style={{
           fontFamily: pixelFont,
-          fontSize: `${10 * fontScale}px`,
+          fontSize: `${12 * fontScale}px`,
           lineHeight: 1.7,
-          color: "#241a0d"
+          color: T.text
         }}>
-                  {letter.subject.toUpperCase()}
+                  {letter.subject}
                 </div>
                 <div style={{
-          fontSize: `${9 * fontScale}px`,
-          color: "#4a3a20",
+          fontSize: `${10 * fontScale}px`,
+          color: T.textDim,
           marginTop: 6
         }}>
                   {letter.from} &middot; {letter.date}
@@ -86,14 +108,14 @@ function PortfolioSection113({
               </div>
               <div style={{
         height: 2,
-        background: "#a68d55",
+        background: T.border,
         marginBottom: 18
       }} />
               <div style={{
-        fontSize: `${11 * fontScale}px`,
-        color: "#241a0d",
+        fontSize: `${13 * fontScale}px`,
+        color: T.text,
         lineHeight: 1.9,
-        fontFamily: bodyFont
+        fontFamily: "var(--copy-font)"
       }}>
                 {letter.body}
               </div>

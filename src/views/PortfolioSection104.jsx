@@ -20,12 +20,12 @@ function PortfolioSection104({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    gap: 10
+    gap: 8
   }}>
             <div ref={avatarRef} style={{
       position: "relative"
     }}>
-              <PixelFrame theme={T} onClick={handleAvatarClick} data-platform={companion ? "true" : undefined} style={{
+              <PixelFrame theme={T} onClick={handleAvatarClick} title="Avatar" data-platform={companion ? "true" : undefined} style={{
         width: 96,
         height: 97,
         display: "flex",
@@ -46,9 +46,10 @@ function PortfolioSection104({
             </div>
             <div style={{
       fontFamily: pixelFont,
-      fontSize: `${8 * fontScale}px`,
+      fontSize: `${10 * fontScale}px`,
       lineHeight: 1.6,
-      textAlign: "center"
+      textAlign: "center",
+      marginTop: -4
     }}>SUNMAY</div>
             <div style={{
       position: "relative",
@@ -71,7 +72,7 @@ function PortfolioSection104({
         position: "absolute",
         top: -4,
         fontFamily: pixelFont,
-        fontSize: `${8 * fontScale}px`,
+        fontSize: `${10 * fontScale}px`,
         color: T.accent,
         letterSpacing: "0.5px",
         animation: "xp-float 900ms ease-out forwards",
@@ -80,36 +81,46 @@ function PortfolioSection104({
       }}>
                   +{xpGain.amount} XP
                 </div>}
-              <div title={`${xp}/100 XP to next level`} style={{
+              {/* The track must leave real content height after its border and padding. */}
+              <div title="XP" aria-label={`${xp} of 100 experience points`} style={{
         position: "relative",
         width: "100%",
         maxWidth: 140,
         alignSelf: "center",
-        height: 6,
-        border: `2px solid ${T.border}`,
+        height: 5,
+        border: `1px solid ${T.border}`,
         background: T.panelAlt,
-        padding: 1,
+        padding: 0,
         boxSizing: "border-box",
         overflow: "hidden"
       }}>
                 <div style={{
           height: "100%",
+          minHeight: 1,
+          // XP is stored as progress within the current 100-point level.
           width: `${Math.max(0, Math.min(xp, 100))}%`,
           background: T.accent,
           transition: "width 300ms ease"
         }} />
               </div>
             </div>
-            <div style={{
+            <a
+              href="https://www.gatech.edu/"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="https://www.gatech.edu/"
+              aria-label="GT '30 — https://www.gatech.edu/"
+              style={{
       color: T.accent,
       fontSize: `${11 * fontScale}px`,
       letterSpacing: "0.5px",
       paddingLeft: "0.5px",
       textAlign: "center",
-      marginTop: -2
+      marginTop: -2,
+      textDecoration: "none"
     }}>
               RANK: GT &apos;30
-            </div>
+            </a>
 
             <div style={{
       width: "100%",
@@ -141,7 +152,7 @@ function PortfolioSection104({
                   <div style={{
           display: "flex",
           justifyContent: "space-between",
-          fontSize: `${8 * fontScale}px`,
+          fontSize: `${9 * fontScale}px`,
           color: T.textDim,
           marginBottom: 2
         }}>

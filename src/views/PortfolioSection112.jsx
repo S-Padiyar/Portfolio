@@ -2,12 +2,13 @@ function PortfolioSection112({
   PixelFrame,
   PixelIcon,
   T,
+  beep,
   fontScale,
   p,
   pixelFont,
   setSelectedProjectId
 }) {
-  return <div onClick={() => setSelectedProjectId(null)} style={{
+  return <div onClick={() => { beep(220); setSelectedProjectId(null); }} title="Close" style={{
     position: "fixed",
     inset: 0,
     background: `${T.bg}cc`,
@@ -19,14 +20,16 @@ function PortfolioSection112({
   }}>
             <div onClick={e => e.stopPropagation()} style={{
       background: T.panel,
-      border: `3px solid ${T.border}`,
+      border: `2px solid ${T.border}`,
       boxShadow: `4px 4px 0 ${T.bg}`,
       padding: 24,
-      maxWidth: 460,
+      maxWidth: 720,
+      maxHeight: "90vh",
+      overflowY: "auto",
       width: "100%",
       position: "relative"
     }}>
-              <div onClick={() => setSelectedProjectId(null)} style={{
+              <div onClick={() => { beep(220); setSelectedProjectId(null); }} title="Close" style={{
         position: "absolute",
         top: 12,
         right: 12,
@@ -53,20 +56,40 @@ function PortfolioSection112({
                 <div>
                   <div style={{
             fontFamily: pixelFont,
-            fontSize: `${10 * fontScale}px`,
+            fontSize: `${12 * fontScale}px`,
             lineHeight: 1.6,
             color: T.text
           }}>
-                    {p.title.toUpperCase()}
+                    {p.title}
                   </div>
                   <div style={{
-            fontSize: `${9 * fontScale}px`,
+            fontSize: `${10 * fontScale}px`,
             color: T.accent
           }}>{p.role} &middot; {p.year}</div>
                 </div>
               </div>
               <div style={{
-        fontSize: `${10 * fontScale}px`,
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
+        gap: 8,
+        marginBottom: 16
+      }}>
+                {[1, 2, 3].map(number => <div key={number} style={{
+          minHeight: 100,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: T.textFaint,
+          background: T.panelAlt,
+          border: `1px solid ${T.border}`,
+          fontFamily: "var(--copy-font)",
+          fontSize: `${10 * fontScale}px`,
+          textAlign: "center"
+        }}>Project image {number}</div>)}
+              </div>
+              <div style={{
+        fontFamily: "var(--copy-font)",
+        fontSize: `${13 * fontScale}px`,
         color: T.text,
         lineHeight: 1.8,
         marginBottom: 16
@@ -75,7 +98,7 @@ function PortfolioSection112({
               </div>
               <div style={{
         fontFamily: pixelFont,
-        fontSize: `${8 * fontScale}px`,
+        fontSize: `${10 * fontScale}px`,
         color: T.textDim,
         marginBottom: 10
       }}>
@@ -94,14 +117,15 @@ function PortfolioSection112({
         }}>
                     <PixelIcon name="star" size={11} color={T.accent} />
                     <div style={{
-            fontSize: `${10 * fontScale}px`,
+            fontFamily: "var(--copy-font)",
+            fontSize: `${12 * fontScale}px`,
             color: T.textDim,
             lineHeight: 1.6
           }}>{h}</div>
                   </div>)}
               </div>
               <div style={{
-        fontSize: `${9 * fontScale}px`,
+        fontSize: `${10 * fontScale}px`,
         color: T.textFaint
       }}>{p.tags}</div>
             </div>

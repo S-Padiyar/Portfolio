@@ -3,12 +3,13 @@ function PortfolioSection111({
   PixelIcon,
   SKILL_NODES,
   T,
+  beep,
   fontScale,
   node,
   pixelFont,
   setSelectedSkillId
 }) {
-  return <div onClick={() => setSelectedSkillId(null)} style={{
+  return <div onClick={() => { beep(220); setSelectedSkillId(null); }} title="Close" style={{
     position: "fixed",
     inset: 0,
     background: `${T.bg}cc`,
@@ -20,14 +21,14 @@ function PortfolioSection111({
   }}>
             <div onClick={e => e.stopPropagation()} style={{
       background: T.panel,
-      border: `3px solid ${T.border}`,
+      border: `2px solid ${T.border}`,
       boxShadow: `4px 4px 0 ${T.bg}`,
       padding: 24,
       maxWidth: 440,
       width: "100%",
       position: "relative"
     }}>
-              <div onClick={() => setSelectedSkillId(null)} style={{
+              <div onClick={() => { beep(220); setSelectedSkillId(null); }} title="Close" style={{
         position: "absolute",
         top: 12,
         right: 12,
@@ -54,21 +55,22 @@ function PortfolioSection111({
                 <div>
                   <div style={{
             fontFamily: pixelFont,
-            fontSize: `${10 * fontScale}px`,
+            fontSize: `${12 * fontScale}px`,
             lineHeight: 1.6,
             color: T.text,
             whiteSpace: "pre-line"
           }}>
-                    {node.label.replace("\n", " ").toUpperCase()}
+                    {node.label.replace("\n", " ")}
                   </div>
                   <div style={{
-            fontSize: `${9 * fontScale}px`,
+            fontSize: `${10 * fontScale}px`,
             color: T.accent
           }}>+{node.xp} XP SKILL</div>
                 </div>
               </div>
-              <div style={{
-        fontSize: `${10 * fontScale}px`,
+      <div style={{
+        fontFamily: "var(--copy-font)",
+        fontSize: `${13 * fontScale}px`,
         color: T.text,
         lineHeight: 1.8,
         marginBottom: 16
@@ -77,7 +79,7 @@ function PortfolioSection111({
               </div>
               <div style={{
         fontFamily: pixelFont,
-        fontSize: `${8 * fontScale}px`,
+        fontSize: `${10 * fontScale}px`,
         color: T.textDim,
         marginBottom: 10
       }}>
@@ -95,14 +97,15 @@ function PortfolioSection111({
         }}>
                     <PixelIcon name="briefcase" size={11} color={T.accent} />
                     <div style={{
-            fontSize: `${10 * fontScale}px`,
+            fontFamily: "var(--copy-font)",
+            fontSize: `${12 * fontScale}px`,
             color: T.textDim,
             lineHeight: 1.6
           }}>{exp}</div>
                   </div>)}
               </div>
               {node.requires.length > 0 && <div style={{
-        fontSize: `${9 * fontScale}px`,
+        fontSize: `${10 * fontScale}px`,
         color: T.textFaint,
         marginTop: 16
       }}>

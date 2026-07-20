@@ -177,12 +177,12 @@ export default function PixelIcon({ name, size = 28, color = "currentColor" }) {
     ],
     star: [
       "...X...",
-      "...X...",
+      "..XXX..",
+      ".XXXXX.",
       "XXXXXXX",
       ".XXXXX.",
-      "..X.X..",
-      ".X...X.",
-      "X.....X",
+      "..XXX..",
+      "...X...",
     ],
     heart: [
       ".XX.XX.",

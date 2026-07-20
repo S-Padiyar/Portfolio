@@ -8,31 +8,29 @@ export default function useGithubQuestLog(username) {
     let cancelled = false;
     const headers = { Accept: "application/vnd.github+json" };
 
-    fetch(`https://api.github.com/users/${username}/events/public?per_page=100`, { headers })
+    // Load the profile's repositories first so every repository can contribute one row.
+    fetch(`https://api.github.com/users/${username}/repos?per_page=100&sort=updated`, { headers })
       .then(response => {
-        if (!response.ok) throw new Error("Unable to load GitHub events");
+        if (!response.ok) throw new Error("Unable to load GitHub repositories");
         return response.json();
       })
-      .then(events => {
-        const repos = [...new Set(events
-          .filter(event => event.type === "PushEvent")
-          .map(event => event.repo.name))];
-
+      .then(repos => {
         return Promise.all(repos.map(repo =>
-          fetch(`https://api.github.com/repos/${repo}/commits?author=${username}&per_page=5`, { headers })
+          fetch(`https://api.github.com/repos/${repo.full_name}/commits?per_page=1`, { headers })
             .then(response => response.ok ? response.json() : [])
             .then(items => items.map(item => ({
-              repo: repo.split("/")[1],
+              repo: repo.name,
               msg: item.commit.message.split("\n")[0],
-              date: item.commit.author?.date || ""
+              date: item.commit.author?.date || "",
+              url: item.html_url
             })))
         ));
       })
       .then(results => {
         if (cancelled) return;
+        // Each request returns at most one commit, preserving one entry per repository.
         const latest = results.flat()
-          .sort((a, b) => b.date.localeCompare(a.date))
-          .slice(0, 5);
+          .sort((a, b) => b.date.localeCompare(a.date));
         setCommits(latest);
       })
       .catch(() => {

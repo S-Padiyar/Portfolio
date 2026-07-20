@@ -12,7 +12,7 @@ export const GUILD_QUESTS = [
       "Placeholder responsibility or accomplishment two.",
       "Placeholder responsibility or accomplishment three.",
     ],
-    tags: "VUE / NODE / AWS",
+    tags: "Vue / Node / AWS",
     reward: 40,
   },
   {
@@ -27,7 +27,7 @@ export const GUILD_QUESTS = [
       "Placeholder research contribution two.",
       "Result: published or presented somewhere placeholder.",
     ],
-    tags: "PYTHON / RESEARCH",
+    tags: "Python / Research",
     reward: 35,
   },
   {
@@ -42,7 +42,7 @@ export const GUILD_QUESTS = [
       "Placeholder leadership responsibility two.",
       "Placeholder measurable result or growth.",
     ],
-    tags: "LEADERSHIP / MENTORSHIP",
+    tags: "Leadership / Mentorship",
     reward: 30,
   },
 ];

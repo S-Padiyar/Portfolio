@@ -1,174 +1,96 @@
-function PortfolioSection103({
-  PixelFrame,
-  PixelIcon,
-  T,
-  fontScale,
-  isMobile,
-  pixelFont
-}) {
-  return <div style={{
-    position: "relative"
-  }}>
-                {(() => {
-      const TRAITS = [{
-        label: "Fast Learner",
-        icon: "star"
-      }, {
-        label: "Team Player",
-        icon: "heart"
-      }, {
-        label: "Detail-Oriented",
-        icon: "bolt"
-      }, {
-        label: "Self-Starter",
-        icon: "gear"
-      }];
-      const EQUIPMENT = [{
-        label: "WEAPON",
-        sub: "Primary language",
-        icon: "sword"
-      }, {
-        label: "ARMOR",
-        sub: "Go-to framework",
-        icon: "shield"
-      }, {
-        label: "TRINKET",
-        sub: "Favorite tool",
-        icon: "gear"
-      }, {
-        label: "RELIC",
-        sub: "A past project",
-        icon: "scroll"
-      }];
-      return <div style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 18
+function PortfolioSection103({ PixelFrame, PixelIcon, T, fontScale, isMobile, pixelFont }) {
+  // Replace these slots with the exact Georgia Tech organizations when ready.
+  const activities = [
+    "Add Georgia Tech activity",
+    "Add Georgia Tech society",
+    "Add leadership or team role"
+  ];
+  const loadout = [
+    { icon: "monitor", label: "Frontend", value: "React" },
+    { icon: "sword", label: "Languages", value: "Python + Java" },
+    { icon: "gear", label: "Systems", value: "Embedded hardware" },
+    { icon: "github", label: "Proof", value: "GitHub projects" }
+  ];
+  const copyFont = "var(--copy-font)";
+  const georgiaTechUrl = "https://www.gatech.edu/";
+  // Keep every Georgia Tech reference recognizable as a link and expose its destination on hover.
+  const GeorgiaTechLink = ({ children }) => <a
+    href={georgiaTechUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    title={georgiaTechUrl}
+    aria-label={`${children} — ${georgiaTechUrl}`}
+    style={{ color: "inherit", textDecoration: "none" }}
+  >{children}</a>;
+
+  return <div style={{ display: "grid", gap: 12 }}>
+    <PixelFrame theme={T} style={{ padding: isMobile ? 14 : 16 }}>
+      <div style={{
+        display: "flex", justifyContent: "space-between", alignItems: "center",
+        gap: 10, marginBottom: 12, paddingBottom: 10,
+        borderBottom: `2px dashed ${T.border}`
       }}>
-                      <PixelFrame theme={T} style={{
-          padding: 16
-        }}>
-                        <div style={{
-            fontFamily: pixelFont,
-            fontSize: `${9 * fontScale}px`,
-            color: T.text,
-            marginBottom: 10,
-            letterSpacing: "0.5px"
-          }}>
-                          CLASS OVERVIEW
-                        </div>
-                        <div style={{
-            fontSize: `${9 * fontScale}px`,
-            color: T.textDim,
-            lineHeight: 1.7
-          }}>
-                          Placeholder class blurb — a couple sentences on the "Builder" class, the kind of problems this character likes to take on, and the overall playstyle.
-                        </div>
-                      </PixelFrame>
+        <div style={{ fontFamily: pixelFont, fontSize: `${12 * fontScale}px`, color: T.accent }}>Character sheet</div>
+        <div style={{ fontSize: `${10 * fontScale}px`, color: T.textDim }}>Level 12</div>
+      </div>
 
-                      <PixelFrame theme={T} style={{
-          padding: 16
-        }}>
-                        <div style={{
-            fontFamily: pixelFont,
-            fontSize: `${9 * fontScale}px`,
-            color: T.text,
-            marginBottom: 12,
-            letterSpacing: "0.5px"
-          }}>
-                          TRAITS
-                        </div>
-                        <div style={{
-            display: "grid",
-            gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)",
-            gap: 10
-          }}>
-                          {TRAITS.map(t => <PixelFrame key={t.label} theme={T} style={{
-              padding: 10,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 6,
-              background: T.panel
-            }}>
-                              <PixelIcon name={t.icon} size={14} color={T.accent} />
-                              <div style={{
-                fontSize: `${8 * fontScale}px`,
-                color: T.text,
-                textAlign: "center",
-                lineHeight: 1.4
-              }}>
-                                {t.label}
-                              </div>
-                            </PixelFrame>)}
-                        </div>
-                      </PixelFrame>
+      <div style={{ fontFamily: pixelFont, fontSize: `${14 * fontScale}px`, color: T.text }}>Sunmay Padiyar</div>
+      <div style={{ color: T.accent, fontSize: `${11 * fontScale}px`, marginTop: 4, marginBottom: 12 }}>
+        <GeorgiaTechLink>Georgia Tech · Class of 2030</GeorgiaTechLink>
+      </div>
 
-                      <PixelFrame theme={T} style={{
-          padding: 16
-        }}>
-                        <div style={{
-            fontFamily: pixelFont,
-            fontSize: `${9 * fontScale}px`,
-            color: T.text,
-            marginBottom: 12,
-            letterSpacing: "0.5px"
-          }}>
-                          EQUIPMENT
-                        </div>
-                        <div style={{
-            display: "grid",
-            gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)",
-            gap: 10
-          }}>
-                          {EQUIPMENT.map(eq => <PixelFrame key={eq.label} theme={T} style={{
-              padding: 10,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 6,
-              background: T.panel
-            }}>
-                              <PixelIcon name={eq.icon} size={16} color={T.accent} />
-                              <div style={{
-                fontFamily: pixelFont,
-                fontSize: `${7 * fontScale}px`,
-                color: T.text
-              }}>{eq.label}</div>
-                              <div style={{
-                fontSize: `${7 * fontScale}px`,
-                color: T.textFaint,
-                textAlign: "center",
-                lineHeight: 1.4
-              }}>
-                                {eq.sub}
-                              </div>
-                            </PixelFrame>)}
-                        </div>
-                      </PixelFrame>
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))",
+        gap: 8,
+        marginBottom: 12
+      }}>
+        {[
+          ["Focus", "Software + robotics"],
+          ["Build style", "Code + hardware"],
+          ["Current quest", "Learn by building"]
+        ].map(([label, value]) => <div key={label} style={{ padding: 10, background: T.panelAlt, border: `1px solid ${T.border}` }}>
+          <div style={{ color: T.textFaint, fontSize: `${9 * fontScale}px`, marginBottom: 4 }}>{label}</div>
+          <div style={{ color: T.text, fontSize: `${10 * fontScale}px`, lineHeight: 1.4 }}>{value}</div>
+        </div>)}
+      </div>
 
-                      <PixelFrame theme={T} style={{
-          padding: 16
-        }}>
-                        <div style={{
-            fontFamily: pixelFont,
-            fontSize: `${9 * fontScale}px`,
-            color: T.text,
-            marginBottom: 10,
-            letterSpacing: "0.5px"
+      <div style={{ fontFamily: copyFont, color: T.textDim, fontSize: `${13 * fontScale}px`, lineHeight: 1.5 }}>
+        <GeorgiaTechLink>Georgia Tech</GeorgiaTechLink> student building practical software, robotics, and embedded systems. I enjoy turning ideas into useful products, debugging difficult systems, and working with teams that care about the details.
+      </div>
+    </PixelFrame>
+
+    <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) minmax(0, 1.35fr)", gap: 12 }}>
+      <PixelFrame theme={T} style={{ padding: 14 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+          <PixelIcon name="user" size={14} color={T.accent} />
+          <div style={{ fontFamily: pixelFont, fontSize: `${11 * fontScale}px`, color: T.text }}>Activities & societies</div>
+        </div>
+        <div style={{ display: "grid", gap: 7 }}>
+          {activities.map(activity => <div key={activity} style={{
+            padding: "8px 10px", background: T.panelAlt, border: `1px solid ${T.border}`,
+            color: T.textDim, fontSize: `${10 * fontScale}px`
+          }}><GeorgiaTechLink>{activity}</GeorgiaTechLink></div>)}
+        </div>
+      </PixelFrame>
+
+      <PixelFrame theme={T} style={{ padding: 14 }}>
+        <div style={{ fontFamily: pixelFont, fontSize: `${11 * fontScale}px`, color: T.text, marginBottom: 10 }}>Developer loadout</div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 8 }}>
+          {loadout.map(entry => <div key={entry.label} style={{
+            display: "grid", gridTemplateColumns: "18px minmax(0, 1fr)", gap: 8,
+            alignItems: "center", padding: 9, background: T.panelAlt, border: `1px solid ${T.border}`
           }}>
-                          CURRENT QUEST
-                        </div>
-                        <div style={{
-            fontSize: `${9 * fontScale}px`,
-            color: T.textDim,
-            lineHeight: 1.7
-          }}>
-                          Placeholder text on what this character is working toward right now — the next milestone, skill, or goal in progress.
-                        </div>
-                      </PixelFrame>
-                    </div>;
-    })()}
-              </div>;
+            <PixelIcon name={entry.icon} size={15} color={T.accent} />
+            <div>
+              <div style={{ color: T.textFaint, fontSize: `${9 * fontScale}px`, marginBottom: 4 }}>{entry.label}</div>
+              <div style={{ color: T.text, fontSize: `${10 * fontScale}px`, lineHeight: 1.35 }}>{entry.value}</div>
+            </div>
+          </div>)}
+        </div>
+      </PixelFrame>
+    </div>
+  </div>;
 }
+
 export default PortfolioSection103;

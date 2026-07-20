@@ -43,13 +43,13 @@ function PortfolioSection106({
         }}>
                           <div style={{
             fontFamily: pixelFont,
-            fontSize: `${8 * fontScale}px`,
+            fontSize: `${10 * fontScale}px`,
             color: T.textDim,
             marginBottom: 6
           }}>
                             PLAYER NAME
                           </div>
-                          <input value={composeName} onChange={e => setComposeName(e.target.value)} placeholder="Jane Doe" style={{
+                          <input value={composeName} onChange={e => setComposeName(e.target.value)} placeholder="Jane Doe" title="Name" style={{
             width: "100%",
             background: T.panel,
             border: `2px solid ${T.border}`,
@@ -66,13 +66,13 @@ function PortfolioSection106({
         }}>
                           <div style={{
             fontFamily: pixelFont,
-            fontSize: `${8 * fontScale}px`,
+            fontSize: `${10 * fontScale}px`,
             color: T.textDim,
             marginBottom: 6
           }}>
                             RESPAWN ADDRESS (EMAIL)
                           </div>
-                          <input value={composeEmail} onChange={e => setComposeEmail(e.target.value)} placeholder="jane@example.com" type="email" style={{
+                          <input value={composeEmail} onChange={e => setComposeEmail(e.target.value)} placeholder="jane@example.com" type="email" title="Email" style={{
             width: "100%",
             background: T.panel,
             border: `2px solid ${T.border}`,
@@ -88,13 +88,13 @@ function PortfolioSection106({
                       <div>
                         <div style={{
           fontFamily: pixelFont,
-          fontSize: `${8 * fontScale}px`,
+          fontSize: `${10 * fontScale}px`,
           color: T.textDim,
           marginBottom: 6
         }}>
                           MESSAGE
                         </div>
-                        <textarea value={composeMsg} onChange={e => setComposeMsg(e.target.value)} placeholder="Say something..." rows={isMobile ? 5 : 8} style={{
+                        <textarea value={composeMsg} onChange={e => setComposeMsg(e.target.value)} placeholder="Say something..." rows={isMobile ? 8 : 12} title="Message" style={{
           width: "100%",
           background: T.panel,
           border: `2px solid ${T.border}`,
@@ -104,10 +104,11 @@ function PortfolioSection106({
           fontFamily: bodyFont,
           outline: "none",
           resize: "vertical",
+          minHeight: isMobile ? 180 : 260,
           boxSizing: "border-box"
         }} />
                       </div>
-                      <PixelFrame theme={T} onClick={sendMail} style={{
+                      <PixelFrame theme={T} onClick={sendMail} title="Send to sunmay.padiyar.dev@gmail.com" style={{
         padding: "10px 16px",
         display: "flex",
         alignItems: "center",
@@ -119,13 +120,18 @@ function PortfolioSection106({
         marginTop: 4
       }}>
                         <PixelIcon name="mail" size={12} color={T.text} />
-                        LAUNCH SCROLL
+                        {mailSent === "sending" ? "Sending..." : "Send Scroll"}
                       </PixelFrame>
-                      {mailSent && <div style={{
-        fontSize: `${9 * fontScale}px`,
-        color: T.accent
+                      {mailSent && <div role="status" aria-live="polite" style={{
+        fontFamily: "var(--copy-font)",
+        fontSize: `${12 * fontScale}px`,
+        color: mailSent === "error" || mailSent === "invalid" ? T.text : T.accent,
+        lineHeight: 1.5
       }}>
-                          Scroll away! Opening your email client...
+                          {mailSent === "sending" && "Sending your message..."}
+                          {mailSent === "sent" && "Message sent successfully."}
+                          {mailSent === "invalid" && "Enter a valid email address and a message."}
+                          {mailSent === "error" && "The message could not be sent. Please try again or use the email link above."}
                         </div>}
                     </div>
                   </div>;
