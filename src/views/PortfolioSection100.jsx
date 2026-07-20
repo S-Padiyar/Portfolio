@@ -165,7 +165,7 @@ function PortfolioSection100({
         alignItems: "center",
         gap: 8
       }}>
-                <PixelFrame theme={T} onClick={() => { beep(240); setFontScale(v => Math.max(1, +(v - 0.1).toFixed(2))); }} title="Smaller" style={{
+                <PixelFrame theme={T} onClick={() => { beep(240); setFontScale(v => Math.max(1, +(v - 0.05).toFixed(2))); }} title="Smaller" style={{
           width: 30,
           height: 30,
           display: "flex",
@@ -185,7 +185,7 @@ function PortfolioSection100({
         }}>
                   {Math.round(fontScale * 100)}%
                 </div>
-                <PixelFrame theme={T} onClick={() => { beep(360); setFontScale(v => Math.min(1.4, +(v + 0.1).toFixed(2))); }} title="Larger" style={{
+                <PixelFrame theme={T} onClick={() => { beep(360); setFontScale(v => Math.min(1.4, +(v + 0.05).toFixed(2))); }} title="Larger" style={{
           width: 30,
           height: 30,
           display: "flex",

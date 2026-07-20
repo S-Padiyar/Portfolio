@@ -23,15 +23,13 @@ function PortfolioSection102({
   // Mobile uses a tall elliptical tree: it stays radial while giving each level
   // enough vertical room for readable, tappable nodes.
   const canvas = isMobile
-    ? { width: 320, height: 620, cx: 160, cy: 300, radiusX: 152, radiusY: 260 }
+    ? { width: 360, height: 620, cx: 180, cy: 300, radiusX: 155, radiusY: 260 }
     : { width: 1000, height: 500, cx: 500, cy: 240, radiusX: 460, radiusY: 210 };
-  const maxLevel = 3;
   const positionOf = node => {
     if (node.branch === "core") return { x: canvas.cx, y: canvas.cy };
     const level = depthOf(node);
     const angle = branchAngles[node.branch] * Math.PI / 180;
-    // Push Level 1 away from the core, then distribute the remaining levels
-    // evenly toward the edge. This makes four distinct branches at a glance.
+    // Every level continues straight outward along its branch direction.
     const distance = 0.42 + (level - 1) * 0.29;
     return {
       x: canvas.cx + Math.cos(angle) * canvas.radiusX * distance,

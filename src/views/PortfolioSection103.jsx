@@ -11,6 +11,15 @@ function PortfolioSection103({ PixelFrame, PixelIcon, T, fontScale, isMobile, pi
     { icon: "gear", label: "Systems", value: "Embedded hardware" },
     { icon: "github", label: "Proof", value: "GitHub projects" }
   ];
+  // A compact recruiter-friendly summary, presented as character attributes.
+  const profile = [
+    ["Class", "Student developer"],
+    ["Education", "Georgia Tech · 2030"],
+    ["Specialty", "Software + robotics"],
+    ["Interests", "Web, AI, and embedded systems"],
+    ["Playstyle", "Curious, practical, detail-focused"],
+    ["Open to", "Internships and collaborations"]
+  ];
   const copyFont = "var(--copy-font)";
   const georgiaTechUrl = "https://www.gatech.edu/";
   // Keep every Georgia Tech reference recognizable as a link and expose its destination on hover.
@@ -41,22 +50,18 @@ function PortfolioSection103({ PixelFrame, PixelIcon, T, fontScale, isMobile, pi
 
       <div style={{
         display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))",
+        gridTemplateColumns: isMobile ? "repeat(2, minmax(0, 1fr))" : "repeat(3, minmax(0, 1fr))",
         gap: 8,
         marginBottom: 12
       }}>
-        {[
-          ["Focus", "Software + robotics"],
-          ["Build style", "Code + hardware"],
-          ["Current quest", "Learn by building"]
-        ].map(([label, value]) => <div key={label} style={{ padding: 10, background: T.panelAlt, border: `1px solid ${T.border}` }}>
+        {profile.map(([label, value]) => <div key={label} style={{ padding: 10, background: T.panelAlt, border: `1px solid ${T.border}` }}>
           <div style={{ color: T.textFaint, fontSize: `${9 * fontScale}px`, marginBottom: 4 }}>{label}</div>
           <div style={{ color: T.text, fontSize: `${10 * fontScale}px`, lineHeight: 1.4 }}>{value}</div>
         </div>)}
       </div>
 
       <div style={{ fontFamily: copyFont, color: T.textDim, fontSize: `${13 * fontScale}px`, lineHeight: 1.5 }}>
-        <GeorgiaTechLink>Georgia Tech</GeorgiaTechLink> student building practical software, robotics, and embedded systems. I enjoy turning ideas into useful products, debugging difficult systems, and working with teams that care about the details.
+        I&apos;m a <GeorgiaTechLink>Georgia Tech</GeorgiaTechLink> student who likes working where software meets the physical world. I build practical web, robotics, and embedded projects, learn by shipping, and enjoy debugging difficult systems. I care about useful products, clean details, and collaborating with teams that take pride in their work.
       </div>
     </PixelFrame>
 

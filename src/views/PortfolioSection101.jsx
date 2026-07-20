@@ -156,7 +156,11 @@ function PortfolioSection101({
             <PixelIcon name="mail" size={12} />
             {!isTablet && "EMAIL"}
           </PixelFrame>
-          <PixelFrame theme={T} onClick={() => beep(300)} title="Calendar" style={{
+          <PixelFrame theme={T} onClick={() => {
+        beep(300);
+        // Open the public Google Calendar booking page without navigating away from the portfolio.
+        window.open("https://calendar.app.google/Ng2aCz3XWeMGxjfn8", "_blank", "noopener,noreferrer");
+      }} title="https://calendar.app.google/Ng2aCz3XWeMGxjfn8" style={{
         padding: "6px 10px",
         display: "flex",
         alignItems: "center",

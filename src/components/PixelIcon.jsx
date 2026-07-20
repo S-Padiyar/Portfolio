@@ -22,6 +22,15 @@ export default function PixelIcon({ name, size = 28, color = "currentColor" }) {
       "..XXX..",
       ".XXXXX.",
     ],
+    cloud: [
+      ".......",
+      "..XXX..",
+      ".XXXXX.",
+      "XX...XX",
+      "XXXXXXX",
+      ".XXXXX.",
+      ".......",
+    ],
     briefcase: [
       "..XXX..",
       ".X...X.",

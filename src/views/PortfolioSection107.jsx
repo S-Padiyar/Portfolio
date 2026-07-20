@@ -40,6 +40,7 @@ function PortfolioSection107({
   setSelectedSkillId,
   unreadCount
 }) {
+  // Unread mail follows the active theme while leaving the message card standardized.
   return <div style={{
     flex: 1,
     background: T.panelAlt,
@@ -133,7 +134,8 @@ function PortfolioSection107({
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              background: T.panelAlt
+              background: T.panelAlt,
+              border: `2px solid ${unread ? T.accent : T.border}`
             }}>
                             <PixelIcon name="mail" size={16} color={unread ? T.accent : T.textDim} />
                           </PixelFrame>

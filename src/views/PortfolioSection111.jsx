@@ -91,11 +91,14 @@ function PortfolioSection111({
         gap: 8
       }}>
                 {node.experiences.map((exp, i) => <div key={i} style={{
-          display: "flex",
-          alignItems: "flex-start",
+          display: "grid",
+          gridTemplateColumns: "16px minmax(0, 1fr)",
+          alignItems: "start",
           gap: 8
         }}>
-                    <PixelIcon name="briefcase" size={11} color={T.accent} />
+                    <span style={{ display: "flex", alignItems: "center", justifyContent: "center", height: `${19.2 * fontScale}px` }}>
+                      <PixelIcon name="briefcase" size={11} color={T.accent} />
+                    </span>
                     <div style={{
             fontFamily: "var(--copy-font)",
             fontSize: `${12 * fontScale}px`,

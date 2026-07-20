@@ -61,6 +61,21 @@ export const SKILL_NODES = [
     ],
   },
   {
+    id: "cloud",
+    label: "Cloud\nDeployment",
+    branch: "code",
+    icon: "cloud",
+    x: 4,
+    y: 50,
+    requires: ["fullstack"],
+    xp: 110,
+    desc: "Deploying and operating applications with hosted infrastructure, environment configuration, production builds, and managed services.",
+    experiences: [
+      "Portfolio deployment — production builds, environment variables, and hosted releases",
+      "Full-stack projects — connected hosted frontends to APIs and managed services",
+    ],
+  },
+  {
     id: "design-fund",
     label: "Design\nFundamentals",
     branch: "design",
