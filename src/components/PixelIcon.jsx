@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function PixelIcon({ name, size = 28, color = "currentColor" }) {
   const s = size;
   const cell = s / 7;

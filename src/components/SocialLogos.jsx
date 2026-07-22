@@ -1,5 +1,3 @@
-import React from "react";
-
 export function LinkedInLogo({ size = 16, color = "currentColor" }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: "block" }}>

@@ -1,17 +1,30 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 export default function useCompanionSystem({
   avatarRef,
   beep,
   companion,
   reunionFound,
   setCompanion,
-  setCompanionSteps,
   setEncounterMsg,
   setKonamiActive,
   setNameEggShown,
   setReunionFound,
   unlockAchievement
 }) {
+  const timersRef = useRef(new Set());
+  const schedule = useCallback((callback, delay) => {
+    const timer = setTimeout(() => {
+      timersRef.current.delete(timer);
+      callback();
+    }, delay);
+    timersRef.current.add(timer);
+  }, []);
+
+  useEffect(() => () => {
+    timersRef.current.forEach(clearTimeout);
+    timersRef.current.clear();
+  }, []);
+
   // Typed-word easter egg: type "sunmay" anywhere
   useEffect(() => {
     const target = "sunmay";
@@ -23,14 +36,13 @@ export default function useCompanionSystem({
         setNameEggShown(true);
         unlockAchievement("true_name");
         beep(520, 0.05);
-        setTimeout(() => setNameEggShown(false), 3000);
+        schedule(() => setNameEggShown(false), 3000);
       }
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [beep, schedule, setNameEggShown, unlockAchievement]);
 
-  // Konami code easter egg — summons a draggable companion sprite
   // Konami code easter egg — summons a draggable companion sprite
   useEffect(() => {
     const seq = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
@@ -48,11 +60,10 @@ export default function useCompanionSystem({
             vy: 0,
             onGround: false
           });
-          setCompanionSteps(0);
           setReunionFound(false);
           unlockAchievement("old_school");
           pos = 0;
-          setTimeout(() => setKonamiActive(false), 2600);
+          schedule(() => setKonamiActive(false), 2600);
         }
       } else {
         pos = key === seq[0] ? 1 : 0;
@@ -60,24 +71,20 @@ export default function useCompanionSystem({
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [schedule, setCompanion, setKonamiActive, setReunionFound, unlockAchievement]);
 
-  // Companion sprite — real platformer physics: gravity, jumping (with a double
-  // jump), and landing on buttons/cards tagged with data-platform.
   // Companion sprite — real platformer physics: gravity, jumping (with a double
   // jump), and landing on buttons/cards tagged with data-platform.
   const keysRef = useRef({
     left: false,
     right: false
   });
-  const jumpQueueRef = useRef(0); // incremented on each fresh (non-repeat) jump key press
-  // incremented on each fresh (non-repeat) jump key press
+  const jumpQueueRef = useRef(0); // Queues only fresh jump presses, ignoring key repeat.
   const companionAnimRef = useRef({
     walkTick: 0,
     lastWalkFlip: 0
   });
-  const physRef = useRef(null); // mirrors companion state for the rAF loop
-  // mirrors companion state for the rAF loop
+  const physRef = useRef(null); // Mirrors React state inside the animation frame loop.
   const [companionFrame, setCompanionFrame] = useState("idle");
   const [companionFacing, setCompanionFacing] = useState(1);
   const [landingBursts, setLandingBursts] = useState([]);
@@ -122,7 +129,7 @@ export default function useCompanionSystem({
         x,
         y
       }]);
-      setTimeout(() => setLandingBursts(b => b.filter(p => p.id !== id)), 350);
+      schedule(() => setLandingBursts(b => b.filter(p => p.id !== id)), 350);
     }
     function tick(now) {
       const dt = Math.min(2, (now - lastTime) / 16.67);
@@ -202,12 +209,15 @@ export default function useCompanionSystem({
     // Depend only on whether a companion exists, not on the companion object
     // itself — that object changes every frame (we call setCompanion below),
     // so depending on it re-created this entire rAF loop 60x/sec.
-  }, [hasCompanion]);
+    // `companion` changes every animation frame; adding it would restart the loop continuously.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [beep, hasCompanion, schedule, setCompanion]);
 
-  // Derive sprite animation frame + occasional wandering encounters from motion
   // Derive sprite animation frame + occasional wandering encounters from motion
   useEffect(() => {
     if (!companion) {
+      // Animation state intentionally follows the physics state maintained by the rAF loop.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCompanionFrame("idle");
       return;
     }
@@ -229,7 +239,6 @@ export default function useCompanionSystem({
   }, [companion]);
 
   // Companion reaching the avatar triggers a simple reunion moment
-  // Companion reaching the avatar triggers a simple reunion moment
   useEffect(() => {
     if (!companion || reunionFound || !avatarRef.current) return;
     const rect = avatarRef.current.getBoundingClientRect();
@@ -239,9 +248,9 @@ export default function useCompanionSystem({
       setEncounterMsg("Your companion found you. It looks pleased.");
       unlockAchievement("reunion");
       beep(600, 0.1);
-      setTimeout(() => setEncounterMsg(null), 2200);
+      schedule(() => setEncounterMsg(null), 2200);
     }
-  }, [companion, reunionFound]);
+  }, [avatarRef, beep, companion, reunionFound, schedule, setEncounterMsg, setReunionFound, unlockAchievement]);
   return {
     companionFacing,
     companionFrame,

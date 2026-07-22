@@ -30,7 +30,9 @@ export default function useAudioBeep(soundOn) {
         osc.start(startAt);
         gain.gain.exponentialRampToValueAtTime(0.0001, startAt + dur);
         osc.stop(startAt + dur);
-      } catch (e) {}
+      } catch {
+        // Audio feedback is optional; unsupported Web Audio must not block UI actions.
+      }
     },
     [soundOn]
   );

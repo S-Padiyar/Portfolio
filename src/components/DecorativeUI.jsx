@@ -1,21 +1,14 @@
-import React from "react";
-
 export function BrickBackground({ theme }) {
   const T = theme;
   const bw = 40;
   const bh = 20;
-  let seed = 7;
-  const rand = () => {
-    seed = (seed * 9301 + 49297) % 233280;
-    return seed / 233280;
-  };
   // Build one 4-row tile block (repeats seamlessly) with per-brick shading
   const tileRows = 4;
   const bricks = [];
   for (let r = 0; r < tileRows; r++) {
     const offset = r % 2 === 0 ? 0 : -bw / 2;
     for (let c = -1; c < 3; c++) {
-      const shade = rand();
+      const shade = ((r * 3 + c + 7) * 9301 + 49297) % 233280 / 233280;
       const fill = shade > 0.75 ? T.panelAlt : shade > 0.4 ? T.panel : T.bg;
       bricks.push(<rect key={`${r}-${c}`} x={c * bw + offset} y={r * bh} width={bw - 2} height={bh - 2} fill={fill} opacity={0.6} />);
     }
@@ -45,19 +38,6 @@ export function ScanlineOverlay() {
         opacity: 0.12,
       }}
     />
-  );
-}
-
-export function CornerNubs({ color }) {
-  const s = 4;
-  const nub = { position: "absolute", width: s, height: s, background: color };
-  return (
-    <>
-      <div style={{ ...nub, top: -2, left: -2 }} />
-      <div style={{ ...nub, top: -2, right: -2 }} />
-      <div style={{ ...nub, bottom: -2, left: -2 }} />
-      <div style={{ ...nub, bottom: -2, right: -2 }} />
-    </>
   );
 }
 
