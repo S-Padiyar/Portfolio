@@ -14,7 +14,7 @@ import { SKILL_NODES } from "../data/skills";
 
 function PortfolioScene({ appearance, state, actions }) {
   const {
-    T, fontScale, pixelFont
+    theme, fontScale, pixelFont
   } = appearance;
   const {
     companion, companionFacing, companionFrame, encounterMsg, hiddenRoomOpen,
@@ -56,7 +56,7 @@ function PortfolioScene({ appearance, state, actions }) {
       />
 
       {/* Konami code overlay */}
-      {konamiActive && <KonamiOverlay T={T} fontScale={fontScale} pixelFont={pixelFont} />}
+      {konamiActive && <KonamiOverlay theme={theme} fontScale={fontScale} pixelFont={pixelFont} />}
 
       {/* Avatar click-counter easter egg */}
       {showClickEgg && <div style={{
@@ -64,14 +64,14 @@ function PortfolioScene({ appearance, state, actions }) {
       bottom: toastBottom(),
       left: "50%",
       transform: "translateX(-50%)",
-      background: T.panel,
-      border: `1px solid ${T.border}`,
-      borderLeft: `3px solid ${T.accent}`,
-      boxShadow: `2px 2px 0 ${T.bg}`,
+      background: theme.panel,
+      border: `1px solid ${theme.border}`,
+      borderLeft: `3px solid ${theme.accent}`,
+      boxShadow: `2px 2px 0 ${theme.bg}`,
       padding: "10px 16px",
       fontFamily: "var(--copy-font)",
       fontSize: `${12 * fontScale}px`,
-      color: T.text,
+      color: theme.text,
       zIndex: 999
     }}>
           You clicked me 7 times. Persistent. Hidden Dungeon unlocked.
@@ -83,11 +83,11 @@ function PortfolioScene({ appearance, state, actions }) {
       bottom: toastBottom(showClickEgg),
       left: "50%",
       transform: "translateX(-50%)",
-      background: T.panel,
-      color: T.text,
-      border: `1px solid ${T.border}`,
-      borderLeft: `3px solid ${T.accent}`,
-      boxShadow: `2px 2px 0 ${T.bg}`,
+      background: theme.panel,
+      color: theme.text,
+      border: `1px solid ${theme.border}`,
+      borderLeft: `3px solid ${theme.accent}`,
+      boxShadow: `2px 2px 0 ${theme.bg}`,
       padding: "10px 16px",
       fontFamily: "var(--copy-font)",
       fontSize: `${12 * fontScale}px`,
@@ -103,14 +103,14 @@ function PortfolioScene({ appearance, state, actions }) {
       bottom: toastBottom(showClickEgg, showLevelUp, encounterMsg),
       left: "50%",
       transform: "translateX(-50%)",
-      background: T.panel,
-      border: `1px solid ${T.border}`,
-      borderLeft: `3px solid ${T.accent}`,
-      boxShadow: `2px 2px 0 ${T.bg}`,
+      background: theme.panel,
+      border: `1px solid ${theme.border}`,
+      borderLeft: `3px solid ${theme.accent}`,
+      boxShadow: `2px 2px 0 ${theme.bg}`,
       padding: "10px 16px",
       fontFamily: "var(--copy-font)",
       fontSize: `${12 * fontScale}px`,
-      color: T.text,
+      color: theme.text,
       zIndex: 999
     }}>
           Wait, that's my name! Hi there 👋
@@ -120,35 +120,35 @@ function PortfolioScene({ appearance, state, actions }) {
       {selectedSkillId && (() => {
       const node = SKILL_NODES.find(n => n.id === selectedSkillId);
       if (!node) return null;
-      return <SkillModal T={T} beep={beep} fontScale={fontScale} node={node} pixelFont={pixelFont} setSelectedSkillId={setSelectedSkillId} />;
+      return <SkillModal theme={theme} beep={beep} fontScale={fontScale} node={node} pixelFont={pixelFont} setSelectedSkillId={setSelectedSkillId} />;
     })()}
 
       {/* Trophy Case project detail modal */}
       {selectedProjectId !== null && (() => {
       const p = PROJECTS[selectedProjectId];
       if (!p) return null;
-      return <ProjectModal T={T} beep={beep} fontScale={fontScale} p={p} pixelFont={pixelFont} setSelectedProjectId={setSelectedProjectId} />;
+      return <ProjectModal theme={theme} beep={beep} fontScale={fontScale} p={p} pixelFont={pixelFont} setSelectedProjectId={setSelectedProjectId} />;
     })()}
 
       {/* Guild Hall quest detail modal */}
       {selectedQuestId && (() => {
       const q = GUILD_QUESTS.find(x => x.id === selectedQuestId);
       if (!q) return null;
-      return <ExperienceModal T={T} beep={beep} fontScale={fontScale} pixelFont={pixelFont} q={q} setSelectedQuestId={setSelectedQuestId} />;
+      return <ExperienceModal theme={theme} beep={beep} fontScale={fontScale} pixelFont={pixelFont} q={q} setSelectedQuestId={setSelectedQuestId} />;
     })()}
 
       {/* Opened letter modal */}
       {openLetterId && (() => {
       const letter = MAIL_ITEMS.find(m => m.id === openLetterId);
       if (!letter) return null;
-      return <MailModal T={T} beep={beep} fontScale={fontScale} letter={letter} pixelFont={pixelFont} setOpenLetterId={setOpenLetterId} />;
+      return <MailModal theme={theme} beep={beep} fontScale={fontScale} letter={letter} pixelFont={pixelFont} setOpenLetterId={setOpenLetterId} />;
     })()}
 
       {/* Hidden room modal */}
-      {hiddenRoomOpen && <HiddenDungeonModal T={T} beep={beep} fontScale={fontScale} pixelFont={pixelFont} setHiddenRoomOpen={setHiddenRoomOpen} />}
+      {hiddenRoomOpen && <HiddenDungeonModal theme={theme} beep={beep} fontScale={fontScale} pixelFont={pixelFont} setHiddenRoomOpen={setHiddenRoomOpen} />}
 
       {/* Companion sprite, summoned by Konami code — move with arrow keys, jump with up/space (double jump!) */}
-      {companion && <div style={{
+      {companion && <div className="companion-world-sprite" style={{
       position: "fixed",
       left: companion.x,
       top: companion.y,
@@ -163,15 +163,16 @@ function PortfolioScene({ appearance, state, actions }) {
       transformOrigin: "bottom center",
       transition: "transform 100ms ease"
     }}>
-          <PixelSprite frame={companionFrame} size={40} color={T.accent} facing={companionFacing} />
-          <button type="button" onClick={() => { beep(220); setCompanion(null); }} title="Dismiss" aria-label="Dismiss companion" style={{
+          <PixelSprite frame={companionFrame} size={40} color={theme.accent} facing={companionFacing} />
+          <button type="button" onClick={() => { beep(220); setCompanion(null); }} title="Dismiss" aria-label="Dismiss Botmay" style={{
         appearance: "none",
         fontSize: `${9 * fontScale}px`,
-        color: T.textFaint,
-        background: T.panel,
-        border: `1px solid ${T.border}`,
-        padding: "1px 4px",
-        cursor: "pointer",
+         color: theme.textFaint,
+         background: theme.panel,
+         border: `1px solid ${theme.border}`,
+         padding: "1px 4px",
+         fontFamily: pixelFont,
+         cursor: "pointer",
         pointerEvents: "auto"
       }}>
             dismiss
@@ -193,7 +194,7 @@ function PortfolioScene({ appearance, state, actions }) {
           {[0, 1, 2].map(i => <div key={i} style={{
         width: 4,
         height: 4,
-        background: T.accent,
+        background: theme.accent,
         animation: "dust-pop 350ms ease-out forwards",
         animationDelay: `${i * 30}ms`
       }} />)}
@@ -205,14 +206,14 @@ function PortfolioScene({ appearance, state, actions }) {
       position: "fixed",
       top: 72,
       right: 16,
-      background: T.panel,
-      border: `1px solid ${T.border}`,
-      borderLeft: `3px solid ${T.accent}`,
-      boxShadow: `2px 2px 0 ${T.bg}`,
+      background: theme.panel,
+      border: `1px solid ${theme.border}`,
+      borderLeft: `3px solid ${theme.accent}`,
+      boxShadow: `2px 2px 0 ${theme.bg}`,
       padding: "10px 16px",
       fontFamily: "var(--copy-font)",
       fontSize: `${12 * fontScale}px`,
-      color: T.textDim,
+      color: theme.textDim,
       letterSpacing: "0.5px",
       zIndex: 996
     }}>
@@ -225,14 +226,14 @@ function PortfolioScene({ appearance, state, actions }) {
       bottom: toastBottom(showClickEgg, showLevelUp),
       left: "50%",
       transform: "translateX(-50%)",
-      background: T.panel,
-      border: `1px solid ${T.border}`,
-      borderLeft: `3px solid ${T.accent}`,
-      boxShadow: `2px 2px 0 ${T.bg}`,
+      background: theme.panel,
+      border: `1px solid ${theme.border}`,
+      borderLeft: `3px solid ${theme.accent}`,
+      boxShadow: `2px 2px 0 ${theme.bg}`,
       padding: "10px 16px",
       fontFamily: "var(--copy-font)",
       fontSize: `${12 * fontScale}px`,
-      color: T.text,
+      color: theme.text,
       zIndex: 999,
       maxWidth: 320,
       textAlign: "center"

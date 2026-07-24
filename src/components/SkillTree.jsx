@@ -1,9 +1,8 @@
 import PixelFrame from "./PixelFrame";
-import PixelIcon from "./PixelIcon";
 import { SKILL_NODES } from "../data/skills";
 
 function SkillTree({
-  T,
+  theme,
   beep,
   fontScale,
   isMobile,
@@ -11,12 +10,12 @@ function SkillTree({
   setSelectedSkillId
 }) {
   const core = SKILL_NODES.find(node => node.branch === "core");
-  const branchAngles = { code: 225, design: 315, robotics: 45, experience: 135 };
+  const branchAngles = { code: 225, cloud: 315, robotics: 45, research: 135 };
   const branchColors = {
     code: "#62c98b",
-    design: "#b08cff",
+    cloud: "#b08cff",
     robotics: "#e3a34d",
-    experience: "#62a9df"
+    research: "#62a9df"
   };
   const nodeById = Object.fromEntries(SKILL_NODES.map(node => [node.id, node]));
   const depthOf = node => node.requires.length ? 1 + depthOf(nodeById[node.requires[0]]) : 0;
@@ -46,14 +45,14 @@ function SkillTree({
 
   return <div style={{ position: "relative" }}>
           <div style={{ marginBottom: 10 }}>
-            <div style={{ fontFamily: pixelFont, fontSize: `${13 * fontScale}px`, color: T.text }}>Skill tree</div>
+            <div style={{ fontFamily: pixelFont, fontSize: `${13 * fontScale}px`, color: theme.text }}>Skill tree</div>
           </div>
 
           <div style={{
       display: "grid",
       gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
       gap: 6,
-      color: T.textDim,
+      color: theme.textDim,
       fontSize: `${10 * fontScale}px`,
       marginBottom: 8
     }}>
@@ -93,14 +92,14 @@ function SkillTree({
           markerEnd={`url(#skill-arrow-${edge.to.branch})`}
           vectorEffect="non-scaling-stroke"
         />)}
-              <circle cx={canvas.cx} cy={canvas.cy} r={isMobile ? 34 : 52} fill="none" stroke={T.accentDark} strokeWidth={2} opacity={0.55} />
+              <circle cx={canvas.cx} cy={canvas.cy} r={isMobile ? 34 : 52} fill="none" stroke={theme.accentDark} strokeWidth={2} opacity={0.55} />
             </svg>
 
             {nodes.map(node => {
       const isCore = node.id === core.id;
-      const nodeColor = isCore ? T.accent : branchColors[node.branch];
+      const nodeColor = isCore ? theme.accent : branchColors[node.branch];
       const width = isCore ? (isMobile ? 82 : 126) : (isMobile ? 64 : 108);
-      return <PixelFrame key={node.id} theme={T} onClick={() => {
+      return <PixelFrame key={node.id} theme={theme} onClick={() => {
         setSelectedSkillId(node.id);
         beep(isCore ? 360 : 340, 0.04);
       }} title="Skill" style={{
@@ -116,17 +115,16 @@ function SkillTree({
         justifyContent: "center",
         alignItems: "center",
         gap: 3,
-        background: isCore ? T.accent : T.panel,
+        background: isCore ? theme.accent : theme.panel,
         border: `2px solid ${nodeColor}`,
         zIndex: isCore ? 2 : 1
       }}>
                 <span style={{
-          color: isCore ? T.bg : T.textFaint,
+          color: isCore ? theme.bg : theme.textFaint,
           fontSize: `${(isMobile ? 8 : 9) * fontScale}px`
         }}>{isCore ? "Core" : `Level ${node.level}`}</span>
-                <PixelIcon name={node.icon} size={isCore ? 16 : 12} color={isCore ? T.bg : nodeColor} />
                 <span style={{
-          color: isCore ? T.bg : T.text,
+          color: isCore ? theme.bg : theme.text,
           fontSize: `${(isMobile ? 8 : 9) * fontScale}px`,
           lineHeight: 1.25,
           textAlign: "center",

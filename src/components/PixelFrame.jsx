@@ -1,5 +1,5 @@
-export default function PixelFrame({ children, theme, style, active, onClick, as, ...rest }) {
-  const T = theme;
+export default function PixelFrame({ children, className = "", theme, style, active, onClick, as, ...rest }) {
+  const theme = theme;
   const Comp = as || (onClick ? "button" : "div");
   const elementProps = Comp === "button" ? { type: "button" } : {};
 
@@ -7,16 +7,13 @@ export default function PixelFrame({ children, theme, style, active, onClick, as
     <Comp
       onClick={onClick}
       {...elementProps}
+      className={`pixel-frame${active ? " pixel-frame--active" : ""}${onClick ? " pixel-frame--interactive" : ""}${className ? ` ${className}` : ""}`}
       style={{
-        appearance: Comp === "button" ? "none" : undefined,
-        color: "inherit",
-        font: "inherit",
-        textAlign: "inherit",
-        position: "relative",
-        background: active ? T.accent : T.panel,
-        border: `2px solid ${active ? T.accent : T.border}`,
-        boxShadow: active ? `2px 2px 0 ${T.accentDark}` : `2px 2px 0 ${T.bg}`,
-        cursor: onClick ? "pointer" : "default",
+        "--frame-bg": theme.panel,
+        "--frame-border": theme.border,
+        "--frame-shadow": theme.bg,
+        "--frame-active": theme.accent,
+        "--frame-active-shadow": theme.accentDark,
         ...style
       }}
       {...rest}

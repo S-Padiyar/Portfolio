@@ -4,7 +4,7 @@ import { ACHIEVEMENTS } from "../data/achievements";
 import { THEMES } from "../data/themes";
 
 function SettingsPanel({
-  T,
+  theme,
   beep,
   fontScale,
   isMobile,
@@ -27,8 +27,8 @@ function SettingsPanel({
     right: 0,
     width: isMobile ? "100%" : 300,
     height: "100%",
-    background: T.panel,
-    borderLeft: `3px solid ${T.border}`,
+    background: theme.panel,
+    borderLeft: `3px solid ${theme.border}`,
     zIndex: 20,
     padding: 20,
     overflowY: "auto"
@@ -42,7 +42,7 @@ function SettingsPanel({
               <div style={{
         fontFamily: pixelFont,
         fontSize: `${11 * fontScale}px`,
-        color: T.accent,
+        color: theme.accent,
         lineHeight: 1.6
       }}>{settingsView === "achievements" ? "Achievements" : "Settings"}</div>
               <button type="button" onClick={() => { beep(220); setSettingsOpen(false); }} title="Close" aria-label="Close settings" style={{
@@ -52,7 +52,7 @@ function SettingsPanel({
         padding: 0,
         cursor: "pointer"
       }}>
-                <PixelIcon name="close" size={14} color={T.textDim} />
+                <PixelIcon name="close" size={14} color={theme.textDim} />
               </button>
             </div>
 
@@ -62,14 +62,16 @@ function SettingsPanel({
     }}>
               <div style={{
         fontSize: `${10 * fontScale}px`,
-        color: T.textDim,
+        color: theme.textDim,
         marginBottom: 10,
         letterSpacing: "1px"
       }}>
                 Font style
               </div>
               {/* One switch changes both heading and body fonts across every view. */}
-              <PixelFrame theme={T} active={readableFont} onClick={() => { beep(320); setReadableFont(v => !v); }} title="Font" style={{
+      <PixelFrame theme={theme} active={readableFont} onClick={() => { beep(320); setReadableFont(v => !v); }} title="Font" style={{
+        width: "100%",
+        boxSizing: "border-box",
         padding: "8px 10px",
         display: "flex",
         alignItems: "center",
@@ -77,7 +79,7 @@ function SettingsPanel({
         fontSize: `${11 * fontScale}px`
       }}>
                 <span style={{
-          color: readableFont ? T.bg : T.text
+          color: readableFont ? theme.bg : theme.text
         }}>
                   {readableFont ? "Readable" : "Pixel"}
                 </span>
@@ -90,7 +92,7 @@ function SettingsPanel({
     }}>
               <div style={{
         fontSize: `${10 * fontScale}px`,
-        color: T.textDim,
+        color: theme.textDim,
         marginBottom: 10,
         letterSpacing: "1px"
       }}>Theme</div>
@@ -99,7 +101,7 @@ function SettingsPanel({
         flexDirection: "column",
         gap: 8
       }}>
-                {Object.keys(THEMES).map(key => <PixelFrame key={key} theme={T} active={themeKey === key} onClick={() => {
+                {Object.keys(THEMES).map(key => <PixelFrame key={key} theme={theme} active={themeKey === key} onClick={() => {
           if (themeKey !== key) unlockAchievement("shape_shifter");
           setThemeKey(key);
           beep(380);
@@ -111,7 +113,7 @@ function SettingsPanel({
           fontSize: `${11 * fontScale}px`
         }}>
                     <span style={{
-            color: themeKey === key ? T.bg : T.text
+            color: themeKey === key ? theme.bg : theme.text
           }}>
                       {THEMES[key].name}
                     </span>
@@ -131,11 +133,13 @@ function SettingsPanel({
     }}>
               <div style={{
         fontSize: `${10 * fontScale}px`,
-        color: T.textDim,
+        color: theme.textDim,
         marginBottom: 10,
         letterSpacing: "1px"
       }}>Sound</div>
-              <PixelFrame theme={T} active={soundOn} onClick={() => { if (soundOn) beep(280); setSoundOn(v => !v); }} title="Sound" style={{
+      <PixelFrame theme={theme} active={soundOn} onClick={() => { if (soundOn) beep(280); setSoundOn(v => !v); }} title="Sound" style={{
+        width: "100%",
+        boxSizing: "border-box",
         padding: "8px 10px",
         display: "flex",
         alignItems: "center",
@@ -146,9 +150,9 @@ function SettingsPanel({
           display: "flex",
           alignItems: "center",
           gap: 8,
-          color: soundOn ? T.bg : T.text
+          color: soundOn ? theme.bg : theme.text
         }}>
-                  <PixelIcon name="speaker" size={12} color={soundOn ? T.bg : T.textDim} />
+                  <PixelIcon name="speaker" size={12} color={soundOn ? theme.bg : theme.textDim} />
                   {soundOn ? "On" : "Off"}
                 </span>
               </PixelFrame>
@@ -159,7 +163,7 @@ function SettingsPanel({
     }}>
               <div style={{
         fontSize: `${10 * fontScale}px`,
-        color: T.textDim,
+        color: theme.textDim,
         marginBottom: 10,
         letterSpacing: "1px"
       }}>
@@ -170,7 +174,7 @@ function SettingsPanel({
         alignItems: "center",
         gap: 8
       }}>
-                <PixelFrame theme={T} onClick={() => { beep(240); setFontScale(v => Math.max(1, +(v - 0.05).toFixed(2))); }} title="Smaller" style={{
+                <PixelFrame theme={theme} onClick={() => { beep(240); setFontScale(v => Math.max(1, +(v - 0.05).toFixed(2))); }} title="Smaller" style={{
           width: 30,
           height: 30,
           display: "flex",
@@ -184,13 +188,13 @@ function SettingsPanel({
           flex: 1,
           textAlign: "center",
           fontSize: `${11 * fontScale}px`,
-          border: `2px solid ${T.border}`,
+          border: `2px solid ${theme.border}`,
           padding: "6px 0",
-          background: T.panelAlt
+          background: theme.panelAlt
         }}>
                   {Math.round(fontScale * 100)}%
                 </div>
-                <PixelFrame theme={T} onClick={() => { beep(360); setFontScale(v => Math.min(1.4, +(v + 0.05).toFixed(2))); }} title="Larger" style={{
+                <PixelFrame theme={theme} onClick={() => { beep(360); setFontScale(v => Math.min(1.4, +(v + 0.05).toFixed(2))); }} title="Larger" style={{
           width: 30,
           height: 30,
           display: "flex",
@@ -208,7 +212,7 @@ function SettingsPanel({
     }}>
               <div style={{
         fontSize: `${10 * fontScale}px`,
-        color: T.textDim,
+        color: theme.textDim,
         marginBottom: 10,
         letterSpacing: "1px",
         display: "flex",
@@ -217,7 +221,7 @@ function SettingsPanel({
       }}>
                 <span>Achievements</span>
                 <span style={{
-          color: T.textFaint,
+          color: theme.textFaint,
           fontSize: `${9 * fontScale}px`
         }}>
                   {Object.keys(unlockedAchievements).length}/{ACHIEVEMENTS.length}
@@ -230,7 +234,7 @@ function SettingsPanel({
       }}>
                 {ACHIEVEMENTS.map(a => {
           const isUnlocked = !!unlockedAchievements[a.id];
-          return <PixelFrame key={a.id} theme={T} style={{
+          return <PixelFrame key={a.id} theme={theme} style={{
             padding: "8px 10px",
             display: "flex",
             flexDirection: "column",
@@ -247,21 +251,21 @@ function SettingsPanel({
                         <span style={{
                 fontFamily: pixelFont,
                 fontSize: `${10 * fontScale}px`,
-                color: isUnlocked ? T.accent : T.textFaint,
+                color: isUnlocked ? theme.accent : theme.textFaint,
                 letterSpacing: "0.5px"
               }}>
                           {isUnlocked ? a.label : "???"}
                         </span>
                         <span style={{
                 fontSize: `${9 * fontScale}px`,
-                color: T.textFaint,
+                color: theme.textFaint,
                 flexShrink: 0
               }}>+{a.xp} XP</span>
                       </div>
                       <div style={{
               fontFamily: "var(--copy-font)",
               fontSize: `${11 * fontScale}px`,
-              color: T.textDim,
+              color: theme.textDim,
               lineHeight: 1.5
             }}>
                         {isUnlocked ? a.desc : "Locked. Keep exploring to find it."}

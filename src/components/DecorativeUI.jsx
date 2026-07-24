@@ -1,5 +1,13 @@
+// Original seeded shade sequence used by the four-row brick background.
+const BRICK_SHADES = [
+  0.49041495, 0.56078961, 0.11547497, 0.24397719,
+  0.44320988, 0.50638289, 0.07855796, 0.87887088,
+  0.58942044, 0.41082390, 0.28443930, 0.78125429,
+  0.65744170, 0.07658179, 0.49855110, 0.23507802
+];
+
 export function BrickBackground({ theme }) {
-  const T = theme;
+  const theme = theme;
   const bw = 40;
   const bh = 20;
   // Build one 4-row tile block (repeats seamlessly) with per-brick shading
@@ -8,8 +16,8 @@ export function BrickBackground({ theme }) {
   for (let r = 0; r < tileRows; r++) {
     const offset = r % 2 === 0 ? 0 : -bw / 2;
     for (let c = -1; c < 3; c++) {
-      const shade = ((r * 3 + c + 7) * 9301 + 49297) % 233280 / 233280;
-      const fill = shade > 0.75 ? T.panelAlt : shade > 0.4 ? T.panel : T.bg;
+      const shade = BRICK_SHADES[r * 4 + c + 1];
+      const fill = shade > 0.75 ? theme.panelAlt : shade > 0.4 ? theme.panel : theme.bg;
       bricks.push(<rect key={`${r}-${c}`} x={c * bw + offset} y={r * bh} width={bw - 2} height={bh - 2} fill={fill} opacity={0.6} />);
     }
   }
@@ -20,7 +28,7 @@ export function BrickBackground({ theme }) {
           {bricks}
         </pattern>
       </defs>
-      <rect width="100%" height="100%" fill={T.border} opacity={0.12} />
+      <rect width="100%" height="100%" fill={theme.border} opacity={0.12} />
       <rect width="100%" height="100%" fill="url(#brick-tile)" />
     </svg>
   );
