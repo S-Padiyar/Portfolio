@@ -83,7 +83,7 @@ function Sidebar({
       padding: "10px 10px",
       display: "flex",
       flexDirection: "column",
-      gap: 8
+      gap: 4
     }}>
             <div style={{
         display: "flex",
@@ -125,7 +125,7 @@ function Sidebar({
           fontSize: `${9 * fontScale}px`,
           color: theme.text,
           lineHeight: 1.5,
-          padding: "6px 0",
+          padding: "4px 0 6px",
           borderBottom: index < commits.length - 1 ? `1px solid ${theme.border}` : "none",
           cursor: "pointer",
           textDecoration: "none"

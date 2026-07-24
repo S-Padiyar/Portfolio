@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import { THEMES } from "./data/themes";
 import { MAIL_ITEMS } from "./data/mail";
 import { ACHIEVEMENTS } from "./data/achievements";
-import PixelIcon from "./components/PixelIcon";
 import ToastNotice from "./components/ui/ToastNotice";
 import useViewportWidth from "./hooks/useViewportWidth";
 import useAudioBeep from "./hooks/useAudioBeep";
@@ -264,10 +263,11 @@ export default function PortfolioHome() {
       />
 
       {achievementToast && <ToastNotice bottom={24 + [showClickEgg, showLevelUp, encounterMsg, nameEggShown].filter(Boolean).length * 72} fontScale={fontScale} theme={theme}>
-        <PixelIcon name="star" size={18} color={theme.accent} />
-        <div style={{ minWidth: 0 }}>
-          <div style={{ fontFamily: pixelFont, fontSize: `${9 * fontScale}px` }}>Achievement unlocked</div>
-          <div style={{ fontFamily: "var(--copy-font)", fontSize: `${12 * fontScale}px`, color: theme.textDim, lineHeight: 1.4, marginTop: 3 }}>
+        <div style={{ minWidth: 0, textAlign: "left", display: "flex", flexDirection: "column", justifyContent: "center", alignSelf: "center" }}>
+          <div style={{ fontFamily: pixelFont, fontSize: `${10.5 * fontScale}px`, lineHeight: 1.15, color: theme.accent }}>
+            Achievement unlocked
+          </div>
+          <div style={{ fontFamily: "var(--copy-font)", fontSize: `${11 * fontScale}px`, color: theme.text, fontWeight: 400, lineHeight: 1.25, marginTop: 2 }}>
             {achievementToast.label} - +{achievementToast.xp} XP
           </div>
         </div>

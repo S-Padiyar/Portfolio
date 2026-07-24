@@ -88,7 +88,7 @@ export default function MailboxPanel({
             padding: "12px 14px",
             display: "flex",
             alignItems: "center",
-            gap: 14
+            gap: 10
           }}
         >
           <PixelFrame theme={theme} style={{
@@ -98,35 +98,47 @@ export default function MailboxPanel({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            background: unread ? theme.accent : theme.panel
+            background: theme.panelAlt,
+            border: `2px solid ${unread ? theme.accent : theme.border}`
           }}>
-            <PixelIcon name="mail" size={16} color={unread ? theme.bg : theme.textDim} />
+            <PixelIcon name="mail" size={16} color={unread ? theme.accent : theme.textDim} />
           </PixelFrame>
-          <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{
+            flex: 1,
+            minWidth: 0,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "flex-start",
+            textAlign: "left"
+          }}>
             <div style={{
               fontFamily: pixelFont,
               fontSize: `${11 * fontScale}px`,
               color: unread ? theme.text : theme.textDim,
-              marginBottom: 6,
+              marginBottom: 3,
               overflow: "hidden",
               textOverflow: "ellipsis",
-              whiteSpace: "nowrap"
+              whiteSpace: "nowrap",
+              textAlign: "left",
+              width: "100%"
             }}>
               {mailItem.subject}
             </div>
-            <div style={{ fontSize: `${11 * fontScale}px`, color: theme.textDim }}>
+            <div style={{ fontSize: `${11 * fontScale}px`, color: theme.textDim, textAlign: "left", width: "100%" }}>
               {mailItem.from}
             </div>
           </div>
           {unread && <div style={{
             fontFamily: pixelFont,
-            fontSize: `${8 * fontScale}px`,
-            color: theme.bg,
-            background: theme.accent,
+            fontSize: `${9 * fontScale}px`,
+            color: theme.accent,
+            background: theme.panelAlt,
+            border: `1px solid ${theme.border}`,
             padding: "3px 6px",
             flexShrink: 0
           }}>
-            Loot
+            Unread
           </div>}
           <div style={{ fontSize: `${10 * fontScale}px`, color: theme.textFaint, flexShrink: 0 }}>
             {mailItem.date}

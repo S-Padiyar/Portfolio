@@ -46,10 +46,11 @@ function ContactForm({
           flex: 1
         }}>
                           <label htmlFor="contact-name" style={{
+            display: "block",
             fontFamily: pixelFont,
             fontSize: `${10 * fontScale}px`,
             color: theme.textDim,
-            marginBottom: 6
+            marginBottom: 4
           }}>
                             PLAYER NAME
                           </label>
@@ -69,10 +70,11 @@ function ContactForm({
           flex: 1
         }}>
                           <label htmlFor="contact-email" style={{
+            display: "block",
             fontFamily: pixelFont,
             fontSize: `${10 * fontScale}px`,
             color: theme.textDim,
-            marginBottom: 6
+            marginBottom: 4
           }}>
                             RESPAWN ADDRESS (EMAIL)
                           </label>
@@ -91,10 +93,11 @@ function ContactForm({
                       </div>
                       <div>
                         <label htmlFor="contact-message" style={{
+          display: "block",
           fontFamily: pixelFont,
           fontSize: `${10 * fontScale}px`,
           color: theme.textDim,
-          marginBottom: 6
+          marginBottom: 4
         }}>
                           MESSAGE
                         </label>

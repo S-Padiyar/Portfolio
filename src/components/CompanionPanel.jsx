@@ -93,7 +93,7 @@ export default function CompanionPanel({
     background: theme.panel,
     display: "flex",
     flexDirection: "column",
-    padding: 16,
+    padding: "16px 16px 16px 12px",
     zIndex: 18,
     boxShadow: `-4px 0 0 ${theme.bg}`
   }}>

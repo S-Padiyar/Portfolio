@@ -97,7 +97,7 @@ function PortfolioScene({ appearance, state, actions }) {
     </div>)}
     <style>{`@keyframes dust-pop { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-10px) scale(0.4); opacity: 0; } }`}</style>
 
-    {companion && <div className="hint-notice" style={{ top: 72, right: 16, background: theme.panel, borderColor: theme.border, borderLeftColor: theme.border, boxShadow: `2px 2px 0 ${theme.bg}`, color: theme.textDim, fontSize: `${12 * fontScale}px` }}>
+    {companion && <div className="hint-notice" style={{ top: 72, right: 16, background: theme.panel, borderColor: theme.border, borderLeftColor: theme.accent, boxShadow: `2px 2px 0 ${theme.bg}`, color: theme.textDim, fontSize: `${12 * fontScale}px` }}>
       Arrow keys to move &middot; Up / Space to jump
     </div>}
     {encounterMsg && <ToastNotice bottom={toastBottom(showClickEgg, showLevelUp)} fontScale={fontScale} theme={theme}>{encounterMsg}</ToastNotice>}
