@@ -15,7 +15,7 @@ export function jsonResponse(data, status, origin) {
     headers: {
       ...corsHeaders(origin),
       "Content-Type": "application/json",
-      "Cache-Control": "no-store"
+      "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"
     }
   });
 }

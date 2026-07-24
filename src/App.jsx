@@ -5,15 +5,17 @@ import { THEMES } from "./data/themes";
 import { MAIL_ITEMS } from "./data/mail";
 import { ACHIEVEMENTS } from "./data/achievements";
 import PixelIcon from "./components/PixelIcon";
+import ToastNotice from "./components/ui/ToastNotice";
 import useViewportWidth from "./hooks/useViewportWidth";
 import useAudioBeep from "./hooks/useAudioBeep";
 import useGithubQuestLog from "./hooks/useGithubQuestLog";
 import usePortfolioAssistant from "./hooks/usePortfolioAssistant";
 import useProgression from "./hooks/useProgression";
+import usePersistentState from "./hooks/usePersistentState";
 import { isValidContactSubmission, submitContactForm } from "./services/contactService";
 export default function PortfolioHome() {
   const [themeKey, setThemeKey] = useState("amber");
-  const [active, setActive] = useState("projects");
+  const [active, setActive] = useState("experience");
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [aiOpen, setAiOpen] = useState(false);
   const [soundOn, setSoundOn] = useState(true);
@@ -35,7 +37,11 @@ export default function PortfolioHome() {
   const [nameEggShown, setNameEggShown] = useState(false);
   const [mailTab, setMailTab] = useState("inbox"); // "inbox" | "compose"
   const [openLetterId, setOpenLetterId] = useState(null);
-  const [readLetters, setReadLetters] = useState({});
+  const [readLetters, setReadLetters] = usePersistentState(
+    "portfolio:read-mail",
+    {},
+    value => value !== null && typeof value === "object" && !Array.isArray(value)
+  );
   const [composeName, setComposeName] = useState("");
   const [composeEmail, setComposeEmail] = useState("");
   const [composeMsg, setComposeMsg] = useState("");
@@ -139,7 +145,7 @@ export default function PortfolioHome() {
       setTimeout(() => setLogoSparkle(false), 650);
     }, 700);
   }
-  const T = THEMES[themeKey];
+  const theme = THEMES[themeKey];
   function handleNavClick(id) {
     setActive(id);
     if (id === "about") unlockAchievement("character_loaded");
@@ -202,7 +208,7 @@ export default function PortfolioHome() {
 
   // Keep the scene boundary readable by grouping values by responsibility.
   const sceneAppearance = {
-    T, bodyFont, fontScale, isMobile, isTablet, pixelFont, readableFont,
+    theme: theme, bodyFont, fontScale, isMobile, isTablet, pixelFont, readableFont,
     themeKey
   };
   const sceneState = {
@@ -228,18 +234,18 @@ export default function PortfolioHome() {
     fontFamily: bodyFont,
     "--copy-font": readableFont ? "'IBM Plex Mono', 'Courier New', monospace" : "'Pixelify Sans', 'Courier New', sans-serif",
     "--ui-font": pixelFont,
-    background: T.bg,
-    color: T.text,
+    background: theme.bg,
+    color: theme.text,
     minHeight: "100vh",
     width: "100%", maxWidth: "100vw", boxSizing: "border-box",
     display: "flex", flexDirection: "column",
     fontSize: `${14 * fontScale}px`,
     letterSpacing: "0.5px",
     overflowX: "hidden",
-    border: `3px solid ${T.border}`,
+    border: `3px solid ${theme.border}`,
     position: "relative"
   }}>
-      <style>{`@keyframes avatar-breathe { 0%,100% { box-shadow: 2px 2px 0 ${T.bg}; } 50% { box-shadow: 2px 2px 0 ${T.bg}, 0 0 6px ${T.accent}88; } }
+      <style>{`@keyframes avatar-breathe { 0%,100% { box-shadow: 2px 2px 0 ${theme.bg}; } 50% { box-shadow: 2px 2px 0 ${theme.bg}, 0 0 6px ${theme.accent}88; } }
         @keyframes xp-float {
           0% { transform: translateY(0); opacity: 0; }
           20% { opacity: 1; }
@@ -257,25 +263,15 @@ export default function PortfolioHome() {
         actions={sceneActions}
       />
 
-      {achievementToast && <div role="status" aria-live="polite" style={{
-        position: "fixed", left: "50%",
-        bottom: 24 + [showClickEgg, showLevelUp, encounterMsg, nameEggShown].filter(Boolean).length * 72,
-        transform: "translateX(-50%)",
-        width: "min(340px, calc(100vw - 36px))", zIndex: 1200,
-        display: "flex", alignItems: "center", gap: 12,
-        padding: "12px 14px", background: T.panel, color: T.text,
-        border: `1px solid ${T.border}`, borderLeft: `3px solid ${T.accent}`,
-        boxShadow: `2px 2px 0 ${T.bg}`,
-        transition: "bottom 180ms ease"
-      }}>
-        <PixelIcon name="star" size={18} color={T.accent} />
+      {achievementToast && <ToastNotice bottom={24 + [showClickEgg, showLevelUp, encounterMsg, nameEggShown].filter(Boolean).length * 72} fontScale={fontScale} theme={theme}>
+        <PixelIcon name="star" size={18} color={theme.accent} />
         <div style={{ minWidth: 0 }}>
           <div style={{ fontFamily: pixelFont, fontSize: `${9 * fontScale}px` }}>Achievement unlocked</div>
-          <div style={{ fontFamily: "var(--copy-font)", fontSize: `${12 * fontScale}px`, color: T.textDim, lineHeight: 1.4, marginTop: 3 }}>
-            {achievementToast.label} · +{achievementToast.xp} XP
+          <div style={{ fontFamily: "var(--copy-font)", fontSize: `${12 * fontScale}px`, color: theme.textDim, lineHeight: 1.4, marginTop: 3 }}>
+            {achievementToast.label} - +{achievementToast.xp} XP
           </div>
         </div>
-      </div>}
+      </ToastNotice>}
 
     </div>;
 }

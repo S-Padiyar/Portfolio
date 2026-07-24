@@ -1,23 +1,29 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { calculateXpProgress } from "../utils/progression";
+import usePersistentState from "./usePersistentState";
 
 const STARTING_LEVEL = 12;
+const SAVED_PROGRESSION_KEY = "portfolio:progression";
 
 /** Own XP, levels, achievements, and their temporary notifications. */
 export default function useProgression({ achievements, beep }) {
-  const [xp, setXp] = useState(0);
-  const [level, setLevel] = useState(STARTING_LEVEL);
+  const [savedProgression, setSavedProgression] = usePersistentState(
+    SAVED_PROGRESSION_KEY,
+    { xp: 0, level: STARTING_LEVEL, unlockedAchievements: {} },
+    value => value !== null && typeof value === "object" && !Array.isArray(value)
+  );
+  const [xp, setXp] = useState(savedProgression.xp || 0);
+  const [level, setLevel] = useState(savedProgression.level || STARTING_LEVEL);
   const [xpGain, setXpGain] = useState(null);
   const [showLevelUp, setShowLevelUp] = useState(false);
-  const [unlockedAchievements, setUnlockedAchievements] = useState({});
+  const [unlockedAchievements, setUnlockedAchievements] = useState(savedProgression.unlockedAchievements || {});
   const [achievementToast, setAchievementToast] = useState(null);
 
-  const xpRef = useRef(0);
-  const levelRef = useRef(STARTING_LEVEL);
+  const xpRef = useRef(savedProgression.xp || 0);
+  const levelRef = useRef(savedProgression.level || STARTING_LEVEL);
   const xpGainIdRef = useRef(0);
   const achievementToastIdRef = useRef(0);
-  const unlockedRef = useRef({});
-  const claimedQuestsRef = useRef({});
+  const unlockedRef = useRef(savedProgression.unlockedAchievements || {});
   const timersRef = useRef(new Set());
 
   const schedule = useCallback((callback, delay) => {
@@ -33,6 +39,10 @@ export default function useProgression({ achievements, beep }) {
     timersRef.current.forEach(clearTimeout);
     timersRef.current.clear();
   }, []);
+
+  useEffect(() => {
+    setSavedProgression({ xp, level, unlockedAchievements });
+  }, [level, setSavedProgression, unlockedAchievements, xp]);
 
   const gainXp = useCallback(amount => {
     const gainId = ++xpGainIdRef.current;
@@ -61,8 +71,9 @@ export default function useProgression({ achievements, beep }) {
     const achievement = achievements.find(item => item.id === id);
     if (!achievement) return;
 
-    unlockedRef.current[id] = true;
-    setUnlockedAchievements(current => ({ ...current, [id]: true }));
+    const nextUnlocked = { ...unlockedRef.current, [id]: true };
+    unlockedRef.current = nextUnlocked;
+    setUnlockedAchievements(nextUnlocked);
     gainXp(achievement.xp);
 
     const toastId = ++achievementToastIdRef.current;
@@ -72,11 +83,9 @@ export default function useProgression({ achievements, beep }) {
     }, 3200);
   }, [achievements, gainXp, schedule]);
 
-  const claimQuestXp = useCallback(quest => {
-    if (claimedQuestsRef.current[quest.id]) return;
-    claimedQuestsRef.current[quest.id] = true;
-    gainXp(quest.reward);
-  }, [gainXp]);
+  const claimQuestXp = useCallback(() => {
+    // XP is reserved for achievements so the progress bar always matches earned milestones.
+  }, []);
 
   return {
     achievementToast,

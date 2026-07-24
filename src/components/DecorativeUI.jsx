@@ -7,7 +7,6 @@ const BRICK_SHADES = [
 ];
 
 export function BrickBackground({ theme }) {
-  const theme = theme;
   const bw = 40;
   const bh = 20;
   // Build one 4-row tile block (repeats seamlessly) with per-brick shading

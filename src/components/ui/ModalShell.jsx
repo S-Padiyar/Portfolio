@@ -7,17 +7,22 @@ import PixelIcon from "../PixelIcon";
  */
 export default function ModalShell({ ariaLabel, children, closeLabel = "Close dialog", onClose, panelStyle, theme, zIndex = 998 }) {
   const dialogRef = useRef(null);
+  const closeHandlerRef = useRef(onClose);
+
+  useEffect(() => {
+    closeHandlerRef.current = onClose;
+  }, [onClose]);
 
   useEffect(() => {
     const previouslyFocusedElement = document.activeElement;
     const previousOverflow = document.body.style.overflow;
 
-    // Blocking background scroll keeps the user''s position stable behind the modal.
+    // Blocking background scroll keeps the user's position stable behind the modal.
     document.body.style.overflow = "hidden";
     dialogRef.current?.focus();
 
     const handleKeyDown = event => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") closeHandlerRef.current();
     };
     window.addEventListener("keydown", handleKeyDown);
 
@@ -26,11 +31,11 @@ export default function ModalShell({ ariaLabel, children, closeLabel = "Close di
       document.body.style.overflow = previousOverflow;
       previouslyFocusedElement?.focus?.();
     };
-  }, [onClose]);
+  }, []);
 
   return <div role="presentation" onMouseDown={event => {
     // Only the backdrop dismisses the dialog; interactions inside never do.
-    if (event.target === event.currentTarget) onClose();
+    if (event.target === event.currentTarget) closeHandlerRef.current();
   }} style={{
     position: "fixed", inset: 0, zIndex, display: "grid", placeItems: "center",
     padding: 20, overflowY: "auto", background: `${theme.bg}dd`
@@ -41,7 +46,7 @@ export default function ModalShell({ ariaLabel, children, closeLabel = "Close di
       border: `2px solid ${theme.border}`, boxShadow: `4px 4px 0 ${theme.bg}`,
       ...panelStyle
     }}>
-      <button type="button" onClick={onClose} title="Close" aria-label={closeLabel}
+      <button type="button" onClick={() => closeHandlerRef.current()} title="Close" aria-label={closeLabel}
         className="icon-button" style={{ position: "absolute", zIndex: 3, top: 12, right: 12 }}>
         <PixelIcon name="close" size={12} color={theme.textDim} />
       </button>

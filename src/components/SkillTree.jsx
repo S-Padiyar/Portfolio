@@ -119,10 +119,10 @@ function SkillTree({
         border: `2px solid ${nodeColor}`,
         zIndex: isCore ? 2 : 1
       }}>
-                <span style={{
+                {!isCore && <span style={{
           color: isCore ? theme.bg : theme.textFaint,
           fontSize: `${(isMobile ? 8 : 9) * fontScale}px`
-        }}>{isCore ? "Core" : `Level ${node.level}`}</span>
+        }}>Level {node.level}</span>}
                 <span style={{
           color: isCore ? theme.bg : theme.text,
           fontSize: `${(isMobile ? 8 : 9) * fontScale}px`,

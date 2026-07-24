@@ -4,6 +4,7 @@ import PixelIcon from "./PixelIcon";
 import PixelSprite from "./PixelSprite";
 import CompanionRunGame from "./CompanionRunGame";
 import { CoreCollectorGame, SkyboundGame } from "./ArcadeGames";
+import ModalShell from "./ui/ModalShell";
 
 const GAMES = [
   { id: "platformer", title: "Botmay Kingdom", icon: "home", desc: "A Mario-style platform run with double jumps, moving enemies, shards, hazards, and a locked finish portal." },
@@ -28,7 +29,7 @@ function VaultDoor({ theme, beep, companion, fontScale, isMobile, pixelFont, set
     <div style={{ fontFamily: "var(--copy-font)", color: theme.textDim, fontSize: `${12 * fontScale}px`, lineHeight: 1.55, textAlign: "center", maxWidth: 390 }}>
       {companion
         ? "The vault recognizes Botmay. Use the arrow keys to walk Botmay through the door."
-        : "The vault only opens for Botmay. Summon Botmay with ↑ ↑ ↓ ↓ ← → ← → B A, then bring Botmay to the door."}
+        : "The vault only opens for Botmay. Summon Botmay with Up Up Down Down Left Right Left Right B A, then bring Botmay to the door."}
     </div>
     {isMobile && <PixelFrame theme={theme} onClick={() => {
       const door = document.querySelector('[data-companion-door="arcade"]')?.getBoundingClientRect();
@@ -75,43 +76,30 @@ function DoorTransition({ theme, companion, pixelFont }) {
 
 function ArcadeModal({ theme, beep, fontScale, pixelFont, selectedGameId, setSelectedGameId, onClose }) {
   const game = GAMES.find(item => item.id === selectedGameId);
-  useEffect(() => {
-    const oldOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const escape = event => {
-      if (event.key !== "Escape") return;
-      if (selectedGameId) setSelectedGameId(null); else onClose();
-    };
-    window.addEventListener("keydown", escape);
-    return () => { document.body.style.overflow = oldOverflow; window.removeEventListener("keydown", escape); };
-  }, [onClose, selectedGameId, setSelectedGameId]);
 
-  return <div role="dialog" aria-modal="true" aria-label="Game Vault" style={{ position: "fixed", inset: 0, zIndex: 10020, display: "grid", placeItems: "center", padding: 12, background: `${theme.bg}f5` }}>
-    <PixelFrame theme={theme} style={{ width: "min(940px, 98vw)", maxHeight: "96vh", overflowY: "auto", padding: "clamp(12px, 2vw, 22px)" }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, marginBottom: 16 }}>
-        <div>
-          <div style={{ fontFamily: pixelFont, color: theme.accent, fontSize: `${12 * fontScale}px` }}>{game?.title || "Botmay Arcade"}</div>
-          <div style={{ fontFamily: "var(--copy-font)", color: theme.textDim, fontSize: `${11 * fontScale}px`, marginTop: 5 }}>{game?.desc || "Choose a game. Botmay is the hero in every world."}</div>
-        </div>
-        <div style={{ display: "flex", gap: 7 }}>
-          {game && <PixelFrame theme={theme} onClick={() => { beep(260); setSelectedGameId(null); }} title="Back to games" style={{ padding: "8px 10px" }}>Back</PixelFrame>}
-          <PixelFrame theme={theme} onClick={onClose} title="Close Game Vault" aria-label="Close Game Vault" style={{ width: 36, height: 36, display: "grid", placeItems: "center" }}><PixelIcon name="close" size={12} color={theme.textDim} /></PixelFrame>
-        </div>
+  return <ModalShell ariaLabel="Game Vault" closeLabel="Close Game Vault" onClose={onClose}
+    panelStyle={{ width: "min(940px, 98vw)", maxWidth: "min(940px, 98vw)", maxHeight: "96vh", padding: "clamp(12px, 2vw, 22px)" }}
+    theme={theme} zIndex={10020}>
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, marginBottom: 16 }}>
+      <div>
+        <div style={{ fontFamily: pixelFont, color: theme.accent, fontSize: `${12 * fontScale}px` }}>{game?.title || "Botmay Arcade"}</div>
+        <div style={{ fontFamily: "var(--copy-font)", color: theme.textDim, fontSize: `${11 * fontScale}px`, marginTop: 5 }}>{game?.desc || "Choose a game. Botmay is the hero in every world."}</div>
       </div>
-      {!game ? <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(220px, 100%), 1fr))", gap: 14 }}>
-        {GAMES.map(item => <PixelFrame key={item.id} theme={theme} onClick={() => { beep(460); setSelectedGameId(item.id); }} title={`Play ${item.title}`} style={{ padding: 14, minHeight: 210, display: "flex", flexDirection: "column", gap: 11 }}>
-          <div style={{ height: 86, display: "grid", placeItems: "center", background: theme.panelAlt, border: `2px solid ${theme.border}` }}><PixelIcon name={item.icon} size={32} color={theme.accent} /></div>
-          <div style={{ fontFamily: pixelFont, color: theme.text, fontSize: `${10 * fontScale}px` }}>{item.title}</div>
-          <div style={{ fontFamily: "var(--copy-font)", color: theme.textDim, fontSize: `${11 * fontScale}px`, lineHeight: 1.5 }}>{item.desc}</div>
-          <div style={{ color: theme.accent, marginTop: "auto", fontSize: `${10 * fontScale}px` }}>Play →</div>
-        </PixelFrame>)}
-      </div> : <div key={game.id}>
-        {game.id === "platformer" && <CompanionRunGame theme={theme} beep={beep} fontScale={fontScale} />}
-        {game.id === "skybound" && <SkyboundGame theme={theme} beep={beep} fontScale={fontScale} />}
-        {game.id === "core-collector" && <CoreCollectorGame theme={theme} beep={beep} fontScale={fontScale} />}
-      </div>}
-    </PixelFrame>
-  </div>;
+      {game && <PixelFrame theme={theme} onClick={() => { beep(260); setSelectedGameId(null); }} title="Back to games" style={{ padding: "8px 10px" }}>Back</PixelFrame>}
+    </div>
+    {!game ? <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(220px, 100%), 1fr))", gap: 14 }}>
+      {GAMES.map(item => <PixelFrame key={item.id} theme={theme} onClick={() => { beep(460); setSelectedGameId(item.id); }} title={`Play ${item.title}`} style={{ padding: 14, minHeight: 210, display: "flex", flexDirection: "column", gap: 11 }}>
+        <div style={{ height: 86, display: "grid", placeItems: "center", background: theme.panelAlt, border: `2px solid ${theme.border}` }}><PixelIcon name={item.icon} size={32} color={theme.accent} /></div>
+        <div style={{ fontFamily: pixelFont, color: theme.text, fontSize: `${10 * fontScale}px` }}>{item.title}</div>
+        <div style={{ fontFamily: "var(--copy-font)", color: theme.textDim, fontSize: `${11 * fontScale}px`, lineHeight: 1.5 }}>{item.desc}</div>
+        <div style={{ color: theme.accent, marginTop: "auto", fontSize: `${10 * fontScale}px` }}>Play -&gt;</div>
+      </PixelFrame>)}
+    </div> : <div key={game.id}>
+      {game.id === "platformer" && <CompanionRunGame theme={theme} beep={beep} fontScale={fontScale} />}
+      {game.id === "skybound" && <SkyboundGame theme={theme} beep={beep} fontScale={fontScale} />}
+      {game.id === "core-collector" && <CoreCollectorGame theme={theme} beep={beep} fontScale={fontScale} />}
+    </div>}
+  </ModalShell>;
 }
 
 export default function GameVault({ theme, beep, companion, enteredGameDoor, fontScale, isMobile, pixelFont, setCompanion }) {

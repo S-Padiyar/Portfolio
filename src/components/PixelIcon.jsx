@@ -209,6 +209,15 @@ export default function PixelIcon({ name, size = 28, color = "currentColor" }) {
       "X..X..X",
       "XXXXXXX",
     ],
+    book: [
+      "XXX.XXX",
+      "X.X.X.X",
+      "X.X.X.X",
+      "XXX.XXX",
+      "X.X.X.X",
+      "X.X.X.X",
+      "XXX.XXX",
+    ],
     scroll: [
       "XXXXXXX",
       "X.....X",

@@ -1,153 +1,37 @@
+import MediaGallery from "./MediaGallery";
 import PixelFrame from "./PixelFrame";
-import PixelIcon from "./PixelIcon";
+import ModalShell from "./ui/ModalShell";
+import AccentList from "./ui/AccentList";
 
-function ExperienceModal({
-  T,
-  beep,
-  fontScale,
-  pixelFont,
-  q,
-  setSelectedQuestId
-}) {
-  return <div role="presentation" onClick={() => { beep(220); setSelectedQuestId(null); }} style={{
-    position: "fixed",
-    inset: 0,
-    background: `${T.bg}cc`,
-    zIndex: 998,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20
-  }}>
-            <div role="dialog" aria-modal="true" aria-label={`${q.title} experience details`} onClick={e => e.stopPropagation()} style={{
-      background: T.panel,
-      border: `2px solid ${T.border}`,
-      boxShadow: `4px 4px 0 ${T.bg}`,
-      padding: 24,
-      maxWidth: 720,
-      maxHeight: "90vh",
-      overflowY: "auto",
-      width: "100%",
-      position: "relative"
-    }}>
-              <button type="button" onClick={() => { beep(220); setSelectedQuestId(null); }} title="Close" aria-label="Close experience details" style={{
-        appearance: "none",
-        background: "none",
-        border: 0,
-        padding: 0,
-        position: "absolute",
-        top: 12,
-        right: 12,
-        cursor: "pointer"
+/** Displays experience evidence while sharing the same modal and gallery behavior as projects. */
+function ExperienceModal({ theme, beep, fontScale, experience, pixelFont, setSelectedQuestId }) {
+  const closeModal = () => {
+    beep(220);
+    setSelectedQuestId(null);
+  };
+
+  return <ModalShell ariaLabel={`${experience.title} experience details`} closeLabel="Close experience details" onClose={closeModal} panelStyle={{ maxWidth: 780 }} theme={theme}>
+    <div className="modal-heading">
+      {experience.logo ? <a href={experience.logo.href} target="_blank" rel="noopener noreferrer" title={experience.logo.href} style={{
+        width: 46, height: 46, flexShrink: 0, display: "grid", placeItems: "center", background: experience.logo.background || theme.panelAlt,
+        border: `1px solid ${theme.border}`, overflow: "hidden", padding: 0
       }}>
-                <PixelIcon name="close" size={12} color={T.textDim} />
-              </button>
-              <div style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 10,
-        marginBottom: 14
-      }}>
-                <PixelFrame theme={T} style={{
-          width: 32,
-          height: 32,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: T.accent
-        }}>
-                  <span style={{
-            fontFamily: pixelFont,
-            fontSize: `${12 * fontScale}px`,
-            color: T.bg
-          }}>{q.rank}</span>
-                </PixelFrame>
-                <div>
-                  <div style={{
-            fontFamily: pixelFont,
-            fontSize: `${11 * fontScale}px`,
-            lineHeight: 1.6,
-            color: T.text
-          }}>
-                    {q.title}
-                  </div>
-                  <div style={{
-            fontSize: `${10 * fontScale}px`,
-            color: T.accent
-          }}>{q.org} &middot; {q.duration}</div>
-                </div>
-              </div>
-              <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
-        gap: 8,
-        marginBottom: 16
-      }}>
-                {[1, 2, 3].map(number => <div key={number} style={{
-          minHeight: 100,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: T.textFaint,
-          background: T.panelAlt,
-          border: `1px solid ${T.border}`,
-          fontFamily: "var(--copy-font)",
-          fontSize: `${10 * fontScale}px`,
-          textAlign: "center"
-        }}>Experience image {number}</div>)}
-              </div>
-              <div style={{
-        fontFamily: "var(--copy-font)",
-        fontSize: `${13 * fontScale}px`,
-        color: T.text,
-        lineHeight: 1.8,
-        marginBottom: 16
-      }}>
-                {q.summary}
-              </div>
-              <div style={{
-        fontFamily: pixelFont,
-        fontSize: `${10 * fontScale}px`,
-        color: T.textDim,
-        marginBottom: 10
-      }}>
-                QUEST LOG
-              </div>
-              <div style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 8,
-        marginBottom: 16
-      }}>
-                {q.bullets.map((b, i) => <div key={i} style={{
-          display: "flex",
-          alignItems: "flex-start",
-          gap: 8
-        }}>
-                    <PixelIcon name="briefcase" size={11} color={T.accent} />
-                    <div style={{
-            fontFamily: "var(--copy-font)",
-            fontSize: `${12 * fontScale}px`,
-            color: T.textDim,
-            lineHeight: 1.6
-          }}>{b}</div>
-                  </div>)}
-              </div>
-              <div style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center"
-      }}>
-                <div style={{
-          fontSize: `${10 * fontScale}px`,
-          color: T.textFaint
-        }}>{q.tags}</div>
-                <div style={{
-          fontSize: `${10 * fontScale}px`,
-          color: T.accent
-        }}>+{q.reward} XP</div>
-              </div>
-            </div>
-          </div>;
+        <img src={experience.logo.src} alt={experience.logo.alt} style={{ width: "100%", height: "100%", objectFit: experience.logo.objectFit || "contain", objectPosition: experience.logo.objectPosition || "center", display: "block" }} />
+      </a> : <PixelFrame theme={theme} style={{ width: 32, height: 32, display: "grid", placeItems: "center", background: theme.accent }}>
+        <span style={{ fontFamily: pixelFont, fontSize: `${12 * fontScale}px`, color: theme.bg }}>{experience.rank}</span>
+      </PixelFrame>}
+      <div>
+        <div style={{ fontFamily: pixelFont, fontSize: `${11 * fontScale}px`, lineHeight: 1.6, color: theme.text }}>{experience.title}</div>
+        <div style={{ fontSize: `${10 * fontScale}px`, color: theme.accent }}>{experience.org} - {experience.duration}</div>
+      </div>
+    </div>
+
+    <MediaGallery items={experience.media} label="Experience images" beep={beep} theme={theme} fontScale={fontScale} pixelFont={pixelFont} />
+    <p className="modal-description" style={{ color: theme.text, fontSize: `${13 * fontScale}px` }}>{experience.summary}</p>
+    <div className="modal-section-label" style={{ color: theme.textDim, fontFamily: pixelFont, fontSize: `${10 * fontScale}px` }}>Quest log</div>
+    <AccentList items={experience.bullets || []} theme={theme} fontScale={fontScale} />
+    <div className="modal-meta" style={{ color: theme.textFaint, fontSize: `${10 * fontScale}px` }}>{experience.tags}</div>
+  </ModalShell>;
 }
+
 export default ExperienceModal;

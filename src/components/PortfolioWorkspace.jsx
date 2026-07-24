@@ -17,7 +17,7 @@ const ASSISTANT_DESTINATIONS = {
 
 // Convert only known page names and explicit HTTPS URLs into interactive text.
 // The model never supplies raw HTML, so assistant output remains safe to render.
-function renderAssistantText(text, handleNavClick, beep, T) {
+function renderAssistantText(text, handleNavClick, beep, theme) {
   const pattern = /https?:\/\/[^\s<>()]+|Trophy Case|Guild Hall|Skill Tree|Quest Mail|Quest Log|Character|Mailbox/gi;
   const parts = [];
   let cursor = 0;
@@ -35,7 +35,7 @@ function renderAssistantText(text, handleNavClick, beep, T) {
         title={url}
         onClick={() => beep(360, 0.04)}
         style={{
-          color: T.accent,
+          color: theme.accent,
           fontFamily: "inherit",
           fontWeight: 700,
           textDecoration: "underline",
@@ -55,7 +55,7 @@ function renderAssistantText(text, handleNavClick, beep, T) {
           appearance: "none",
           background: "none",
           border: 0,
-          color: T.accent,
+          color: theme.accent,
           cursor: "pointer",
           font: "inherit",
           fontWeight: 700,
@@ -74,7 +74,7 @@ function renderAssistantText(text, handleNavClick, beep, T) {
 
 function PortfolioWorkspace({ appearance, state, actions }) {
   const {
-    T, bodyFont, fontScale, isMobile, isTablet, pixelFont, readableFont,
+    theme, bodyFont, fontScale, isMobile, isTablet, pixelFont, readableFont,
     themeKey
   } = appearance;
   const {
@@ -100,10 +100,10 @@ function PortfolioWorkspace({ appearance, state, actions }) {
     overflow: isMobile ? "auto" : "hidden"
   }}>
         {/* Settings drawer */}
-        {settingsOpen && <SettingsPanel T={T} beep={beep} fontScale={fontScale} isMobile={isMobile} pixelFont={pixelFont} readableFont={readableFont} setFontScale={setFontScale} setReadableFont={setReadableFont} setSettingsOpen={setSettingsOpen} setSoundOn={setSoundOn} setThemeKey={setThemeKey} settingsView={settingsOpen} soundOn={soundOn} themeKey={themeKey} unlockAchievement={unlockAchievement} unlockedAchievements={unlockedAchievements} />}
+        {settingsOpen && <SettingsPanel theme={theme} beep={beep} fontScale={fontScale} isMobile={isMobile} pixelFont={pixelFont} readableFont={readableFont} setFontScale={setFontScale} setReadableFont={setReadableFont} setSettingsOpen={setSettingsOpen} setSoundOn={setSoundOn} setThemeKey={setThemeKey} settingsView={settingsOpen} soundOn={soundOn} themeKey={themeKey} unlockAchievement={unlockAchievement} unlockedAchievements={unlockedAchievements} />}
 
         {/* Left sidebar */}
-        <Sidebar T={T} active={active} avatarRef={avatarRef} beep={beep} commits={commits} commitsError={commitsError} companion={companion} fontScale={fontScale} handleAvatarClick={handleAvatarClick} handleNavClick={handleNavClick} hiddenRoomUnlocked={hiddenRoomUnlocked} isMobile={isMobile} isTablet={isTablet} level={level} pixelFont={pixelFont} setHiddenRoomOpen={setHiddenRoomOpen} themeKey={themeKey} xp={xp} xpGain={xpGain} />
+        <Sidebar theme={theme} active={active} avatarRef={avatarRef} beep={beep} commits={commits} commitsError={commitsError} companion={companion} fontScale={fontScale} handleAvatarClick={handleAvatarClick} handleNavClick={handleNavClick} hiddenRoomUnlocked={hiddenRoomUnlocked} isMobile={isMobile} isTablet={isTablet} level={level} pixelFont={pixelFont} setHiddenRoomOpen={setHiddenRoomOpen} themeKey={themeKey} xp={xp} xpGain={xpGain} />
 
         {/* Main content */}
         <div style={{
@@ -118,7 +118,7 @@ function PortfolioWorkspace({ appearance, state, actions }) {
           <h1 style={{
         fontFamily: pixelFont,
         fontSize: `${16 * fontScale}px`,
-        color: T.accent,
+        color: theme.accent,
         marginBottom: 10,
         letterSpacing: "1px",
         lineHeight: 1.6
@@ -126,7 +126,7 @@ function PortfolioWorkspace({ appearance, state, actions }) {
             {NAV_ITEMS.find(n => n.id === active)?.label || "Projects"}
           </h1>
 
-          <ContentPanel T={T} active={active} beep={beep} bodyFont={bodyFont} claimQuestXp={claimQuestXp} companion={companion} composeEmail={composeEmail} composeMsg={composeMsg} composeName={composeName} fontScale={fontScale} isMobile={isMobile} isTablet={isTablet} mailSent={mailSent} mailTab={mailTab} openLetter={openLetter} pixelFont={pixelFont} readLetters={readLetters} sendMail={sendMail} setComposeEmail={setComposeEmail} setComposeMsg={setComposeMsg} setComposeName={setComposeName} setMailTab={setMailTab} setSelectedProjectId={setSelectedProjectId} setSelectedQuestId={setSelectedQuestId} setSelectedSkillId={setSelectedSkillId} unreadCount={unreadCount} />
+          <ContentPanel theme={theme} active={active} beep={beep} bodyFont={bodyFont} claimQuestXp={claimQuestXp} companion={companion} composeEmail={composeEmail} composeMsg={composeMsg} composeName={composeName} fontScale={fontScale} isMobile={isMobile} isTablet={isTablet} level={level} mailSent={mailSent} mailTab={mailTab} openLetter={openLetter} pixelFont={pixelFont} readLetters={readLetters} sendMail={sendMail} setComposeEmail={setComposeEmail} setComposeMsg={setComposeMsg} setComposeName={setComposeName} setMailTab={setMailTab} setSelectedProjectId={setSelectedProjectId} setSelectedQuestId={setSelectedQuestId} setSelectedSkillId={setSelectedSkillId} unreadCount={unreadCount} />
         </div>
         {aiOpen && <div style={{
       position: "absolute",
@@ -134,13 +134,13 @@ function PortfolioWorkspace({ appearance, state, actions }) {
       right: 0,
       height: "100%",
       width: isMobile ? "100%" : 320,
-      borderLeft: `3px solid ${T.border}`,
-      background: T.panel,
+      borderLeft: `2px solid ${theme.border}`,
+      background: theme.panel,
       display: "flex",
       flexDirection: "column",
       padding: 16,
       zIndex: 18,
-      boxShadow: `-4px 0 0 ${T.bg}`
+      boxShadow: `-4px 0 0 ${theme.bg}`
     }}>
             <div style={{
         display: "flex",
@@ -153,15 +153,15 @@ function PortfolioWorkspace({ appearance, state, actions }) {
           alignItems: "center",
           gap: 8
         }}>
-                <PixelFrame theme={T} style={{
+                <PixelFrame theme={theme} style={{
             width: 30,
             height: 30,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            background: T.accent
+            background: theme.accent
           }}>
-                  <PixelSprite frame="idle" size={18} color={T.bg} />
+                  <PixelSprite frame="idle" size={18} color={theme.bg} />
                 </PixelFrame>
                 <div style={{
                   display: "flex",
@@ -175,30 +175,30 @@ function PortfolioWorkspace({ appearance, state, actions }) {
               fontSize: `${9 * fontScale}px`,
               lineHeight: 1,
               margin: 0
-            }}>Companion</div>
+            }}>Botmay</div>
                   <div style={{
               fontSize: `${9 * fontScale}px`,
-              color: T.textDim,
+              color: theme.textDim,
               lineHeight: 1,
               margin: 0
             }}>Gemini</div>
                 </div>
               </div>
-              <button type="button" onClick={() => { beep(220); setAiOpen(false); }} title="Close" aria-label="Close Companion" style={{
+              <button type="button" onClick={() => { beep(220); setAiOpen(false); }} title="Close" aria-label="Close Botmay" style={{
           appearance: "none",
           background: "none",
           border: 0,
           padding: 0,
           cursor: "pointer"
         }}>
-                <PixelIcon name="close" size={12} color={T.textDim} />
+                <PixelIcon name="close" size={12} color={theme.textDim} />
               </button>
             </div>
 
             <div style={{
         flex: 1,
-        background: T.panelAlt,
-        border: `2px solid ${T.border}`,
+        background: theme.panelAlt,
+        border: `2px solid ${theme.border}`,
         padding: 10,
         overflowY: "auto",
         display: "flex",
@@ -210,9 +210,9 @@ function PortfolioWorkspace({ appearance, state, actions }) {
               {aiMessages.map((m, i) => <div key={i} style={{
           fontFamily: "var(--copy-font)",
           alignSelf: m.from === "user" ? "flex-end" : "flex-start",
-          background: m.from === "user" ? T.accent : T.panel,
-          color: m.from === "user" ? T.bg : T.text,
-          border: `2px solid ${m.from === "user" ? T.accentDark : T.border}`,
+          background: m.from === "user" ? theme.accent : theme.panel,
+          color: m.from === "user" ? theme.bg : theme.text,
+          border: `2px solid ${m.from === "user" ? theme.accentDark : theme.border}`,
           padding: "6px 8px",
           fontSize: `${12 * fontScale}px`,
           fontWeight: 400,
@@ -221,7 +221,7 @@ function PortfolioWorkspace({ appearance, state, actions }) {
           overflowWrap: "anywhere",
           maxWidth: "88%"
         }}>
-                  {m.from === "ai" ? renderAssistantText(m.text, handleNavClick, beep, T) : m.text}
+                  {m.from === "ai" ? renderAssistantText(m.text, handleNavClick, beep, theme) : m.text}
                 </div>)}
             </div>
 
@@ -232,11 +232,11 @@ function PortfolioWorkspace({ appearance, state, actions }) {
         display: "flex",
         gap: 6
       }}>
-              <input aria-label="Ask the Companion a question" value={aiInput} onChange={e => setAiInput(e.target.value)} placeholder="Ask about my work..." style={{
+              <input aria-label="Ask Botmay a question" value={aiInput} onChange={e => setAiInput(e.target.value)} placeholder="Ask about my work..." style={{
           flex: 1,
-          background: T.panelAlt,
-          border: `2px solid ${T.border}`,
-          color: T.text,
+          background: theme.panelAlt,
+          border: `2px solid ${theme.border}`,
+          color: theme.text,
           padding: "8px 10px",
           fontSize: `${12 * fontScale}px`,
           lineHeight: 1.45,
@@ -244,7 +244,7 @@ function PortfolioWorkspace({ appearance, state, actions }) {
           fontFamily: "var(--copy-font)",
           outline: "none"
         }} />
-              <PixelFrame as="button" type="submit" theme={T} title="Send question" style={{
+              <PixelFrame as="button" type="submit" theme={theme} title="Send question" style={{
           padding: "8px 12px",
           display: "flex",
           alignItems: "center",

@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import ModalShell from "./ui/ModalShell";
 
 /** Enlarged, on-demand image viewer with its contextual description. */
@@ -9,7 +8,7 @@ export default function MediaInfoModal({ fontScale, media, onClose, pixelFont, t
       Image information
     </div>
     <div className="media-viewer" style={{ background: theme.panelAlt, borderColor: theme.border }}>
-      <img src={media.src} alt={media.alt} />
+      <img src={media.src} alt={media.alt} style={{ objectFit: media.objectFit || "contain", objectPosition: media.objectPosition || "center" }} />
     </div>
     <div className="media-caption" style={{ background: theme.panelAlt, borderColor: theme.accent, color: theme.text, fontSize: `${13 * fontScale}px` }}>
       {media.caption}

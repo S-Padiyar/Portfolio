@@ -74,7 +74,7 @@ export default function MailboxPanel({
         color: theme.accent,
         marginBottom: 2
       }}>
-        {unreadCount} unclaimed drop{unreadCount > 1 ? "s" : ""} waiting — click to claim
+        {unreadCount} unclaimed drop{unreadCount > 1 ? "s" : ""} waiting - click to claim
       </div>}
 
       {MAIL_ITEMS.map(mailItem => {
@@ -98,10 +98,9 @@ export default function MailboxPanel({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            background: theme.panelAlt,
-            border: `2px solid ${unread ? theme.accent : theme.border}`
+            background: unread ? theme.accent : theme.panel
           }}>
-            <PixelIcon name="mail" size={16} color={unread ? theme.accent : theme.textDim} />
+            <PixelIcon name="mail" size={16} color={unread ? theme.bg : theme.textDim} />
           </PixelFrame>
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{
@@ -121,14 +120,13 @@ export default function MailboxPanel({
           </div>
           {unread && <div style={{
             fontFamily: pixelFont,
-            fontSize: `${9 * fontScale}px`,
-            color: theme.accent,
-            background: theme.panelAlt,
-            border: `1px solid ${theme.border}`,
+            fontSize: `${8 * fontScale}px`,
+            color: theme.bg,
+            background: theme.accent,
             padding: "3px 6px",
             flexShrink: 0
           }}>
-            Unread
+            Loot
           </div>}
           <div style={{ fontSize: `${10 * fontScale}px`, color: theme.textFaint, flexShrink: 0 }}>
             {mailItem.date}

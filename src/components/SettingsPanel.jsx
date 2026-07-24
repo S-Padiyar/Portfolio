@@ -28,7 +28,7 @@ function SettingsPanel({
     width: isMobile ? "100%" : 300,
     height: "100%",
     background: theme.panel,
-    borderLeft: `3px solid ${theme.border}`,
+    borderLeft: `2px solid ${theme.border}`,
     zIndex: 20,
     padding: 20,
     overflowY: "auto"
@@ -213,13 +213,13 @@ function SettingsPanel({
               <div style={{
         fontSize: `${10 * fontScale}px`,
         color: theme.textDim,
-        marginBottom: 10,
+        marginBottom: 6,
         letterSpacing: "1px",
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center"
+        alignItems: "center",
+        transform: "translateY(-6px)"
       }}>
-                <span>Achievements</span>
                 <span style={{
           color: theme.textFaint,
           fontSize: `${9 * fontScale}px`

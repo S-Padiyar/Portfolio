@@ -3,7 +3,7 @@ import { PixelHeart } from "./DecorativeUI";
 import { AVATAR_IMAGES } from "../data/images";
 
 function PlayerStatus({
-  T,
+  theme,
   avatarRef,
   companion,
   fontScale,
@@ -14,7 +14,7 @@ function PlayerStatus({
   xp,
   xpGain
 }) {
-  return <PixelFrame theme={T} style={{
+  return <PixelFrame theme={theme} style={{
     width: "100%",
     padding: "14px 12px",
     marginBottom: 20,
@@ -26,14 +26,14 @@ function PlayerStatus({
             <div ref={avatarRef} style={{
       position: "relative"
     }}>
-              <PixelFrame theme={T} onClick={handleAvatarClick} title="Avatar" data-platform={companion ? "true" : undefined} style={{
+              <PixelFrame theme={theme} onClick={handleAvatarClick} title="Avatar" data-platform={companion ? "true" : undefined} style={{
         width: 96,
         height: 97,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: T.panelAlt,
-        border: `2px solid ${T.border}`,
+        background: theme.panelAlt,
+        border: `2px solid ${theme.border}`,
         overflow: "hidden",
         position: "relative"
       }}>
@@ -71,7 +71,7 @@ function PlayerStatus({
     }}>
               <div style={{
         fontSize: `${9 * fontScale}px`,
-        color: T.textDim,
+        color: theme.textDim,
         letterSpacing: "1px",
         paddingLeft: "1px",
         textAlign: "center",
@@ -84,11 +84,11 @@ function PlayerStatus({
         top: -4,
         fontFamily: pixelFont,
         fontSize: `${10 * fontScale}px`,
-        color: T.accent,
+        color: theme.accent,
         letterSpacing: "0.5px",
         animation: "xp-float 900ms ease-out forwards",
         pointerEvents: "none",
-        textShadow: `0 0 4px ${T.accent}88`
+        textShadow: `0 0 4px ${theme.accent}88`
       }}>
                   +{xpGain.amount} XP
                 </div>}
@@ -99,8 +99,8 @@ function PlayerStatus({
         maxWidth: 140,
         alignSelf: "center",
         height: 5,
-        border: `1px solid ${T.border}`,
-        background: T.panelAlt,
+        border: `1px solid ${theme.border}`,
+        background: theme.panelAlt,
         padding: 0,
         boxSizing: "border-box",
         overflow: "hidden"
@@ -110,7 +110,7 @@ function PlayerStatus({
           minHeight: 1,
           // XP is stored as progress within the current 100-point level.
           width: `${Math.max(0, Math.min(xp, 100))}%`,
-          background: T.accent,
+          background: theme.accent,
           transition: "width 300ms ease"
         }} />
               </div>
@@ -120,9 +120,9 @@ function PlayerStatus({
               target="_blank"
               rel="noopener noreferrer"
               title="https://www.gatech.edu/"
-              aria-label="GT '29 — https://www.gatech.edu/"
+              aria-label="GT '29 - https://www.gatech.edu/"
               style={{
-      color: T.accent,
+      color: theme.accent,
       fontSize: `${11 * fontScale}px`,
       letterSpacing: "0.5px",
       paddingLeft: "0.5px",
@@ -140,7 +140,7 @@ function PlayerStatus({
       gap: 3,
       justifyContent: "center"
     }}>
-              {[1, 2, 3, 4, 5].map(i => <PixelHeart key={i} size={11} filled={i <= 4} color={T.accent} bg={T.border} />)}
+              {[1, 2, 3, 4, 5].map(i => <PixelHeart key={i} size={11} filled={i <= 4} color={theme.accent} bg={theme.border} />)}
             </div>
 
             <div style={{
@@ -164,24 +164,24 @@ function PlayerStatus({
           display: "flex",
           justifyContent: "space-between",
           fontSize: `${9 * fontScale}px`,
-          color: T.textDim,
+          color: theme.textDim,
           marginBottom: 2
         }}>
                     <span>{s.label}</span>
                     <span style={{
-            color: T.accent
+            color: theme.accent
           }}>{s.val}%</span>
                   </div>
                   <div style={{
           height: 8,
-          background: T.panelAlt,
-          border: `1px solid ${T.border}`,
+          background: theme.panelAlt,
+          border: `1px solid ${theme.border}`,
           position: "relative"
         }}>
                     <div style={{
             width: `${s.val}%`,
             height: "100%",
-            background: T.accent
+            background: theme.accent
           }} />
                   </div>
                 </div>)}

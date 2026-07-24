@@ -1,199 +1,181 @@
-// Skill Tree nodes.
+// Skill Tree nodes stay general, while examples point back to real portfolio work.
 export const SKILL_NODES = [
   {
     id: "core",
-    label: "Core\nSkills",
+    label: "Engineering\nCore",
     branch: "core",
     icon: "bolt",
-    x: 50,
-    y: 50,
     requires: [],
     xp: 20,
-    desc: "The center of it all — curiosity, problem-solving, and a habit of building things to learn how they work.",
+    desc: "The center of the tree: curiosity, problem-solving, communication, and the habit of turning messy requirements into working systems.",
     experiences: [
-      "Years of side projects, competitions, and coursework",
-      "The root everything else on this tree grew out of",
-    ],
+      "Georgia Tech CS foundation - data structures, algorithms, discrete math, and computing systems",
+      "Built this portfolio as a production-style React project",
+      "Combined software, robotics, research, and cloud experience into one coherent system"
+    ]
   },
   {
-    id: "prog-basics",
-    label: "Programming\nFundamentals",
+    id: "programming-languages",
+    label: "Programming\nLanguages",
     branch: "code",
     icon: "monitor",
-    x: 34,
-    y: 50,
     requires: ["core"],
     xp: 40,
-    desc: "Core CS fundamentals — data structures, algorithms, and clean-code habits built through coursework and personal projects.",
+    desc: "Java, Python, JavaScript, TypeScript, C/C++, and SQL used across web apps, robotics code, research scripts, and coursework.",
     experiences: [
-      "Coursework: Data Structures & Algorithms, Discrete Math",
-      "Built small CLI tools and automation scripts to learn the basics",
-    ],
+      "Georgia Tech coursework - object-oriented programming, data structures, and algorithms",
+      "FTC Code - Java robot control and autonomous routines",
+      "AI Evaluation Pipeline - Python research automation",
+      "Sunmay Portfolio - React and JavaScript frontend work"
+    ]
   },
   {
-    id: "web-dev",
-    label: "Web\nDevelopment",
+    id: "web-applications",
+    label: "Web\nApplications",
     branch: "code",
     icon: "monitor",
-    x: 20,
-    y: 50,
-    requires: ["prog-basics"],
+    requires: ["programming-languages"],
     xp: 60,
-    desc: "React, component architecture, and responsive layouts — leveled up building real interfaces instead of tutorials.",
+    desc: "Frontend application development with reusable components, responsive layouts, stateful interactions, and user-focused polish.",
     experiences: [
-      "Project one — built the full frontend in React / TypeScript",
-      "Freelance: landing pages for two small local businesses",
-    ],
+      "Sunmay Portfolio - game-inspired interface with settings, achievements, mailbox, and GitHub activity",
+      "NOVA Cloud LLC - cloud-services internship context for client-facing software"
+    ]
   },
   {
-    id: "fullstack",
-    label: "Full-Stack\nApps",
+    id: "backend-apis",
+    label: "Backend &\nAPIs",
     branch: "code",
     icon: "monitor",
-    x: 8,
-    y: 50,
-    requires: ["web-dev"],
+    requires: ["web-applications"],
     xp: 90,
-    desc: "Wiring frontend to backend — APIs, auth, and databases — enough to ship a complete product end to end.",
+    desc: "API wiring, environment configuration, request validation, and backend boundaries that keep sensitive keys out of the browser.",
     experiences: [
-      "Project two — Java backend + REST API for a robotics dashboard",
-      "Internship: shipped a feature end-to-end from DB to UI",
-    ],
+      "Georgia Tech coursework - computer organization and systems-level thinking",
+      "Botmay Worker - Cloudflare endpoint for the Gemini assistant",
+      "Contact form - Formspree-backed message submission",
+      "GitHub Quest Log - fetches recent repository commit history"
+    ]
   },
   {
-    id: "cloud",
-    label: "Cloud\nDeployment",
-    branch: "code",
+    id: "cloud-platforms",
+    label: "Cloud\nPlatforms",
+    branch: "cloud",
     icon: "cloud",
-    x: 4,
-    y: 50,
-    requires: ["fullstack"],
-    xp: 110,
-    desc: "Deploying and operating applications with hosted infrastructure, environment configuration, production builds, and managed services.",
-    experiences: [
-      "Portfolio deployment — production builds, environment variables, and hosted releases",
-      "Full-stack projects — connected hosted frontends to APIs and managed services",
-    ],
-  },
-  {
-    id: "design-fund",
-    label: "Design\nFundamentals",
-    branch: "design",
-    icon: "bolt",
-    x: 50,
-    y: 34,
     requires: ["core"],
-    xp: 30,
-    desc: "Typography, color, and layout basics — the groundwork for making things that are usable and don't look like a spreadsheet.",
+    xp: 50,
+    desc: "Hosted services, environment variables, production builds, and the practical parts of deploying software safely.",
     experiences: [
-      "Self-taught via personal projects and this very site",
-      "Ran visual QA/design passes for a club's marketing materials",
-    ],
+      "NOVA Cloud LLC - internship centered on cloud-services engineering",
+      "Sunmay Portfolio - Cloudflare Worker configuration and local Worker testing"
+    ]
   },
   {
-    id: "ui-systems",
-    label: "UI/UX\nSystems",
-    branch: "design",
-    icon: "bolt",
-    x: 50,
-    y: 20,
-    requires: ["design-fund"],
-    xp: 55,
-    desc: "Designing consistent, reusable UI systems — component libraries, theming, and interaction patterns like the one running this page.",
+    id: "automation-testing",
+    label: "Automation &\nTesting",
+    branch: "cloud",
+    icon: "gear",
+    requires: ["cloud-platforms"],
+    xp: 75,
+    desc: "Testing and automation habits that make code safer to change, especially when UI, backend, and external APIs meet.",
     experiences: [
-      "Designed the theme system (Amber / Violet / Mono) on this site",
-      "Prototyped UI flows for a hackathon project",
-    ],
+      "Georgia Tech coursework - algorithms and discrete math habits for reasoning about edge cases",
+      "React component tests for contact, character, companion, and frame behavior",
+      "Worker tests for CORS, validation, rate limiting, and high-demand assistant responses"
+    ]
   },
   {
-    id: "design-systems",
-    label: "Product\nDesign",
-    branch: "design",
-    icon: "bolt",
-    x: 50,
-    y: 8,
-    requires: ["ui-systems"],
+    id: "cloud-systems",
+    label: "Cloud\nSystems",
+    branch: "cloud",
+    icon: "cloud",
+    requires: ["automation-testing"],
+    xp: 105,
+    desc: "Designing deployed systems with boundaries between frontend UX, backend requests, secrets, and provider APIs.",
+    experiences: [
+      "Botmay assistant - frontend chat routed through a Worker instead of exposing the Gemini key",
+      "NOVA Cloud LLC - continued cloud-services learning in a professional setting"
+    ]
+  },
+  {
+    id: "hardware-integration",
+    label: "Hardware\nIntegration",
+    branch: "robotics",
+    icon: "gear",
+    requires: ["core"],
+    xp: 45,
+    desc: "Connecting real hardware, sensors, motors, mechanisms, and software so the robot behaves as one system.",
+    experiences: [
+      "CyberSages FTC Team #23541 - competition robot build and integration",
+      "FTC arm mechanism - software had to coordinate with physical constraints"
+    ]
+  },
+  {
+    id: "control-systems",
+    label: "Control\nSystems",
+    branch: "robotics",
+    icon: "gear",
+    requires: ["hardware-integration"],
     xp: 80,
-    desc: "Taking a rough idea to a polished, cohesive product — end-to-end design thinking, not just individual screens.",
+    desc: "PID/PIDF tuning, telemetry, autonomous movement, and iterative debugging for repeatable robot behavior.",
     experiences: [
-      "Designed this entire portfolio site's look and feel",
-      "Led design reviews for a team hackathon project",
-    ],
+      "Georgia Tech math foundation - linear algebra and multivariable calculus for modeling motion and systems",
+      "FTC Code - velocity tuning and telemetry analysis",
+      "Road Runner pathing - autonomous field trajectories"
+    ]
   },
   {
-    id: "circuits",
-    label: "Electronics &\nCircuits",
+    id: "technical-leadership",
+    label: "Technical\nLeadership",
     branch: "robotics",
-    icon: "gear",
-    x: 66,
-    y: 50,
-    requires: ["core"],
-    xp: 40,
-    desc: "Reading schematics, soldering, and debugging circuits by multimeter — the hands-on foundation for everything hardware.",
-    experiences: [
-      "Robotics club: built and repaired sensor wiring harnesses",
-      "Coursework: intro circuits lab",
-    ],
-  },
-  {
-    id: "embedded",
-    label: "Embedded\nSystems",
-    branch: "robotics",
-    icon: "gear",
-    x: 80,
-    y: 50,
-    requires: ["circuits"],
-    xp: 65,
-    desc: "Microcontroller firmware — reading sensors, driving motors, and getting code to survive contact with real hardware.",
-    experiences: [
-      "Programmed motor controllers for the competition robot",
-      "Built a sensor-logging rig for a side project",
-    ],
-  },
-  {
-    id: "robotics-ctrl",
-    label: "Robotics &\nControls",
-    branch: "robotics",
-    icon: "gear",
-    x: 92,
-    y: 50,
-    requires: ["embedded"],
-    xp: 95,
-    desc: "Closed-loop control, autonomous routines, and systems integration — making the whole robot act like one coherent thing.",
-    experiences: [
-      "Project three — autonomous navigation routine (Python / AI)",
-      "Sponsorship-winning season leading the controls sub-team",
-    ],
-  },
-  {
-    id: "capstone",
-    label: "Capstone\nProjects",
-    branch: "experience",
     icon: "briefcase",
-    x: 50,
-    y: 66,
+    requires: ["control-systems"],
+    xp: 110,
+    desc: "Leading technical decisions, coordinating teammates, preparing for competition, and keeping work moving under deadlines.",
+    experiences: [
+      "Founder and captain of CyberSages FTC Team #23541",
+      "National Center for Simulation scholarship recognition"
+    ]
+  },
+  {
+    id: "ai-research",
+    label: "AI\nResearch",
+    branch: "research",
+    icon: "bolt",
     requires: ["core"],
+    xp: 50,
+    desc: "Turning questions about model behavior into experiments that can be measured, compared, and explained clearly.",
+    experiences: [
+      "Georgia Tech coursework - discrete math and algorithms for formal problem solving",
+      "AI Evaluation Pipeline - compared prompting strategies on Codeforces problems",
+      "George Mason University - research presentation and paper materials"
+    ]
+  },
+  {
+    id: "ai-engineering",
+    label: "AI\nEngineering",
+    branch: "research",
+    icon: "monitor",
+    requires: ["ai-research"],
+    xp: 80,
+    desc: "Building practical AI workflows that collect data, call model APIs, preserve results, and make evaluation repeatable.",
+    experiences: [
+      "Prompting workflow - initialized clients, generated runs, saved outputs, and tracked grader results",
+      "Botmay companion - applied assistant UX, safety boundaries, and portfolio-specific knowledge"
+    ]
+  },
+  {
+    id: "research-communication",
+    label: "Research\nCommunication",
+    branch: "research",
+    icon: "briefcase",
+    requires: ["ai-engineering"],
     xp: 100,
-    desc: "Full products that needed code, design, and hardware working together under a deadline.",
+    desc: "Explaining technical work through diagrams, results charts, abstracts, presentations, and human-readable writing.",
     experiences: [
-      "Led a cross-functional team combining software + hardware",
-      "Shipped an internship deliverable used in production",
-    ],
-  },
-  {
-    id: "professional",
-    label: "Professional\nExperience",
-    branch: "experience",
-    icon: "briefcase",
-    x: 50,
-    y: 84,
-    requires: ["capstone"],
-    xp: 200,
-    desc: "The Guild Hall stuff — internships, sponsorships, and real teams that trusted me with real work.",
-    experiences: [
-      "Software Engineering Internship — Acme Robotics Corp.",
-      "R&D Internship — Quantum Labs",
-      "Sponsored season lead — Neptune Robotics",
-    ],
-  },
+      "Georgia Tech coursework - computing and society for connecting technical work to human impact",
+      "George Mason University - presented AI research to a formal audience",
+      "AI Evaluation Pipeline - charts and process diagrams made the methodology easier to review"
+    ]
+  }
 ];

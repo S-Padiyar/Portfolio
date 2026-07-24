@@ -89,7 +89,7 @@ export default function CompanionPanel({
     right: 0,
     height: "100%",
     width: isMobile ? "100%" : 320,
-    borderLeft: `3px solid ${theme.border}`,
+    borderLeft: `3px solid ${theme.accent}`,
     background: theme.panel,
     display: "flex",
     flexDirection: "column",

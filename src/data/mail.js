@@ -1,27 +1,24 @@
-// Mailbox inbox items.
+/* Mailbox milestone messages are data-driven so the inbox stays easy to extend. */
 export const MAIL_ITEMS = [
   {
     id: "m1",
-    from: "Acme Robotics Corp.",
-    subject: "Internship Offer — Summer 2026",
-    date: "MAY 12",
-    body:
-      "Congratulations! After reviewing your application and interview, we're thrilled to offer you a Software Engineering Internship for Summer 2026. Welcome to the team.",
+    from: "NOVA Cloud LLC",
+    subject: "Congratulations - Internship",
+    date: "JUL 23",
+    body: "Congratulations on being accepted for an internship with NOVA Cloud. This opportunity gives me a real engineering environment to keep building cloud, web, and testing skills while respecting client confidentiality.",
   },
   {
     id: "m2",
-    from: "Neptune Robotics Sponsorship",
-    subject: "You've Been Selected as a Sponsor Recipient",
-    date: "APR 03",
-    body:
-      "Your team's proposal stood out among a competitive pool of applicants. We're proud to sponsor your robotics season this year with funding and equipment support.",
+    from: "George Mason University",
+    subject: "Congratulations - Internship",
+    date: "JUL 23",
+    body: "Congratulations on the George Mason University internship. The research work focused on prompt engineering, competitive programming, and AI evaluation, turning model behavior into something measurable, presentable, and easier to reason about.",
   },
   {
     id: "m3",
-    from: "Quantum Labs Recruiting",
-    subject: "Offer of Acceptance — R&D Intern",
-    date: "MAR 21",
-    body:
-      "It is our pleasure to formally extend an offer for the R&D Internship position. Your problem-solving skills during the technical interview left a strong impression on our panel.",
+    from: "National Center for Simulation",
+    subject: "Congratulations - Scholarship",
+    date: "JUL 23",
+    body: "Congratulations on earning the National Center for Simulation Scholarship. This recognition connects directly to the robotics, engineering, and applied problem-solving work that shaped this portfolio.",
   },
 ];

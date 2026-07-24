@@ -36,7 +36,7 @@ export default function CharacterSheet({ theme, fontScale, isMobile, level, pixe
 
       <div style={{ display: "grid", gridTemplateColumns: cardGrid, gap: 14, alignItems: "start" }}>
         <div>
-          <a href={GEORGIA_TECH_URL} target="_blank" rel="noopener noreferrer" title={GEORGIA_TECH_URL} style={{ color: theme.accent, textDecoration: "none", fontSize: `${11 * fontScale}px` }}>Georgia Tech · Computer Science · Class of 2029</a>
+          <a href={GEORGIA_TECH_URL} target="_blank" rel="noopener noreferrer" title={GEORGIA_TECH_URL} style={{ color: theme.accent, textDecoration: "none", fontSize: `${11 * fontScale}px` }}>Georgia Tech - Computer Science - Class of 2029</a>
           <p style={{ margin: "10px 0 12px", fontFamily: "var(--copy-font)", color: theme.textDim, fontSize: `${13 * fontScale}px`, lineHeight: 1.6 }}>I build software where careful engineering matters: cloud products, full-stack applications, AI evaluation tools, and autonomous robotics. I enjoy turning ambiguous problems into systems that are clear, testable, and useful to real people.</p>
           <StatGrid theme={theme} fontScale={fontScale} />
         </div>

@@ -4,7 +4,7 @@ import PixelIcon from "./PixelIcon";
 import { NAV_ITEMS } from "../data/nav";
 
 function Sidebar({
-  T,
+  theme,
   active,
   avatarRef,
   beep,
@@ -30,12 +30,12 @@ function Sidebar({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    borderRight: isMobile ? "none" : `3px solid ${T.border}`,
-    borderBottom: isMobile ? `3px solid ${T.border}` : "none",
-    background: T.panel,
+    borderRight: isMobile ? "none" : `3px solid ${theme.border}`,
+    borderBottom: isMobile ? `3px solid ${theme.border}` : "none",
+    background: theme.panel,
     flexShrink: 0
   }}>
-          <PlayerStatus T={T} avatarRef={avatarRef} companion={companion} fontScale={fontScale} handleAvatarClick={handleAvatarClick} level={level} pixelFont={pixelFont} themeKey={themeKey} xp={xp} xpGain={xpGain} />
+          <PlayerStatus theme={theme} avatarRef={avatarRef} companion={companion} fontScale={fontScale} handleAvatarClick={handleAvatarClick} level={level} pixelFont={pixelFont} themeKey={themeKey} xp={xp} xpGain={xpGain} />
 
           <div style={{
       width: "100%",
@@ -44,21 +44,21 @@ function Sidebar({
       gap: 8,
       flexGrow: 1
     }}>
-            {NAV_ITEMS.map(item => <PixelFrame key={item.id} theme={T} active={active === item.id} onClick={() => handleNavClick(item.id)} title={item.label} data-platform={companion ? "true" : undefined} style={{
+            {NAV_ITEMS.map(item => <PixelFrame key={item.id} theme={theme} active={active === item.id} onClick={() => handleNavClick(item.id)} title={item.label} data-platform={companion ? "true" : undefined} style={{
         display: "flex",
         alignItems: "center",
         gap: 10,
         padding: "9px 10px",
         fontSize: `${11 * fontScale}px`
       }}>
-                <PixelIcon name={item.icon} size={14} color={active === item.id ? T.bg : T.accent} />
+                <PixelIcon name={item.icon} size={14} color={active === item.id ? theme.bg : theme.accent} />
                 <span style={{
-          color: active === item.id ? T.bg : T.text
+          color: active === item.id ? theme.bg : theme.text
         }}>
                   {item.label}
                 </span>
               </PixelFrame>)}
-            {hiddenRoomUnlocked && <PixelFrame theme={T} onClick={() => {
+            {hiddenRoomUnlocked && <PixelFrame theme={theme} onClick={() => {
         setHiddenRoomOpen(true);
         beep(600, 0.06);
       }} title="Dungeon" style={{
@@ -67,17 +67,17 @@ function Sidebar({
         gap: 10,
         padding: "9px 10px",
         fontSize: `${11 * fontScale}px`,
-        border: `2px dashed ${T.border}`
+        border: `2px dashed ${theme.border}`
       }}>
-                <PixelIcon name="gear" size={14} color={T.accent} />
+                <PixelIcon name="book" size={14} color={theme.accent} />
                 <span style={{
-          color: T.text
+          color: theme.text
         }}>Hidden Dungeon</span>
               </PixelFrame>}
           </div>
 
           {/* Live GitHub commit feed */}
-          <PixelFrame theme={T} style={{
+          <PixelFrame theme={theme} style={{
       width: "100%",
       marginTop: 16,
       padding: "10px 10px",
@@ -109,7 +109,7 @@ function Sidebar({
               <span style={{
           fontFamily: pixelFont,
           fontSize: `${12 * fontScale}px`,
-          color: T.accent,
+          color: theme.accent,
           lineHeight: 1.6
         }}>Quest Log</span>
             </div>
@@ -123,26 +123,27 @@ function Sidebar({
               {commits?.length ? commits.map((commit, index) => <a key={commit.url} href={commit.url} target="_blank" rel="noopener noreferrer" title={commit.url} onClick={() => beep(360)} style={{
           fontFamily: "var(--copy-font)",
           fontSize: `${9 * fontScale}px`,
-          color: T.text,
+          color: theme.text,
           lineHeight: 1.5,
           padding: "6px 0",
-          borderBottom: index < commits.length - 1 ? `1px solid ${T.border}` : "none",
+          borderBottom: index < commits.length - 1 ? `1px solid ${theme.border}` : "none",
           cursor: "pointer",
           textDecoration: "none"
         }}>
           <span style={{
-            color: T.accent,
+            color: theme.accent,
             fontWeight: 700,
             fontSize: `${11 * fontScale}px`
           }}>▸ {commit.repository}</span>
                       <br />
           <span style={{
-            color: T.textDim,
-            fontSize: `${9 * fontScale}px`
-          }}>Pushed: &quot;{commit.message.slice(0, 30)}&quot;</span>
+            color: theme.textDim,
+            fontSize: `${9 * fontScale}px`,
+            overflowWrap: "anywhere"
+          }}>Pushed: &quot;{commit.message}&quot;</span>
                     </a>) : <div style={{
           fontSize: `${9 * fontScale}px`,
-          color: T.textFaint,
+          color: theme.textFaint,
           lineHeight: 1.4
         }}>
                       {commitsError || commits?.length === 0 ? "No public commits found." : "Loading GitHub commits..."}

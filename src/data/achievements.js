@@ -13,8 +13,6 @@ export const ACHIEVEMENTS = [
   { id: "skill_inspector", label: "Build Check", desc: "Inspect a node in the Skill Tree.", xp: 6 },
   { id: "mail_reader", label: "Scroll Reader", desc: "Open a message in the Mailbox.", xp: 5 },
   { id: "message_sent", label: "Courier", desc: "Launch a portfolio email.", xp: 10 },
-  { id: "first_chat", label: "Party Chat", desc: "Send a message to Companion.", xp: 8 },
-  { id: "game_on", label: "Player One", desc: "Launch a game from the Game Vault.", xp: 10 },
-  { id: "vault_raider", label: "Vault Raider", desc: "Enter the Companion Vault with the playable companion.", xp: 20 },
+  { id: "first_chat", label: "Party Chat", desc: "Send a message to Botmay.", xp: 8 },
   { id: "achievement_hunter", label: "Badge Check", desc: "Open the Achievements panel.", xp: 4 },
 ];

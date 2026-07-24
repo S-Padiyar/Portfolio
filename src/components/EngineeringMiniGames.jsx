@@ -65,7 +65,7 @@ export function CloudQuestGame({ theme, beep, fontScale, pixelFont }) {
 
   return <div>
     <div style={{ color: theme.textDim, fontSize: `${12 * fontScale}px`, lineHeight: 1.55, marginBottom: 12 }}>
-      Route each request to the best AWS service. Score: {score}/{CLOUD_QUESTIONS.length} · Streak: {streak}
+      Route each request to the best AWS service. Score: {score}/{CLOUD_QUESTIONS.length} - Streak: {streak}
     </div>
     <PixelFrame theme={theme} style={{ padding: 14, background: theme.panelAlt, marginBottom: 12 }}>
       <div style={{ fontFamily: pixelFont, fontSize: `${10 * fontScale}px`, color: theme.text, lineHeight: 1.6 }}>
@@ -88,7 +88,7 @@ export function CloudQuestGame({ theme, beep, fontScale, pixelFont }) {
     </div>
     {selected && <div style={{ marginTop: 12, display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10 }}>
       <div style={{ color: selected === question.answer ? theme.accent : theme.textDim, fontSize: `${11 * fontScale}px` }}>
-        {selected === question.answer ? "Correct route." : `Not quite — ${question.answer} fits this request.`}
+        {selected === question.answer ? "Correct route." : `Not quite - ${question.answer} fits this request.`}
       </div>
       <PixelFrame theme={theme} onClick={advance} style={{ padding: "7px 10px" }}>
         {complete ? "Restart" : "Next"}
@@ -136,7 +136,7 @@ export function PidTargetGame({ theme, beep, fontScale, pixelFont }) {
 
   return <div>
     <div style={{ color: theme.textDim, fontSize: `${12 * fontScale}px`, lineHeight: 1.55 }}>
-      Round {round} · Score {score}. Account for wind and land within five units of the {target}-unit target.
+      Round {round} - Score {score}. Account for wind and land within five units of the {target}-unit target.
     </div>
     <div style={{ position: "relative", height: 94, margin: "14px 0", background: theme.panelAlt, border: `2px solid ${theme.border}` }}>
       <div style={{ position: "absolute", left: 14, bottom: 14, width: 24, height: 18, background: theme.accent }} />
@@ -159,7 +159,7 @@ export function PidTargetGame({ theme, beep, fontScale, pixelFont }) {
     </label>
     <div style={{ marginTop: 12, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10 }}>
       <div style={{ color: result?.hit ? theme.accent : theme.textDim, fontSize: `${11 * fontScale}px` }}>
-        {result ? `${result.distance} units — ${result.hit ? "target locked" : "adjust and retry"}` : "Ready to launch."}
+        {result ? `${result.distance} units - ${result.hit ? "target locked" : "adjust and retry"}` : "Ready to launch."}
       </div>
       <PixelFrame theme={theme} disabled={launching} onClick={result?.hit ? nextTarget : launch} style={{ padding: "8px 12px", opacity: launching ? .65 : 1 }}>{launching ? "In flight..." : result?.hit ? "Next target" : "Launch"}</PixelFrame>
     </div>
@@ -276,10 +276,10 @@ export function CompanionRunGame({ theme, beep, fontScale }) {
 
   return <div>
     <div style={{ color: theme.accent, fontSize: `${10 * fontScale}px`, marginBottom: 7 }}>
-      Data shards: {shards.length}/{SHARD_RATIOS.length} · Errors: {falls}
+      Data shards: {shards.length}/{SHARD_RATIOS.length} - Errors: {falls}
     </div>
     <div style={{ color: theme.textDim, fontSize: `${11 * fontScale}px`, lineHeight: 1.5, marginBottom: 10 }}>
-      Reach the exit without touching the error blocks. Use ← → and ↑/Space, or the controls below.
+      Reach the exit without touching the error blocks. Use left/right and ↑/Space, or the controls below.
     </div>
     <div ref={arenaRef} style={{ position: "relative", height: 220, overflow: "hidden", background: theme.panelAlt, border: `2px solid ${theme.border}` }}>
       <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: 30, background: theme.border }} />
@@ -305,15 +305,15 @@ export function CompanionRunGame({ theme, beep, fontScale }) {
       {won && <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", background: `${theme.bg}dd`, zIndex: 2 }}>
         <PixelFrame theme={theme} style={{ padding: 16, textAlign: "center" }}>
           <div style={{ color: theme.accent, marginBottom: 8 }}>Stage clear!</div>
-          <div style={{ color: theme.textDim, fontSize: `${10 * fontScale}px`, marginBottom: 10 }}>Shards: {shards.length}/{SHARD_RATIOS.length} · Errors: {falls}</div>
+          <div style={{ color: theme.textDim, fontSize: `${10 * fontScale}px`, marginBottom: 10 }}>Shards: {shards.length}/{SHARD_RATIOS.length} - Errors: {falls}</div>
           <PixelFrame theme={theme} onClick={restart} style={{ padding: "7px 10px" }}>Run again</PixelFrame>
         </PixelFrame>
       </div>}
     </div>
     <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 10 }}>
-      <PixelFrame as="button" theme={theme} onPointerDown={() => setControl("left", true)} onPointerUp={() => setControl("left", false)} onPointerLeave={() => setControl("left", false)} style={{ padding: "8px 16px" }}>←</PixelFrame>
+      <PixelFrame as="button" theme={theme} onPointerDown={() => setControl("left", true)} onPointerUp={() => setControl("left", false)} onPointerLeave={() => setControl("left", false)} style={{ padding: "8px 16px" }}>Left</PixelFrame>
       <PixelFrame as="button" theme={theme} onPointerDown={() => setControl("jump", true)} style={{ padding: "8px 16px" }}>Jump</PixelFrame>
-      <PixelFrame as="button" theme={theme} onPointerDown={() => setControl("right", true)} onPointerUp={() => setControl("right", false)} onPointerLeave={() => setControl("right", false)} style={{ padding: "8px 16px" }}>→</PixelFrame>
+      <PixelFrame as="button" theme={theme} onPointerDown={() => setControl("right", true)} onPointerUp={() => setControl("right", false)} onPointerLeave={() => setControl("right", false)} style={{ padding: "8px 16px" }}>Right</PixelFrame>
     </div>
   </div>;
 }

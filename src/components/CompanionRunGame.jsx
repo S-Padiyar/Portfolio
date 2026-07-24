@@ -155,14 +155,14 @@ export default function CompanionRunGame({ theme, beep, fontScale }) {
       <div style={{ position: "absolute", left: player.x - player.camera, top: player.y, width: 30, height: 30 }}><PixelSprite frame={player.y < 220 ? "jump" : "walk1"} size={30} color={theme.accent} facing={player.facing} /></div>
       {won && <div style={{ position: "absolute", inset: 0, zIndex: 3, display: "grid", placeItems: "center", background: `${theme.bg}e8` }}><PixelFrame theme={theme} style={{ padding: 18, textAlign: "center" }}>
         <div style={{ color: theme.accent, marginBottom: 8 }}>Stage clear!</div>
-        <div style={{ color: theme.textDim, fontSize: `${10 * fontScale}px`, marginBottom: 12 }}>Time {seconds}s · Errors {damage} · Score {Math.max(100, 1200 - seconds * 10 - damage * 75)}</div>
+        <div style={{ color: theme.textDim, fontSize: `${10 * fontScale}px`, marginBottom: 12 }}>Time {seconds}s - Errors {damage} - Score {Math.max(100, 1200 - seconds * 10 - damage * 75)}</div>
         <PixelFrame theme={theme} onClick={restart} style={{ padding: "8px 12px" }}>Run again</PixelFrame>
       </PixelFrame></div>}
     </div>
     <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 10 }}>
-      <PixelFrame as="button" theme={theme} aria-label="Move left" onPointerDown={() => setControl("left", true)} onPointerUp={() => setControl("left", false)} onPointerLeave={() => setControl("left", false)} style={{ padding: "9px 18px" }}>←</PixelFrame>
+      <PixelFrame as="button" theme={theme} aria-label="Move left" onPointerDown={() => setControl("left", true)} onPointerUp={() => setControl("left", false)} onPointerLeave={() => setControl("left", false)} style={{ padding: "9px 18px" }}>Left</PixelFrame>
       <PixelFrame as="button" theme={theme} onPointerDown={() => setControl("jump", true)} style={{ padding: "9px 18px" }}>Jump</PixelFrame>
-      <PixelFrame as="button" theme={theme} aria-label="Move right" onPointerDown={() => setControl("right", true)} onPointerUp={() => setControl("right", false)} onPointerLeave={() => setControl("right", false)} style={{ padding: "9px 18px" }}>→</PixelFrame>
+      <PixelFrame as="button" theme={theme} aria-label="Move right" onPointerDown={() => setControl("right", true)} onPointerUp={() => setControl("right", false)} onPointerLeave={() => setControl("right", false)} style={{ padding: "9px 18px" }}>Right</PixelFrame>
     </div>
   </div>;
 }

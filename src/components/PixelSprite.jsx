@@ -1,6 +1,6 @@
 import { SPRITE_FRAMES } from "../data/spriteFrames";
 
-// A small 2D character sprite — head, arms, torso, and animated legs —
+// A small 2D character sprite - head, arms, torso, and animated legs -
 // with idle, two walk frames, and a jump pose.
 export default function PixelSprite({ frame = "idle", size = 40, color = "#e8a54b", facing = 1 }) {
   const grid = SPRITE_FRAMES[frame] || SPRITE_FRAMES.idle;

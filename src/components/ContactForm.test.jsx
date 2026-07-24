@@ -16,7 +16,7 @@ afterEach(cleanup);
 it("exposes labeled contact fields and submits through the form", () => {
   const sendMail = vi.fn();
   render(<ContactForm
-    T={theme}
+    theme={theme}
     bodyFont="monospace"
     composeEmail="visitor@example.com"
     composeMsg="Hello"

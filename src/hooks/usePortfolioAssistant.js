@@ -3,13 +3,13 @@ import { requestAssistantReply } from "../services/assistantClient";
 
 const WELCOME_MESSAGE = {
   from: "ai",
-  text: "Ask me about Sunmay's projects, skills, experience, or education."
+  text: "Hey! I'm Botmay. I can help you explore Sunmay's projects, skills, experience, education, or anything else on this portfolio. What would you like to check out first?"
 };
 
 const CONNECTION_ERROR_MESSAGE = "I couldn't connect right now. Please try again later.";
 const HIGH_DEMAND_MESSAGE = "The model is experiencing high demand right now. Please try again shortly.";
 
-/** Manage the Companion conversation and its single in-flight request. */
+/** Manage the Botmay conversation and its single in-flight request. */
 export default function usePortfolioAssistant({ beep, endpoint, unlockAchievement }) {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([WELCOME_MESSAGE]);

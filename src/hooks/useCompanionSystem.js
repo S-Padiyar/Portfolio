@@ -245,7 +245,7 @@ export default function useCompanionSystem({
     const dist = Math.hypot(companion.x + 20 - (rect.left + rect.width / 2), companion.y + 20 - (rect.top + rect.height / 2));
     if (dist < 40) {
       setReunionFound(true);
-      setEncounterMsg("Your companion found you. It looks pleased.");
+      setEncounterMsg("Botmay found you. It looks pleased.");
       unlockAchievement("reunion");
       beep(600, 0.1);
       schedule(() => setEncounterMsg(null), 2200);

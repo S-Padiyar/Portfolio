@@ -5,7 +5,7 @@ import { GithubLogo, LinkedInLogo } from "./SocialLogos";
 import { LOGO_IMAGES } from "../data/images";
 
 function TopBar({
-  T,
+  theme,
   aiOpen,
   beep,
   fontScale,
@@ -28,8 +28,8 @@ function TopBar({
     alignItems: "center",
     justifyContent: "space-between",
     padding: "10px 16px",
-    background: T.panel,
-    borderBottom: `3px solid ${T.border}`,
+    background: theme.panel,
+    borderBottom: `3px solid ${theme.border}`,
     flexWrap: "wrap",
     gap: 10,
     rowGap: 8
@@ -45,7 +45,7 @@ function TopBar({
         height: 34,
         flexShrink: 0
       }}>
-            <PixelFrame theme={T} onClick={handleLogoDoubleClick} title="Logo" style={{
+            <PixelFrame theme={theme} onClick={handleLogoDoubleClick} title="Logo" style={{
           width: 34,
           height: 34,
           display: "flex",
@@ -99,8 +99,8 @@ function TopBar({
           top: s.y,
           width: s.size,
           height: s.size,
-          background: T.accent,
-          boxShadow: `0 0 4px ${T.accent}`,
+          background: theme.accent,
+          boxShadow: `0 0 4px ${theme.accent}`,
           animation: `logo-sparkle 550ms ease-out ${s.delay}ms forwards`,
           pointerEvents: "none"
         }} />)}
@@ -121,7 +121,7 @@ function TopBar({
         }} title="Portfolio">SUNMAY PADIYAR</div>
             <div style={{
           fontSize: `${10 * fontScale}px`,
-          color: T.textDim,
+          color: theme.textDim,
           letterSpacing: "1px",
           lineHeight: 1,
           margin: 0
@@ -139,7 +139,7 @@ function TopBar({
             href="/Sunmay-Padiyar-Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            theme={T}
+            theme={theme}
             onClick={() => beep(300)}
             title="/Sunmay-Padiyar-Resume.pdf"
             style={{
@@ -153,7 +153,7 @@ function TopBar({
             <PixelIcon name="briefcase" size={12} />
             {!isTablet && "RESUME"}
           </PixelFrame>
-      <PixelFrame theme={T} onClick={() => {
+      <PixelFrame theme={theme} onClick={() => {
         beep(300);
         // The top-bar email shortcut should lead directly to the contact form,
         // even when the visitor previously left the Mailbox on its inbox tab.
@@ -170,7 +170,7 @@ function TopBar({
             <PixelIcon name="mail" size={12} />
             {!isTablet && "EMAIL"}
           </PixelFrame>
-          <PixelFrame as="a" href="https://calendar.app.google/Ng2aCz3XWeMGxjfn8" target="_blank" rel="noopener noreferrer" theme={T} onClick={() => beep(300)} title="https://calendar.app.google/Ng2aCz3XWeMGxjfn8" style={{
+          <PixelFrame as="a" href="https://calendar.app.google/Ng2aCz3XWeMGxjfn8" target="_blank" rel="noopener noreferrer" theme={theme} onClick={() => beep(300)} title="https://calendar.app.google/Ng2aCz3XWeMGxjfn8" style={{
         padding: "6px 10px",
         display: "flex",
         alignItems: "center",
@@ -181,7 +181,7 @@ function TopBar({
             <PixelIcon name="calendar" size={12} />
             {!isTablet && "CALENDAR"}
           </PixelFrame>
-          <PixelFrame as="a" href="https://www.linkedin.com/in/sunmay-padiyar/" target="_blank" rel="noopener noreferrer" theme={T} onClick={() => beep(300)} title="https://www.linkedin.com/in/sunmay-padiyar/" style={{
+          <PixelFrame as="a" href="https://www.linkedin.com/in/sunmay-padiyar/" target="_blank" rel="noopener noreferrer" theme={theme} onClick={() => beep(300)} title="https://www.linkedin.com/in/sunmay-padiyar/" style={{
         padding: "6px 10px",
         display: "flex",
         alignItems: "center",
@@ -189,10 +189,10 @@ function TopBar({
         fontSize: `${10 * fontScale}px`,
         textDecoration: "none"
       }}>
-            <LinkedInLogo size={13} color={T.text} />
+            <LinkedInLogo size={13} color={theme.text} />
             {!isTablet && "LINKEDIN"}
           </PixelFrame>
-          <PixelFrame as="a" href="https://github.com/S-Padiyar" target="_blank" rel="noopener noreferrer" theme={T} onClick={() => beep(300)} title="https://github.com/S-Padiyar" style={{
+          <PixelFrame as="a" href="https://github.com/S-Padiyar" target="_blank" rel="noopener noreferrer" theme={theme} onClick={() => beep(300)} title="https://github.com/S-Padiyar" style={{
         padding: "6px 10px",
         display: "flex",
         alignItems: "center",
@@ -200,32 +200,32 @@ function TopBar({
         fontSize: `${10 * fontScale}px`,
         textDecoration: "none"
       }}>
-            <GithubLogo size={13} color={T.text} />
+            <GithubLogo size={13} color={theme.text} />
             {!isTablet && "GITHUB"}
           </PixelFrame>
           <div style={{
         width: 2,
         height: 22,
-        background: T.border,
+        background: theme.border,
         margin: "0 4px"
       }} />
-          <PixelFrame theme={T} active={aiOpen} onClick={() => {
+          <PixelFrame theme={theme} active={aiOpen} onClick={() => {
         setAiOpen(v => {
           const next = !v;
           if (next) setSettingsOpen(false);
           return next;
         });
         beep(500);
-      }} title="Companion" style={{
+      }} title="Botmay" style={{
         width: 34,
         height: 34,
         display: "flex",
         alignItems: "center",
         justifyContent: "center"
       }}>
-            <PixelSprite frame="idle" size={18} color={aiOpen ? T.bg : T.accent} />
+            <PixelSprite frame="idle" size={18} color={aiOpen ? theme.bg : theme.accent} />
           </PixelFrame>
-          <PixelFrame theme={T} active={settingsOpen === "achievements"} onClick={() => {
+          <PixelFrame theme={theme} active={settingsOpen === "achievements"} onClick={() => {
         setAiOpen(false);
         setSettingsOpen(v => v === "achievements" ? false : "achievements");
         unlockAchievement("achievement_hunter");
@@ -237,9 +237,9 @@ function TopBar({
         alignItems: "center",
         justifyContent: "center"
       }}>
-            <PixelIcon name="star" size={16} color={settingsOpen === "achievements" ? T.bg : T.accent} />
+            <PixelIcon name="star" size={16} color={settingsOpen === "achievements" ? theme.bg : theme.accent} />
           </PixelFrame>
-          <PixelFrame theme={T} active={settingsOpen === "settings"} onClick={() => {
+          <PixelFrame theme={theme} active={settingsOpen === "settings"} onClick={() => {
         setAiOpen(false);
         setSettingsOpen(v => v === "settings" ? false : "settings");
         beep(260);
@@ -250,12 +250,12 @@ function TopBar({
         alignItems: "center",
         justifyContent: "center"
       }}>
-            <PixelIcon name="gear" size={16} color={settingsOpen === "settings" ? T.bg : T.accent} />
+            <PixelIcon name="gear" size={16} color={settingsOpen === "settings" ? theme.bg : theme.accent} />
           </PixelFrame>
           <div style={{
         width: 2,
         height: 22,
-        background: T.border,
+        background: theme.border,
         margin: "0 4px"
       }} />
           <div style={{
@@ -263,11 +263,11 @@ function TopBar({
         alignItems: "center",
         gap: 6
       }}>
-            <PixelIcon name="clock" size={12} color={T.accent} />
+            <PixelIcon name="clock" size={12} color={theme.accent} />
             <span style={{
           fontFamily: pixelFont,
           fontSize: `${14 * fontScale}px`,
-          color: T.text,
+          color: theme.text,
           lineHeight: 1
         }}>{localTime()}</span>
           </div>

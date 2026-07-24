@@ -1,14 +1,14 @@
 import { PixelHeart } from "./DecorativeUI";
 
 function KonamiOverlay({
-  T,
+  theme,
   fontScale,
   pixelFont
 }) {
   return <div style={{
     position: "fixed",
     inset: 0,
-    background: `${T.bg}ee`,
+    background: `${theme.bg}ee`,
     zIndex: 999,
     display: "flex",
     flexDirection: "column",
@@ -19,7 +19,7 @@ function KonamiOverlay({
           <div style={{
       fontFamily: pixelFont,
       fontSize: `${18 * fontScale}px`,
-      color: T.accent,
+      color: theme.accent,
       textAlign: "center",
       lineHeight: 1.8
     }}>
@@ -31,12 +31,12 @@ function KonamiOverlay({
       display: "flex",
       gap: 4
     }}>
-            {[1, 2, 3, 4, 5].map(i => <PixelHeart key={i} size={16} filled color={T.accent} bg={T.border} />)}
+            {[1, 2, 3, 4, 5].map(i => <PixelHeart key={i} size={16} filled color={theme.accent} bg={theme.border} />)}
           </div>
           <div style={{
       fontSize: `${10 * fontScale}px`,
-      color: T.textDim
-    }}>A companion has joined you. Use arrow keys to walk.</div>
+      color: theme.textDim
+    }}>Botmay has joined you. Use arrow keys to walk.</div>
         </div>;
 }
 export default KonamiOverlay;
