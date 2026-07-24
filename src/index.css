@@ -221,8 +221,8 @@ button:disabled {
   justify-content: flex-start;
   gap: 6px;
   width: auto;
-  min-width: min(260px, calc(100vw - 32px));
-  max-width: min(360px, calc(100vw - 32px));
+  min-width: min(var(--toast-min-width, 260px), calc(100vw - 32px));
+  max-width: min(var(--toast-max-width, 360px), calc(100vw - 32px));
   transform: translateX(-50%);
   text-align: left;
 }

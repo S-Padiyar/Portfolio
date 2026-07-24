@@ -1,6 +1,7 @@
 import PixelFrame from "./PixelFrame";
 import PixelIcon from "./PixelIcon";
 import PixelSprite from "./PixelSprite";
+import { panelSizes, spacing } from "../constants/layout";
 
 const ASSISTANT_DESTINATIONS = {
   character: { id: "about", label: "Character" },
@@ -88,12 +89,12 @@ export default function CompanionPanel({
     top: 0,
     right: 0,
     height: "100%",
-    width: isMobile ? "100%" : 320,
-    borderLeft: `3px solid ${theme.accent}`,
+    width: isMobile ? "100%" : panelSizes.companionWidth,
+    borderLeft: `2px solid ${theme.border}`,
     background: theme.panel,
     display: "flex",
     flexDirection: "column",
-    padding: "16px 16px 16px 12px",
+    padding: `${spacing.lg}px ${spacing.lg}px ${spacing.lg}px ${spacing.md}px`,
     zIndex: 18,
     boxShadow: `-4px 0 0 ${theme.bg}`
   }}>

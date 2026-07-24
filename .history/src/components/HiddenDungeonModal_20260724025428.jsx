@@ -50,7 +50,7 @@ function HiddenDungeonModal({ T, beep, fontScale, pixelFont, setHiddenRoomOpen }
             color: T.textDim,
             lineHeight: 1.5,
             marginTop: 4
-          }}>Notes on philosophy, life, learning, engineering, and whatever else feels worth exploring.</div>
+          }}>Notes on learning, engineering, whatever that's on my mind.</div>
         </div>
         <button type="button" onClick={closeBlog} title="Close" aria-label="Close Dungeon Journal" style={{
           appearance: "none",
