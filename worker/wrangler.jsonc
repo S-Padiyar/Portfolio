@@ -4,6 +4,6 @@
   "main": "src/index.js",
   "compatibility_date": "2026-07-20",
   "vars": {
-    "ALLOWED_ORIGIN": "https://YOUR-PORTFOLIO-DOMAIN.com"
+    "ALLOWED_ORIGIN": "https://portfolio.sunmay-padiyar-dev.workers.dev,https://sunmaypadiyar.me,https://www.sunmaypadiyar.me"
   }
 }

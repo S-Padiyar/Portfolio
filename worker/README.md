@@ -47,7 +47,7 @@ Edit `worker/.dev.vars`:
 
 ```env
 GEMINI_API_KEY=your-gemini-key
-ALLOWED_ORIGIN=http://localhost:5173
+ALLOWED_ORIGIN=http://localhost:5173,https://portfolio.sunmay-padiyar-dev.workers.dev,https://sunmaypadiyar.me,https://www.sunmaypadiyar.me
 ```
 
 Run the Worker from the project root:
@@ -101,7 +101,7 @@ Update `worker/wrangler.jsonc`:
 
 ```jsonc
 "vars": {
-  "ALLOWED_ORIGIN": "https://your-portfolio-domain.com"
+  "ALLOWED_ORIGIN": "https://portfolio.sunmay-padiyar-dev.workers.dev,https://sunmaypadiyar.me,https://www.sunmaypadiyar.me"
 }
 ```
 
@@ -168,7 +168,7 @@ Check that:
 
 - `npx wrangler dev` is running.
 - `.env.local` points to the Worker URL.
-- `ALLOWED_ORIGIN` matches the frontend origin exactly.
+- `ALLOWED_ORIGIN` includes the frontend origin exactly. Multiple origins may be comma-separated.
 - The Worker terminal is not showing a CORS or JSON validation error.
 
 ### Wrangler reports both root and Worker configs

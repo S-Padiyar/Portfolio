@@ -16,16 +16,24 @@ function optionsResponse(origin) {
   });
 }
 
+function getAllowedRequestOrigin(allowedOriginValue = "", requestOrigin) {
+  const allowedOrigins = allowedOriginValue
+    .split(",")
+    .map(origin => origin.trim())
+    .filter(Boolean);
+  return allowedOrigins.includes(requestOrigin) ? requestOrigin : null;
+}
+
 /**
  * Handles browser requests at the Worker boundary.
  * Keeping validation here means provider details stay isolated and easier to test.
  */
 export async function handleAssistantRequest(request, env, fetchImpl = fetch) {
-  const allowedOrigin = env.ALLOWED_ORIGIN;
   const requestOrigin = request.headers.get("Origin");
+  const allowedOrigin = getAllowedRequestOrigin(env.ALLOWED_ORIGIN, requestOrigin);
 
-  if (!allowedOrigin || requestOrigin !== allowedOrigin) {
-    return jsonResponse({ error: "Origin not allowed." }, 403, allowedOrigin || "null");
+  if (!allowedOrigin) {
+    return jsonResponse({ error: "Origin not allowed." }, 403, "null");
   }
   if (request.method === "OPTIONS") return optionsResponse(allowedOrigin);
   if (request.method !== "POST") return jsonResponse({ error: "Method not allowed." }, 405, allowedOrigin);

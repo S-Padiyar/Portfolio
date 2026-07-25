@@ -25,6 +25,25 @@ test("rejects requests from an unapproved origin", async () => {
   assert.equal(response.status, 403);
 });
 
+test("accepts comma-separated allowed origins", async () => {
+  const request = makeRequest(JSON.stringify({
+    messages: [{ role: "user", text: "Who is Sunmay?" }]
+  }), {
+    origin: "https://www.sunmaypadiyar.me"
+  });
+  const env = {
+    ...ENV,
+    ALLOWED_ORIGIN: "https://sunmaypadiyar.me,https://www.sunmaypadiyar.me"
+  };
+  const fetchMock = async () => new Response(JSON.stringify({
+    candidates: [{ content: { parts: [{ text: "Sunmay is a Georgia Tech CS student." }] } }]
+  }), { status: 200, headers: { "Content-Type": "application/json" } });
+
+  const response = await handleAssistantRequest(request, env, fetchMock);
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("Access-Control-Allow-Origin"), "https://www.sunmaypadiyar.me");
+});
+
 test("requires JSON requests", async () => {
   const request = makeRequest("messages=hello", { contentType: "text/plain" });
   const response = await handleAssistantRequest(request, ENV);

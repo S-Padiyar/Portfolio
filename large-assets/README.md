@@ -9,11 +9,14 @@ Current large assets:
 - `CyberSages-Engineering-Portfolio.pdf`
 - `cybersages-robot-demo.mp4`
 
-The live site links to these through GitHub raw URLs:
+The live site links to these through GitHub URLs:
 
 ```text
+https://github.com/S-Padiyar/Portfolio/blob/main/large-assets/<file-name>
 https://raw.githubusercontent.com/S-Padiyar/Portfolio/main/large-assets/<file-name>
 ```
+
+Use the normal GitHub `blob` URL for files that should open in a browser tab, such as PDFs. Use the `raw` URL only for media that must be embedded directly, such as videos.
 
 If the production branch changes from `main`, update the URLs in `src/data/`.
 
