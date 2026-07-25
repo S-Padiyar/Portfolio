@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import usePersistentState from "./usePersistentState";
-import { MAIL_ITEMS } from "../data/mail";
-import { isValidContactSubmission, submitContactForm } from "../services/contactService";
+import { MAIL_ITEMS } from "@/data/mail";
+import { isValidContactSubmission, submitContactForm } from "@/services/contactService";
 
 /** Own inbox state and secure contact-form submission. */
 export default function useMailbox({ beep, unlockAchievement }) {

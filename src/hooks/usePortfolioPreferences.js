@@ -1,5 +1,5 @@
 import usePersistentState from "./usePersistentState";
-import { THEMES } from "../data/themes";
+import { THEMES } from "@/data/themes";
 
 /** Own durable accessibility and appearance preferences. */
 export default function usePortfolioPreferences() {

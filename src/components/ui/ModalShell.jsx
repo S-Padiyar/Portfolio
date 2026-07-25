@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import PixelIcon from "../PixelIcon";
+import PixelIcon from "@/components/ui/PixelIcon";
 
 /**
  * Shared modal boundary for every blocking overlay in the portfolio.
@@ -38,11 +38,11 @@ export default function ModalShell({ ariaLabel, children, closeLabel = "Close di
     if (event.target === event.currentTarget) closeHandlerRef.current();
   }} style={{
     position: "fixed", inset: 0, zIndex, display: "grid", placeItems: "center",
-    padding: 20, overflowY: "auto", background: `${theme.bg}dd`
+    padding: "clamp(12px, 3vw, 20px)", overflowY: "auto", background: `${theme.bg}dd`
   }}>
     <div ref={dialogRef} role="dialog" aria-modal="true" aria-label={ariaLabel} tabIndex={-1} style={{
       position: "relative", width: "100%", maxWidth: 720, maxHeight: "90vh",
-      overflowY: "auto", padding: 24, background: theme.panel,
+      overflowY: "auto", padding: "clamp(18px, 3vw, 24px)", background: theme.panel,
       border: `2px solid ${theme.border}`, boxShadow: `4px 4px 0 ${theme.bg}`,
       ...panelStyle
     }}>

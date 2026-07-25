@@ -51,7 +51,7 @@ export const PROJECTS = [
     highlights: [
       "Built mecanum-drive autonomous navigation with three-wheel dead-wheel odometry and a position-hold feature that corrects the robot after it is pushed.",
       "Created one-button goal alignment and tuned a PIDF-controlled launcher for fast, repeatable ball launches.",
-      "Improved autonomous consistency by about 30% and implemented code for telemetry and arm mechanism control."
+      "Improved autonomous consistency by about 30% and implemented code for telemetry collection and arm mechanism control."
     ]
   }
 ];

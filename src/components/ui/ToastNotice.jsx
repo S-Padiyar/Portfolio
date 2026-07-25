@@ -1,4 +1,4 @@
-import { panelSizes } from "../../constants/layout";
+import { panelSizes } from "@/constants/layout";
 
 /** Consistent notification surface; bottom assigns each notice a non-overlapping lane. */
 export default function ToastNotice({ bottom, children, fontScale, theme, tone = "default" }) {

@@ -1,0 +1,181 @@
+import ContactForm from "@/components/contact/ContactForm";
+import PixelFrame from "@/components/ui/PixelFrame";
+import PixelIcon from "@/components/ui/PixelIcon";
+import { MAIL_ITEMS } from "@/data/mail";
+
+/** Mailbox tabs, inbox entries, and the Send Scroll contact form. */
+export default function MailboxPanel({
+  theme,
+  beep,
+  bodyFont,
+  composeEmail,
+  composeMsg,
+  composeName,
+  fontScale,
+  isMobile,
+  mailSent,
+  mailTab,
+  openLetter,
+  pixelFont,
+  readLetters,
+  sendMail,
+  setComposeEmail,
+  setComposeMsg,
+  setComposeName,
+  setMailTab,
+  unreadCount
+}) {
+  return <div style={{ position: "relative" }}>
+    <div style={{ display: "flex", gap: 10, marginBottom: 18 }}>
+      <PixelFrame theme={theme} active={mailTab === "inbox"} onClick={() => {
+        setMailTab("inbox");
+        beep(320, 0.03);
+      }} title="Inbox" style={{
+        padding: "8px 14px",
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+        fontFamily: pixelFont,
+        fontSize: `${10 * fontScale}px`
+      }}>
+        <PixelIcon name="mail" size={12} color={mailTab === "inbox" ? theme.bg : theme.accent} />
+        <span style={{ color: mailTab === "inbox" ? theme.bg : theme.text }}>Quest Mail</span>
+        {unreadCount > 0 && <span style={{
+          background: mailTab === "inbox" ? theme.bg : theme.accent,
+          color: mailTab === "inbox" ? theme.accent : theme.bg,
+          fontSize: `${9 * fontScale}px`,
+          padding: "2px 5px",
+          lineHeight: 1
+        }}>
+          {unreadCount}
+        </span>}
+      </PixelFrame>
+
+      <PixelFrame theme={theme} active={mailTab === "compose"} onClick={() => {
+        setMailTab("compose");
+        beep(320, 0.03);
+      }} title="Compose" style={{
+        padding: "8px 14px",
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+        fontFamily: pixelFont,
+        fontSize: `${10 * fontScale}px`
+      }}>
+        <PixelIcon name="arrow" size={12} color={mailTab === "compose" ? theme.bg : theme.accent} />
+        <span style={{ color: mailTab === "compose" ? theme.bg : theme.text }}>Send Scroll</span>
+      </PixelFrame>
+    </div>
+
+    {mailTab === "inbox" ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+      {unreadCount > 0 && <div style={{
+        fontFamily: "var(--copy-font)",
+        fontSize: `${11 * fontScale}px`,
+        color: theme.accent,
+        marginBottom: 2
+      }}>
+        {unreadCount} unclaimed drop{unreadCount > 1 ? "s" : ""} waiting &middot; click to claim
+      </div>}
+
+      {MAIL_ITEMS.map(mailItem => {
+        const unread = !readLetters[mailItem.id];
+        return <PixelFrame
+          key={mailItem.id}
+          theme={theme}
+          onClick={() => openLetter(mailItem.id)}
+          title={`Open ${mailItem.subject}`}
+          style={{
+            padding: "12px 14px",
+            display: "flex",
+            alignItems: "center",
+            gap: 10
+          }}
+        >
+          <PixelFrame theme={theme} style={{
+            width: 36,
+            height: 36,
+            flexShrink: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: theme.panelAlt,
+            border: `2px solid ${unread ? theme.accent : theme.border}`
+          }}>
+            <PixelIcon name="mail" size={16} color={unread ? theme.accent : theme.textDim} />
+          </PixelFrame>
+          <div style={{
+            flex: 1,
+            minWidth: 0,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "flex-start",
+            textAlign: "left"
+          }}>
+            <div style={{
+              fontFamily: pixelFont,
+              fontSize: `${11 * fontScale}px`,
+              color: unread ? theme.text : theme.textDim,
+              marginBottom: 3,
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              textAlign: "left",
+              width: "100%"
+            }}>
+              {mailItem.subject}
+            </div>
+            <div style={{ fontSize: `${11 * fontScale}px`, color: theme.textDim, textAlign: "left", width: "100%" }}>
+              {mailItem.from}
+            </div>
+          </div>
+          <div style={{
+            width: isMobile ? 112 : 148,
+            flexShrink: 0,
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            gap: 7
+          }}>
+            {unread && <div style={{
+              fontFamily: pixelFont,
+              fontSize: `${9 * fontScale}px`,
+              color: theme.accent,
+              background: theme.panelAlt,
+              border: `1px solid ${theme.border}`,
+              width: isMobile ? 54 : 62,
+              padding: "3px 6px",
+              lineHeight: 1,
+              textAlign: "center"
+            }}>
+              Unread
+            </div>}
+            <div style={{
+              width: isMobile ? 58 : 70,
+              flexShrink: 0,
+              textAlign: "right",
+              fontSize: `${10 * fontScale}px`,
+              color: theme.textFaint
+            }}>
+              {mailItem.date}
+            </div>
+          </div>
+        </PixelFrame>;
+      })}
+    </div> : <ContactForm
+      theme={theme}
+      bodyFont={bodyFont}
+      composeEmail={composeEmail}
+      composeMsg={composeMsg}
+      composeName={composeName}
+      fontScale={fontScale}
+      isMobile={isMobile}
+      mailSent={mailSent}
+      pixelFont={pixelFont}
+      sendMail={sendMail}
+      setComposeEmail={setComposeEmail}
+      setComposeMsg={setComposeMsg}
+      setComposeName={setComposeName}
+    />}
+  </div>;
+}

@@ -1,4 +1,4 @@
-// Resume-backed experience entries for the Guild Hall.
+﻿// Resume-backed experience entries for the Guild Hall.
 export const GUILD_QUESTS = [
   {
     id: "nova-cloud",
@@ -6,7 +6,7 @@ export const GUILD_QUESTS = [
     rank: "S",
     title: "Software Engineering Intern",
     org: "NOVA Cloud LLC",
-    duration: "March 2026 - Present - Remote",
+    duration: "March 2026 · Present · Remote",
     summary: "Building and testing a client-facing cloud management platform alongside senior developers.",
     media: [
       { type: "image", src: "/images/experiences/nova-cloud-public-homepage.png", alt: "Public NOVA Cloud homepage", caption: "A public NOVA Cloud homepage screenshot provides product context without exposing private internship work." }
@@ -26,7 +26,7 @@ export const GUILD_QUESTS = [
     rank: "S",
     title: "AI/ML Research Intern",
     org: "George Mason University",
-    duration: "June 2025 - March 2026 - Fairfax, VA",
+    duration: "June 2025 · March 2026 · Fairfax, VA",
     summary: "Led research on how prompting strategies affect LLM performance on advanced competitive-programming problems.",
     media: [
       { type: "image", src: "/images/experiences/gmu-research-presentation-wide.jpeg", alt: "Sunmay speaking during the AI research presentation at MIT URTC", objectPosition: "center 42%", caption: "Sunmay presenting the prompting-strategy research at the MIT Undergraduate Research Technology Conference." },
@@ -47,8 +47,8 @@ export const GUILD_QUESTS = [
     logo: { src: "/images/experiences/first-logo.jpg", alt: "FIRST logo", href: "https://www.firstinspires.org/", objectFit: "contain" },
     rank: "A",
     title: "Founder & Captain",
-    org: "FTC Team #23541 - CyberSages",
-    duration: "June 2023 - January 2026 - Ashburn, VA",
+    org: "FTC Team #23541 · CyberSages",
+    duration: "June 2023 · January 2026 · Ashburn, VA",
     summary: "Founded and led a robotics team through three competition seasons, combining engineering leadership with hands-on software and hardware work.",
     media: [
       { type: "image", src: "/images/experiences/cybersages-team.jpeg", alt: "CyberSages robotics team together at a FIRST Chesapeake competition", caption: "The CyberSages team at a FIRST Chesapeake competition." },

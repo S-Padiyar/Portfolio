@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { readBrowserStorage, writeBrowserStorage } from "../utils/browserStorage";
+import { readBrowserStorage, writeBrowserStorage } from "@/utils/browserStorage";
 
 /** useState with safe localStorage hydration and persistence. */
 export default function usePersistentState(key, initialValue, isValid = () => true) {

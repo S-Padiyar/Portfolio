@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from "react";
-import { requestAssistantReply } from "../services/assistantClient";
+import { requestAssistantReply } from "@/services/assistantClient";
 
 const WELCOME_MESSAGE = {
   from: "ai",

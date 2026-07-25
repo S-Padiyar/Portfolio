@@ -1,4 +1,4 @@
-// Skill Tree nodes stay general, while examples point back to real portfolio work.
+// Skill Tree nodes stay general, while the evidence lines point to concrete resume-backed work.
 export const SKILL_NODES = [
   {
     id: "core",
@@ -7,11 +7,11 @@ export const SKILL_NODES = [
     icon: "bolt",
     requires: [],
     xp: 20,
-    desc: "The center of the tree: curiosity, problem-solving, communication, and the habit of turning messy requirements into working systems.",
+    desc: "The center of the tree: technical curiosity, systems thinking, communication, and the habit of turning vague requirements into working products.",
     experiences: [
-      "Georgia Tech CS foundation - data structures, algorithms, discrete math, and computing systems",
-      "Built this portfolio as a production-style React project",
-      "Combined software, robotics, research, and cloud experience into one coherent system"
+      "Georgia Tech CS: data structures, algorithms, discrete math, computer organization, and computing and society",
+      "Portfolio Website: React, Vite, Cloudflare Worker, Gemini API, tests, settings, achievements, mailbox, and GitHub activity",
+      "Engineering range: cloud software, AI research, robotics controls, and full-stack product work"
     ]
   },
   {
@@ -21,12 +21,12 @@ export const SKILL_NODES = [
     icon: "monitor",
     requires: ["core"],
     xp: 40,
-    desc: "Java, Python, JavaScript, TypeScript, C/C++, and SQL used across web apps, robotics code, research scripts, and coursework.",
+    desc: "Practical programming across Java, Python, JavaScript, TypeScript, C/C++, and SQL in research, robotics, web applications, and coursework.",
     experiences: [
-      "Georgia Tech coursework - object-oriented programming, data structures, and algorithms",
-      "FTC Code - Java robot control and autonomous routines",
-      "AI Evaluation Pipeline - Python research automation",
-      "Sunmay Portfolio - React and JavaScript frontend work"
+      "Java: FTC SDK autonomous routines, Road Runner pathing, launcher control, and arm mechanism logic",
+      "Python: Codeforces AI evaluation automation, statistical analysis, and research data handling",
+      "JavaScript and TypeScript: React/Vite portfolio UI, Cloudflare Worker integration, and browser-side interactions",
+      "C/C++ and SQL: systems and database foundation from coursework and technical practice"
     ]
   },
   {
@@ -36,10 +36,11 @@ export const SKILL_NODES = [
     icon: "monitor",
     requires: ["programming-languages"],
     xp: 60,
-    desc: "Frontend application development with reusable components, responsive layouts, stateful interactions, and user-focused polish.",
+    desc: "Frontend product work with reusable components, responsive layouts, persistent preferences, accessible modals, and interaction-heavy UI.",
     experiences: [
-      "Sunmay Portfolio - game-inspired interface with settings, achievements, mailbox, and GitHub activity",
-      "NOVA Cloud LLC - cloud-services internship context for client-facing software"
+      "Portfolio Website: game-inspired React interface with Skill Tree, Trophy Case, Guild Hall, mailbox, settings, achievements, and Botmay",
+      "Stateful UX: saved font, theme, mail-read, achievement, and portfolio preference behavior in local storage",
+      "Readable interface polish: responsive layouts, hover titles, clickable links, modal details, and mobile-safe content"
     ]
   },
   {
@@ -49,12 +50,12 @@ export const SKILL_NODES = [
     icon: "monitor",
     requires: ["web-applications"],
     xp: 90,
-    desc: "API wiring, environment configuration, request validation, and backend boundaries that keep sensitive keys out of the browser.",
+    desc: "Backend boundaries, API validation, environment configuration, secret handling, and service integrations that keep browser code safe.",
     experiences: [
-      "Georgia Tech coursework - computer organization and systems-level thinking",
-      "Botmay Worker - Cloudflare endpoint for the Gemini assistant",
-      "Contact form - Formspree-backed message submission",
-      "GitHub Quest Log - fetches recent repository commit history"
+      "Botmay Worker: Cloudflare endpoint that keeps the Gemini API key out of frontend code",
+      "Assistant backend: CORS validation, JSON-only requests, transcript limiting, high-demand error handling, and rate-limit checks",
+      "Contact flow: Formspree-backed message submission with normalized sender fields",
+      "GitHub Quest Log: one latest commit per repository with graceful fallback when one repo request fails"
     ]
   },
   {
@@ -64,10 +65,11 @@ export const SKILL_NODES = [
     icon: "cloud",
     requires: ["core"],
     xp: 50,
-    desc: "Hosted services, environment variables, production builds, and the practical parts of deploying software safely.",
+    desc: "Cloud tooling, hosted services, environment variables, local Worker testing, and production-minded deployment boundaries.",
     experiences: [
-      "NOVA Cloud LLC - internship centered on cloud-services engineering",
-      "Sunmay Portfolio - Cloudflare Worker configuration and local Worker testing"
+      "NOVA Cloud LLC: Vue.js, Node.js, Express, Redis, DynamoDB, AWS services, Docker, and Selenium in a cloud-management platform",
+      "AWS service context: work involving data across more than 40 AWS services for usage and cost-analysis workflows",
+      "Portfolio deployment: Cloudflare Worker configuration, local Wrangler testing, and protected Gemini access"
     ]
   },
   {
@@ -77,11 +79,11 @@ export const SKILL_NODES = [
     icon: "gear",
     requires: ["cloud-platforms"],
     xp: 75,
-    desc: "Testing and automation habits that make code safer to change, especially when UI, backend, and external APIs meet.",
+    desc: "Automated checks that make UI, backend, and external-service code safer to change without breaking hidden behavior.",
     experiences: [
-      "Georgia Tech coursework - algorithms and discrete math habits for reasoning about edge cases",
-      "React component tests for contact, character, companion, and frame behavior",
-      "Worker tests for CORS, validation, rate limiting, and high-demand assistant responses"
+      "NOVA Cloud LLC: mock backend for about 100 endpoints and Selenium coverage for more than 50 routes",
+      "Testing stack: Selenium Grid, Healenium, Docker, Vitest, React Testing Library, and Node test runner",
+      "Portfolio tests: XP math, contact validation, commit fetching, assistant errors, CORS, rate limiting, and UI components"
     ]
   },
   {
@@ -91,10 +93,11 @@ export const SKILL_NODES = [
     icon: "cloud",
     requires: ["automation-testing"],
     xp: 105,
-    desc: "Designing deployed systems with boundaries between frontend UX, backend requests, secrets, and provider APIs.",
+    desc: "End-to-end cloud system thinking: frontend UX, backend APIs, provider services, protected secrets, and reliable integration testing.",
     experiences: [
-      "Botmay assistant - frontend chat routed through a Worker instead of exposing the Gemini key",
-      "NOVA Cloud LLC - continued cloud-services learning in a professional setting"
+      "NOVA Cloud LLC: client-facing cloud platform work across frontend, backend, cache, database, and AWS-service data",
+      "AWS Bedrock context: AI-assisted cloud analysis workflows inside the internship stack",
+      "Botmay assistant: browser chat routed through a rate-limited Worker instead of exposing provider credentials"
     ]
   },
   {
@@ -104,10 +107,11 @@ export const SKILL_NODES = [
     icon: "gear",
     requires: ["core"],
     xp: 45,
-    desc: "Connecting real hardware, sensors, motors, mechanisms, and software so the robot behaves as one system.",
+    desc: "Connecting motors, sensors, mechanisms, controls, and software so a physical robot behaves like one coordinated system.",
     experiences: [
-      "CyberSages FTC Team #23541 - competition robot build and integration",
-      "FTC arm mechanism - software had to coordinate with physical constraints"
+      "CyberSages FTC Team #23541: custom mecanum-drive robot with motors, sensors, servos, control hubs, and power system",
+      "Arm mechanism: robot software coordinated with physical constraints and mechanism behavior",
+      "Competition experience: more than 30 official matches and State Championship qualification"
     ]
   },
   {
@@ -117,11 +121,12 @@ export const SKILL_NODES = [
     icon: "gear",
     requires: ["hardware-integration"],
     xp: 80,
-    desc: "PID/PIDF tuning, telemetry, autonomous movement, and iterative debugging for repeatable robot behavior.",
+    desc: "Telemetry-driven control work with PID/PIDF tuning, odometry, autonomous movement, and repeatable mechanism behavior.",
     experiences: [
-      "Georgia Tech math foundation - linear algebra and multivariable calculus for modeling motion and systems",
-      "FTC Code - velocity tuning and telemetry analysis",
-      "Road Runner pathing - autonomous field trajectories"
+      "Road Runner: autonomous field trajectories with three-wheel dead-wheel odometry",
+      "PID/PIDF: launcher velocity tuning, telemetry analysis, and repeatable ball launches",
+      "Robot reliability: position-hold behavior and autonomous consistency improved by about 30%",
+      "Math foundation: linear algebra and multivariable calculus for motion and systems reasoning"
     ]
   },
   {
@@ -131,10 +136,11 @@ export const SKILL_NODES = [
     icon: "briefcase",
     requires: ["control-systems"],
     xp: 110,
-    desc: "Leading technical decisions, coordinating teammates, preparing for competition, and keeping work moving under deadlines.",
+    desc: "Leading technical decisions, coordinating teammates, raising support, documenting work, and shipping under competition deadlines.",
     experiences: [
-      "Founder and captain of CyberSages FTC Team #23541",
-      "National Center for Simulation scholarship recognition"
+      "CyberSages FTC Team #23541: founder, captain, and software lead across three seasons",
+      "Team resources: secured more than $4,000 in grants and sponsorships",
+      "Recognition: Think Award, State Championship qualification, and National Center for Simulation scholarship"
     ]
   },
   {
@@ -144,11 +150,11 @@ export const SKILL_NODES = [
     icon: "bolt",
     requires: ["core"],
     xp: 50,
-    desc: "Turning questions about model behavior into experiments that can be measured, compared, and explained clearly.",
+    desc: "Turning questions about model behavior into measurable experiments with clear methodology, results, and limitations.",
     experiences: [
-      "Georgia Tech coursework - discrete math and algorithms for formal problem solving",
-      "AI Evaluation Pipeline - compared prompting strategies on Codeforces problems",
-      "George Mason University - research presentation and paper materials"
+      "George Mason University: AI/ML research internship under Dr. Mihai Boicu",
+      "Codeforces study: 90 problems rated 1600-2400 comparing No Prompt, Zero-Shot Chain-of-Thought, Prompt Chaining, and Structured Chain-of-Thought",
+      "Research result: Structured Chain-of-Thought reached 56.67% accuracy compared with 44.44% for No Prompt"
     ]
   },
   {
@@ -158,10 +164,11 @@ export const SKILL_NODES = [
     icon: "monitor",
     requires: ["ai-research"],
     xp: 80,
-    desc: "Building practical AI workflows that collect data, call model APIs, preserve results, and make evaluation repeatable.",
+    desc: "Building repeatable AI workflows that collect inputs, call model APIs, preserve outputs, and evaluate results against real judges.",
     experiences: [
-      "Prompting workflow - initialized clients, generated runs, saved outputs, and tracked grader results",
-      "Botmay companion - applied assistant UX, safety boundaries, and portfolio-specific knowledge"
+      "Evaluation pipeline: problem extraction, prompt execution, conversation history, result saving, and official verdict tracking",
+      "Automated grading: browser submission to Codeforces with Java 21 outputs and recorded time, memory, and verdicts",
+      "Revision workflow: two-model critique process with up to five revision rounds"
     ]
   },
   {
@@ -171,11 +178,12 @@ export const SKILL_NODES = [
     icon: "briefcase",
     requires: ["ai-engineering"],
     xp: 100,
-    desc: "Explaining technical work through diagrams, results charts, abstracts, presentations, and human-readable writing.",
+    desc: "Explaining technical research through papers, diagrams, charts, abstracts, presentations, and reviewer-friendly writing.",
     experiences: [
-      "Georgia Tech coursework - computing and society for connecting technical work to human impact",
-      "George Mason University - presented AI research to a formal audience",
-      "AI Evaluation Pipeline - charts and process diagrams made the methodology easier to review"
+      "IEEE paper: first author on peer-reviewed LLM prompting research",
+      "MIT URTC 2025: presented the prompting-strategy research to a formal research audience",
+      "GMU Research Symposium: communicated methodology, results, and implications through presentation materials",
+      "Research visuals: process diagram, accuracy chart, submission table, and abstract included in the portfolio"
     ]
   }
 ];

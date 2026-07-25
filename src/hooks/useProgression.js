@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { calculateXpProgress } from "../utils/progression";
+import { calculateXpProgress } from "@/utils/progression";
 import usePersistentState from "./usePersistentState";
 
 const STARTING_LEVEL = 12;

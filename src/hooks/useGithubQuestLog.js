@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchLatestRepositoryCommits } from "../services/githubActivityService";
+import { fetchLatestRepositoryCommits } from "@/services/githubActivityService";
 
 export default function useGithubQuestLog(username) {
   const [commits, setCommits] = useState(null);
