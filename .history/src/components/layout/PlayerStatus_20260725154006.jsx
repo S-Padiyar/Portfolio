@@ -2,8 +2,6 @@ import PixelFrame from "@/components/ui/PixelFrame";
 import { PixelHeart } from "@/components/layout/DecorativeUI";
 import { AVATAR_IMAGES } from "@/data/images";
 
-const IEEE_PUBLICATION_URL = "https://doi.org/10.1109/URTC68753.2025.11533095";
-
 function PlayerStatus({
   theme,
   avatarRef,
@@ -150,7 +148,7 @@ function PlayerStatus({
       marginTop: 4,
       display: "flex",
       flexDirection: "column",
-      gap: 3
+      gap: 5
     }}>
               {[{
         label: "INTERNSHIPS",
@@ -161,10 +159,7 @@ function PlayerStatus({
       }, {
         label: "Publication",
         value: "IEEE"
-      }].map(stat => {
-        const isPublication = stat.label === "Publication";
-        const Tag = isPublication ? "a" : "div";
-        return <Tag key={stat.label} href={isPublication ? IEEE_PUBLICATION_URL : undefined} target={isPublication ? "_blank" : undefined} rel={isPublication ? "noopener noreferrer" : undefined} title={isPublication ? IEEE_PUBLICATION_URL : undefined} style={{
+      }].map(stat => <div key={stat.label} style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -175,17 +170,14 @@ function PlayerStatus({
           boxSizing: "border-box",
           fontSize: `${8.5 * fontScale}px`,
           color: theme.textDim,
-          lineHeight: 1.25,
-          textDecoration: "none",
-          cursor: isPublication ? "pointer" : "default"
+          lineHeight: 1.25
         }}>
                   <span>{stat.label}</span>
                   <span style={{
             color: theme.accent,
             textAlign: "right"
           }}>{stat.value}</span>
-              </Tag>;
-      })}
+              </div>)}
             </div>
           </PixelFrame>;
 }

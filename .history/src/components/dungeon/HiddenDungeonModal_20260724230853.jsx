@@ -22,7 +22,7 @@ function HiddenDungeonModal({ theme, beep, fontScale, pixelFont, setHiddenRoomOp
         <div style={{ minHeight: 38, display: "flex", flexDirection: "column", justifyContent: "center", gap: 2 }}>
           <div style={{ fontFamily: pixelFont, fontSize: `${14 * fontScale}px`, color: theme.accent, lineHeight: 1.05 }}>Dungeon Journal</div>
           <div style={{ fontFamily: "var(--copy-font)", fontSize: `${12 * fontScale}px`, color: theme.textDim, lineHeight: 1.2, marginTop: 0 }}>
-            Blogs on whatever's on my mind.
+            Notes on learning, engineering, life, and whatever else on my mind.
           </div>
         </div>
       </div>

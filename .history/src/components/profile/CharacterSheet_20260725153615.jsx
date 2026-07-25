@@ -304,8 +304,7 @@ export default function CharacterSheet({ theme, beep, fontScale, isMobile, pixel
       }}>
         I'm a Computer Science student at Georgia Tech interested in systems, robotics, and software engineering. My experience so far includes research that I presented at the MIT Undergraduate Research Technology Conference and published through IEEE, internships focused on cloud computing and full-stack development, and hardware/software work through my robotics team.
         <br /><br />
-        Currently, I'm looking for internship opportunities where I can keep learning and contribute to cool projects!
-        <br /><br />
+        Currently, I’m looking for internship opportunities where I can continue learning, contribute to interesting projects, and gain experience working alongside talented engineers!        <br /><br />
         Feel free to connect!
       </p>
     </PixelFrame>

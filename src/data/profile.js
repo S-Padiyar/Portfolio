@@ -2,9 +2,9 @@
 export const PROFILE_STATS = [
   ["Class", "2029"],
   ["Program", "Computer Science"],
-  ["Focus", "Cloud, AI, robotics"],
-  ["Backend", "Node.js, AWS, APIs"],
-  ["Testing", "Selenium, unit tests"],
+  ["Focus", "Full-stack, cloud, AI, robotics"],
+  ["Backend", "Node.js, Express, APIs"],
+  ["Testing", "Selenium, Vitest, Node tests"],
   ["Status", "Open to internships"]
 ];
 
@@ -30,8 +30,10 @@ export const EMPLOYER_VALUE = [
 ];
 
 export const DEVELOPER_LOADOUT = [
-  { icon: "monitor", label: "Languages", value: "Java, Python, C/C++, JavaScript, TypeScript, SQL" },
-  { icon: "cloud", label: "Cloud", value: "AWS, Node.js, Redis, DynamoDB" },
-  { icon: "gear", label: "Robotics", value: "FTC SDK, Road Runner, PID/PIDF" },
-  { icon: "bolt", label: "Web and testing", value: "React, Next.js, Vue, Selenium" }
+  { icon: "monitor", label: "Languages", value: "Java, Python, JavaScript, TypeScript, C, C++, SQL, HTML, CSS" },
+  { icon: "bolt", label: "Frontend", value: "React, Vite, Vue.js, Next.js, responsive UI, component systems" },
+  { icon: "cloud", label: "Backend and cloud", value: "Node.js, Express, Cloudflare Workers, AWS, Redis, DynamoDB, REST APIs" },
+  { icon: "gear", label: "Testing and tools", value: "Selenium, Selenium Grid, Healenium, Vitest, Node test runner, Docker, Git" },
+  { icon: "briefcase", label: "AI and data", value: "Gemini API, OpenAI API, AWS Bedrock, Pandas, prompt evaluation, Codeforces automation" },
+  { icon: "gear", label: "Robotics", value: "FTC SDK, Road Runner, PID/PIDF, odometry, telemetry, mecanum drive" }
 ];

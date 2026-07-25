@@ -82,7 +82,7 @@ export default function PortfolioHome() {
 
   // Simple easter egg: a little message for anyone who opens devtools
   useEffect(() => {
-    console.log("%cNice to meet you!", "font-weight: bold;");
+    console.log("%cInspecting the code I see - nice to meet you", "font-weight: bold;");
   }, []);
   function localTime() {
     return now.toLocaleTimeString("en-US", {

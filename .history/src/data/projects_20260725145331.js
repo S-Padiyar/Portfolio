@@ -7,7 +7,7 @@ export const PROJECTS = [
       { src: "/images/portfolio/quest-log.png", alt: "The portfolio Quest Log showing recent GitHub commit activity", caption: "The Quest Log turns recent GitHub activity into a readable project timeline." },
       { src: "/images/portfolio/botmay-companion.png", alt: "Botmay, the portfolio companion", caption: "Botmay is the friendly guide for exploring the portfolio." }
     ],
-    desc: "A game-inspired portfolio that presents my work without losing accessibility, visual aesthetics, or reliability.",
+    desc: "A game-inspired portfolio that presents my work without losing accessibility, clarity, or reliability.",
     tags: "React / Vite / Cloudflare Workers / Gemini API",
     icon: "monitor",
     year: "2026",

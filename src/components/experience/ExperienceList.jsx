@@ -31,13 +31,6 @@ function ExperienceList({
 }) {
   const copyFont = "var(--copy-font)";
   const uiFont = "var(--ui-font)";
-  const pinStyle = {
-    width: 15,
-    height: 15,
-    borderRadius: "50%",
-    background: theme.accent,
-    border: `1px solid ${theme.border}`
-  };
 
   const renderImage = (quest, aspectRatio) => {
     const image = quest.media?.find(item => item.type !== "video");
@@ -67,7 +60,7 @@ function ExperienceList({
         }}
         title="Experience"
         style={{
-          padding: isMobile ? 12 : "12px 12px 12px 22px",
+          padding: 12,
           display: "grid",
           gridTemplateColumns: isMobile ? "1fr" : "190px minmax(0, 1fr)",
           gap: 12,
@@ -77,13 +70,6 @@ function ExperienceList({
           background: theme.panel
         }}
       >
-        <div aria-hidden="true" style={{
-          position: "absolute",
-          top: "50%",
-          left: -7,
-          transform: "translateY(-50%)",
-          ...pinStyle
-        }} />
         <div style={{
           padding: 5,
           background: theme.panelAlt,
@@ -92,7 +78,14 @@ function ExperienceList({
           {renderImage(quest, "16 / 9")}
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 9, minWidth: 0, position: "relative", paddingRight: isMobile ? 0 : 54 }}>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) 50px",
+          gap: 10,
+          alignItems: "center",
+          minWidth: 0
+        }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 9, minWidth: 0 }}>
           <div style={{
             display: "grid",
             gap: 4
@@ -100,23 +93,22 @@ function ExperienceList({
             <div style={{ fontFamily: pixelFont, color: theme.text, fontSize: `${12 * fontScale}px`, lineHeight: 1.35 }}>{quest.title}</div>
             <div style={{ fontFamily: uiFont, color: theme.textFaint, fontSize: `${10 * fontScale}px`, lineHeight: 1.3 }}>{quest.org} &middot; {quest.duration}</div>
           </div>
-          <div style={{
-            position: isMobile ? "static" : "absolute",
-            top: -2,
-            right: -2,
-            alignSelf: isMobile ? "start" : undefined
-          }}>
-            <GuildLogo logo={quest.logo} theme={theme} />
-          </div>
           <div style={{ fontFamily: copyFont, color: theme.textDim, fontSize: `${13 * fontScale}px`, lineHeight: 1.55 }}>{quest.summary}</div>
           <div style={{
             marginTop: "auto",
-            alignSelf: isMobile ? "start" : "end",
+            alignSelf: "center",
             color: theme.accent,
             fontFamily: uiFont,
             fontSize: `${10 * fontScale}px`,
             textAlign: "center"
           }}>View experience</div>
+          </div>
+          <div style={{
+            justifySelf: isMobile ? "start" : "end",
+            alignSelf: isMobile ? "start" : "center"
+          }}>
+            <GuildLogo logo={quest.logo} theme={theme} />
+          </div>
         </div>
       </PixelFrame>)}
     </div>

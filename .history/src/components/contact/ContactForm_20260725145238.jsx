@@ -27,7 +27,7 @@ function ContactForm({
       marginBottom: 16,
       lineHeight: 1.7
     }}>
-                      Have a quest for me - an internship, a sponsorship, a coffee chat? Send a scroll below and it'll land in my inbox
+                      Have a quest for me - an internship, a sponsorship, a coffee chat? Send a scroll below and it'll land in my inbox!
                     </div>
                     <form onSubmit={event => {
       event.preventDefault();

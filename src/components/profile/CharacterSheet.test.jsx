@@ -15,14 +15,13 @@ const theme = {
 afterEach(cleanup);
 
 describe("CharacterSheet", () => {
-  it("renders the current progression level", () => {
+  it("renders the internship availability badge", () => {
     render(<CharacterSheet
       theme={theme}
       fontScale={1}
       isMobile={false}
-      level={17}
       pixelFont="monospace"
     />);
-    expect(screen.getByText("Level 17")).toBeTruthy();
+    expect(screen.getByText("Open to internships")).toBeTruthy();
   });
 });

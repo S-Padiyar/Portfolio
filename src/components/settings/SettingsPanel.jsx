@@ -21,6 +21,8 @@ function SettingsPanel({
   unlockAchievement,
   unlockedAchievements
 }) {
+  const unlockedAchievementCount = ACHIEVEMENTS.filter(achievement => unlockedAchievements[achievement.id]).length;
+
   return <div style={{
     position: "absolute",
     top: 0,
@@ -224,7 +226,7 @@ function SettingsPanel({
           color: theme.textFaint,
           fontSize: `${9 * fontScale}px`
         }}>
-                  {Object.keys(unlockedAchievements).length}/{ACHIEVEMENTS.length}
+                  {unlockedAchievementCount}/{ACHIEVEMENTS.length}
                 </span>
               </div>
               <div style={{

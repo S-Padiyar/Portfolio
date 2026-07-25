@@ -59,7 +59,7 @@ function PortfolioWorkspace({ appearance, state, actions }) {
             {NAV_ITEMS.find(n => n.id === active)?.label || "Projects"}
           </h1>
 
-          <ContentPanel theme={theme} active={active} beep={beep} bodyFont={bodyFont} claimQuestXp={claimQuestXp} companion={companion} composeEmail={composeEmail} composeMsg={composeMsg} composeName={composeName} fontScale={fontScale} isMobile={isMobile} isTablet={isTablet} level={level} mailSent={mailSent} mailTab={mailTab} openLetter={openLetter} pixelFont={pixelFont} readLetters={readLetters} sendMail={sendMail} setComposeEmail={setComposeEmail} setComposeMsg={setComposeMsg} setComposeName={setComposeName} setMailTab={setMailTab} setSelectedProjectId={setSelectedProjectId} setSelectedQuestId={setSelectedQuestId} setSelectedSkillId={setSelectedSkillId} themeKey={themeKey} unreadCount={unreadCount} />
+          <ContentPanel theme={theme} active={active} beep={beep} bodyFont={bodyFont} claimQuestXp={claimQuestXp} companion={companion} composeEmail={composeEmail} composeMsg={composeMsg} composeName={composeName} fontScale={fontScale} isMobile={isMobile} isTablet={isTablet} level={level} mailSent={mailSent} mailTab={mailTab} openLetter={openLetter} pixelFont={pixelFont} readLetters={readLetters} sendMail={sendMail} setComposeEmail={setComposeEmail} setComposeMsg={setComposeMsg} setComposeName={setComposeName} setMailTab={setMailTab} setSelectedProjectId={setSelectedProjectId} setSelectedQuestId={setSelectedQuestId} setSelectedSkillId={setSelectedSkillId} themeKey={themeKey} unlockedAchievements={unlockedAchievements} unreadCount={unreadCount} />
         </div>
         {aiOpen && <CompanionPanel
           theme={theme}
