@@ -52,7 +52,13 @@ Start the frontend:
 npm run dev
 ```
 
-The portfolio will still run if Botmay is unavailable. To connect Botmay, run the Worker separately and set `VITE_AI_ASSISTANT_URL` in `.env.local`.
+The portfolio will still run if Botmay is unavailable. To connect Botmay, start the Worker in a second terminal:
+
+```bash
+npm run dev:botmay
+```
+
+This uses a Node local adapter so Windows development does not depend on Cloudflare's `workerd` binary. Then set `VITE_AI_ASSISTANT_URL` in `.env.local`.
 
 ## Environment variables
 
@@ -86,6 +92,18 @@ npm run dev
 ```
 
 Runs the Vite development server.
+
+```bash
+npm run dev:botmay
+```
+
+Runs the local Cloudflare Worker for Botmay at `http://127.0.0.1:8787`.
+
+```bash
+npm run dev:botmay:wrangler
+```
+
+Runs the same Worker through Wrangler. Use this when you specifically want to test Cloudflare's local runtime.
 
 ```bash
 npm run build
@@ -128,6 +146,7 @@ Checks dependencies for moderate-or-higher security advisories.
 ```text
 portfolio-project/
 |-- docs/             # Project conventions and design-system notes
+|-- large-assets/     # Oversized media linked from GitHub raw, not bundled into Cloudflare assets
 |-- public/           # Static images, PDFs, favicon, and other browser assets
 |-- scripts/          # Legacy helper scripts; not part of the normal workflow
 |-- src/              # Active React application
@@ -216,6 +235,8 @@ npm run check
 - External links should use `rel="noopener noreferrer"` when opened in a new tab.
 
 ## Deployment overview
+
+Cloudflare Workers static assets have a 25 MiB per-file limit. Keep oversized media out of `public/`; files in `public/` are copied into `dist/` and uploaded as Worker assets. This repo keeps larger artifacts in `large-assets/` and links to them through GitHub raw URLs.
 
 1. Build the frontend:
 

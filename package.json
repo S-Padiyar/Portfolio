@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:botmay": "node worker/dev-server.mjs",
+    "dev:botmay:wrangler": "wrangler dev --config worker/wrangler.jsonc --ip 127.0.0.1 --port 8787",
     "build": "vite build",
     "lint": "eslint .",
     "test": "npm run test:unit && npm run test:ui",
@@ -29,6 +31,7 @@
     "globals": "^17.7.0",
     "jsdom": "^29.1.1",
     "vite": "^8.1.5",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.10",
+    "wrangler": "^4.114.0"
   }
 }

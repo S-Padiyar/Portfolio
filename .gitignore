@@ -1,6 +1,7 @@
 node_modules
 dist
 .wrangler
+.history
 .DS_Store
 .env
 .env.*

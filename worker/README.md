@@ -50,17 +50,24 @@ GEMINI_API_KEY=your-gemini-key
 ALLOWED_ORIGIN=http://localhost:5173
 ```
 
-Run the Worker from the `worker` directory:
+Run the Worker from the project root:
 
 ```bash
-cd worker
-npx wrangler dev
+npm run dev:botmay
 ```
 
-Wrangler should start the Worker at:
+The local server should start at:
 
 ```text
 http://127.0.0.1:8787
+```
+
+This command uses `worker/dev-server.mjs`, a Node adapter that calls the same Worker request handler without starting Cloudflare's `workerd` binary. That keeps local development stable on Windows if `workerd` crashes.
+
+To test the actual Wrangler runtime instead, run:
+
+```bash
+npm run dev:botmay:wrangler
 ```
 
 Then set the frontend variable in `.env.local`:

@@ -1,4 +1,6 @@
-﻿// Resume-backed experience entries for the Guild Hall.
+import { largeAssetUrl } from "./largeAssetUrl.js";
+
+// Resume-backed experience entries for the Guild Hall.
 export const GUILD_QUESTS = [
   {
     id: "nova-cloud",
@@ -52,7 +54,7 @@ export const GUILD_QUESTS = [
     summary: "Founded and led a robotics team through three competition seasons, combining engineering leadership with hands-on software and hardware work.",
     media: [
       { type: "image", src: "/images/experiences/cybersages-team.jpeg", alt: "CyberSages robotics team together at a FIRST Chesapeake competition", caption: "The CyberSages team at a FIRST Chesapeake competition." },
-      { type: "video", src: "/videos/experiences/cybersages-robot-demo.mp4", label: "CyberSages robot demonstration" },
+      { type: "video", src: largeAssetUrl("cybersages-robot-demo.mp4"), label: "CyberSages robot demonstration" },
       { type: "image", src: "/images/experiences/cybersages-robot.jpeg", alt: "CyberSages competition robot on a practice field", objectPosition: "center 32%", caption: "The competition robot working on the practice field." }
     ],
     bullets: [
