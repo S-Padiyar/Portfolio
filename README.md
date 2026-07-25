@@ -1,69 +1,237 @@
 # Sunmay Padiyar Portfolio
 
-A game-inspired React portfolio with project, experience, skill, GitHub activity,
-contact, achievement, and Companion assistant features.
+A game-inspired software engineering portfolio built with React, Vite, and a Cloudflare Worker-backed AI companion named Botmay.
 
-## Local setup
+The site is meant to feel playful, but the codebase is organized like a maintainable frontend project: portfolio content lives in data files, external requests live in services, browser state lives in hooks, and reusable UI pieces live in focused component folders.
+
+## What this includes
+
+- Character profile with resume-backed bio, achievement progress, and a final reward chest.
+- Trophy Case for projects.
+- Guild Hall for internships, research, robotics, and other experience.
+- Skill Tree for technical skills and coursework.
+- Quest Mail contact flow through Formspree.
+- Quest Log with recent GitHub activity.
+- Hidden Dungeon for the robotics engineering portfolio PDF.
+- Botmay, a Gemini-powered portfolio companion served through a Cloudflare Worker.
+- Persistent settings for theme, sound, readable font mode, and font size.
+
+## Tech stack
+
+- React 18
+- Vite
+- Vitest and Testing Library
+- Node test runner for pure utility and Worker tests
+- Cloudflare Workers for the assistant backend
+- Formspree for contact form delivery
+
+## Prerequisites
+
+- Node.js 20 or newer is recommended.
+- npm
+- A Gemini API key, only if you want Botmay to answer locally or in production.
+- A Formspree endpoint, only if you want the contact form to send messages.
+
+## Quick start
+
+Install dependencies:
 
 ```bash
 npm install
+```
+
+Create local frontend environment variables:
+
+```bash
 copy .env.example .env.local
+```
+
+Start the frontend:
+
+```bash
 npm run dev
 ```
 
-Set `VITE_AI_ASSISTANT_URL` in `.env.local` to the local or deployed Worker URL.
-The rest of the portfolio remains usable if the assistant is unavailable.
+The portfolio will still run if Botmay is unavailable. To connect Botmay, run the Worker separately and set `VITE_AI_ASSISTANT_URL` in `.env.local`.
 
-## Quality checks
+## Environment variables
+
+### Frontend
+
+Create `.env.local` from `.env.example`:
+
+```env
+VITE_AI_ASSISTANT_URL=http://127.0.0.1:8787
+```
+
+Only public values may use the `VITE_` prefix because Vite exposes those values to the browser bundle.
+
+### Worker
+
+Create `worker/.dev.vars` from `worker/.dev.vars.example`:
+
+```env
+GEMINI_API_KEY=your-local-key
+ALLOWED_ORIGIN=http://localhost:5173
+```
+
+Never put the Gemini API key in `.env.local`.
+
+See [worker/README.md](worker/README.md) for full Worker setup and deployment.
+
+## Available scripts
+
+```bash
+npm run dev
+```
+
+Runs the Vite development server.
+
+```bash
+npm run build
+```
+
+Builds the production frontend into `dist/`.
+
+```bash
+npm run preview
+```
+
+Serves the production build locally.
+
+```bash
+npm run lint
+```
+
+Runs ESLint across the project.
 
 ```bash
 npm test
-npm run build
+```
+
+Runs Node unit tests and Vitest component tests.
+
+```bash
 npm run check
 ```
 
-## Architecture
+Runs linting, all tests, and a production build. Use this before handing off changes.
+
+```bash
+npm audit --audit-level=moderate
+```
+
+Checks dependencies for moderate-or-higher security advisories.
+
+## Project structure
+
+```text
+portfolio-project/
+|-- docs/             # Project conventions and design-system notes
+|-- public/           # Static images, PDFs, favicon, and other browser assets
+|-- scripts/          # Legacy helper scripts; not part of the normal workflow
+|-- src/              # Active React application
+|-- tests/            # Node tests for shared frontend utilities/services
+|-- worker/           # Cloudflare Worker for Botmay
+|-- index.html        # Vite HTML entry and metadata
+|-- package.json      # npm scripts and dependencies
+`-- vite.config.js    # Vite and test configuration
+```
+
+## Source layout
 
 ```text
 src/
-|-- components/  # Feature, layout, and reusable UI components
-|-- constants/   # Shared layout/design values used by multiple components
-|-- data/        # Static portfolio content and themes
-|-- hooks/       # Stateful behavior and browser synchronization
-|-- services/    # Formspree, Companion Worker, and GitHub requests
-|-- utils/       # Pure calculations
-|-- App.jsx      # Top-level state and component composition
-|-- index.css    # Global styles
-`-- main.jsx     # React entry point
+|-- components/
+|   |-- assistant/    # Botmay chat panel
+|   |-- contact/      # Mailbox, letters, and contact form
+|   |-- dungeon/      # Hidden Dungeon journal/PDF area
+|   |-- experience/   # Guild Hall
+|   |-- games/        # Reserved game-vault code
+|   |-- layout/       # App shell, sidebar, header/status, panels
+|   |-- profile/      # Character sheet and reward chest
+|   |-- projects/     # Trophy Case
+|   |-- settings/     # Settings and achievements
+|   |-- skills/       # Skill Tree
+|   `-- ui/           # Reusable frames, icons, modals, media, sprites, toasts
+|-- constants/        # Shared layout/design constants
+|-- data/             # Portfolio content, themes, nav, mail, achievements
+|-- hooks/            # Stateful browser behavior
+|-- services/         # External request boundaries
+|-- utils/            # Pure calculations and helpers
+|-- App.jsx           # Top-level app state and orchestration
+|-- index.css         # Global CSS and accessibility defaults
+`-- main.jsx          # React entry point
 ```
 
-This intentionally follows a small Vite application structure. There is one
-page, so a router and separate `pages` directory would add complexity without
-providing a benefit.
+New live UI work should go in `src/components/`, not `src/views/`. The `src/views/` folder is an archive of old snapshots and is intentionally ignored by ESLint.
 
-The Cloudflare Worker lives in `worker/`. Copy `worker/.dev.vars.example` to
-`worker/.dev.vars` and provide local secrets there. Never put the Gemini key in
-the Vite environment because Vite variables are shipped to the browser.
+## Where to change common things
 
-### Where to put new work
+- Portfolio copy: `src/data/`
+- Theme colors: `src/data/themes.js`
+- Navigation labels/icons: `src/data/nav.js`
+- Achievement definitions: `src/data/achievements.js`
+- Character profile: `src/components/profile/CharacterSheet.jsx`
+- Project cards: `src/data/projects.js`
+- Guild Hall experiences: `src/data/quests.js`
+- Botmay knowledge: `worker/src/systemPrompt.js`
+- Assistant network call: `src/services/assistantClient.js`
+- Worker request handling: `worker/src/index.js`
 
-- `src/components/` is grouped by responsibility:
-  - `layout/` for app shell, navigation, status, and page composition.
-  - `ui/` for reusable primitives, modals, toasts, icons, sprites, and media helpers.
-  - feature folders such as `assistant/`, `contact/`, `projects/`, `experience/`, `skills/`, `profile/`, `settings/`, `dungeon/`, and `games/`.
-- `src/constants/` contains cross-component design decisions such as shared spacing and panel sizes. Keep one-off layout values local unless they repeat across components.
-- `src/data/` is the single source of truth for portfolio content. Components render these objects instead of repeating project or experience copy.
-- `src/hooks/` owns stateful browser behavior, while `src/services/` owns external requests. This keeps rendering code easy to test.
-- `worker/src/` separates request validation, Gemini provider calls, prompt content, and response normalization so secrets and policy boundaries stay server-side.
-- `src/views/` contains archived numbered snapshots from earlier iterations. It is intentionally not imported by the active Vite entrypoint; new work belongs in `src/components/`. These files are retained only as history and should not be edited for live UI changes.
+## Architecture notes
 
-The shared `ModalShell` is the dismissal boundary for every blocking dialog: it handles Escape, backdrop clicks, body-scroll locking, and focus restoration in one place. `ToastNotice`, `AccentList`, and `MediaGallery` follow the same pattern for notifications, evidence rails, and image details so visual and interaction fixes apply everywhere.
+The app is intentionally a single-page Vite application. A router is not used because every section is controlled by the same game-like shell and shared persistent state.
 
-See `docs/STYLE_GUIDE.md` for naming, folder, design-token, security, and validation conventions.
+The main boundaries are:
+
+- Components render UI and call callbacks.
+- Hooks own browser state, persistence, timers, audio, GitHub activity, and progression.
+- Services own external requests from the browser.
+- Data files are the source of truth for portfolio content.
+- The Worker owns Gemini access, CORS checks, rate limiting, request validation, and Botmay’s verified knowledge.
+
+This keeps secrets server-side and keeps visual components from becoming network or business-logic dumping grounds.
+
+## Testing strategy
+
+The project has two test layers:
+
+- `tests/*.test.js` and `worker/test/*.test.js` use Node’s test runner for pure functions, request helpers, Worker behavior, and service logic.
+- Component tests use Vitest and Testing Library beside the relevant components.
+
+Before sending changes, run:
+
+```bash
+npm run check
+```
 
 ## Security notes
 
-- The Gemini API key must stay in `worker/.dev.vars` locally or Cloudflare Worker secrets in production. Do not place it in `.env.local` or any `VITE_*` variable because Vite exposes those values to the browser bundle.
-- The frontend sends assistant requests only to `VITE_AI_ASSISTANT_URL`; the Worker validates CORS and request shape before calling Gemini.
-- Contact form submissions are validated on the client for usability, but Formspree remains the external trust boundary.
-- Do not commit local secret files. `.gitignore` excludes `.env*`, `.dev.vars*`, and build artifacts.
+- Do not commit `.env.local`, `worker/.dev.vars`, API keys, or secrets.
+- Do not put private values in `VITE_*` variables.
+- Keep Gemini calls in the Worker so the browser never receives the API key.
+- The Worker validates origin, method, content type, request body, and rate-limit state before calling Gemini.
+- Botmay renders text as React elements, not raw HTML.
+- External links should use `rel="noopener noreferrer"` when opened in a new tab.
+
+## Deployment overview
+
+1. Build the frontend:
+
+   ```bash
+   npm run build
+   ```
+
+2. Deploy the frontend to your static host or through Cloudflare assets.
+3. Deploy the Worker from `worker/`.
+4. Set the deployed Worker URL as `VITE_AI_ASSISTANT_URL` in the frontend host environment.
+5. Set `GEMINI_API_KEY` as a Cloudflare Worker secret.
+6. Set `ALLOWED_ORIGIN` to the deployed portfolio origin.
+
+## Additional docs
+
+- [docs/STYLE_GUIDE.md](docs/STYLE_GUIDE.md) explains naming, folders, design tokens, UI rules, and validation.
+- [worker/README.md](worker/README.md) explains Botmay’s backend setup.
+- [src/views/README.md](src/views/README.md) explains the archived snapshot folder.
+- [scripts/README.md](scripts/README.md) explains the legacy scripts folder.

@@ -83,13 +83,8 @@ export default function useProgression({ achievements, beep }) {
     }, 3200);
   }, [achievements, gainXp, schedule]);
 
-  const claimQuestXp = useCallback(() => {
-    // XP is reserved for achievements so the progress bar always matches earned milestones.
-  }, []);
-
   return {
     achievementToast,
-    claimQuestXp,
     level,
     showLevelUp,
     unlockAchievement,

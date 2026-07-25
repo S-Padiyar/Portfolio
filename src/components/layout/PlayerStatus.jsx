@@ -159,12 +159,12 @@ function PlayerStatus({
         label: "LOCATION",
         value: "ATLANTA"
       }, {
-        label: "Publication",
+        label: "PUBLICATION",
         value: "IEEE"
       }].map(stat => {
-        const isPublication = stat.label === "Publication";
+        const isPublication = stat.label === "PUBLICATION";
         const Tag = isPublication ? "a" : "div";
-        return <Tag key={stat.label} href={isPublication ? IEEE_PUBLICATION_URL : undefined} target={isPublication ? "_blank" : undefined} rel={isPublication ? "noopener noreferrer" : undefined} title={isPublication ? IEEE_PUBLICATION_URL : undefined} style={{
+        return <Tag key={stat.label} href={isPublication ? IEEE_PUBLICATION_URL : undefined} target={isPublication ? "_blank" : undefined} rel={isPublication ? "noopener noreferrer" : undefined} title={isPublication ? IEEE_PUBLICATION_URL : undefined} aria-label={isPublication ? `Open IEEE publication: ${IEEE_PUBLICATION_URL}` : undefined} style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",

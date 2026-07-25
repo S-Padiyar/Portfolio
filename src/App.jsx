@@ -56,7 +56,6 @@ export default function PortfolioHome() {
   const beep = useAudioBeep(soundOn);
   const {
     achievementToast,
-    claimQuestXp,
     level,
     showLevelUp,
     unlockAchievement,
@@ -80,10 +79,6 @@ export default function PortfolioHome() {
     return () => clearInterval(t);
   }, []);
 
-  // Simple easter egg: a little message for anyone who opens devtools
-  useEffect(() => {
-    console.log("%cNice to meet you!", "font-weight: bold;");
-  }, []);
   function localTime() {
     return now.toLocaleTimeString("en-US", {
       hour: "2-digit",
@@ -218,7 +213,7 @@ export default function PortfolioHome() {
     soundOn, unlockedAchievements, unreadCount, xp, xpGain
   };
   const sceneActions = {
-    beep, claimQuestXp, handleAvatarClick, handleLogoDoubleClick,
+    beep, handleAvatarClick, handleLogoDoubleClick,
     handleNavClick, localTime, openLetter, sendAiMessage, sendMail, setAiInput,
     setAiOpen, setCompanion, setComposeEmail, setComposeMsg, setComposeName,
     setFontScale, setHiddenRoomOpen, setMailTab, setOpenLetterId,

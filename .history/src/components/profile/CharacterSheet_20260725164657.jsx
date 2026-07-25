@@ -99,27 +99,20 @@ function HiddenScrollModal({ beep, fontScale, onClose, pixelFont, theme }) {
       </div>
       <div style={{ height: 2, background: theme.border, marginBottom: 18 }} />
       <div style={{
-        display: "grid",
-        gap: 14,
         fontSize: `${13 * fontScale}px`,
         color: theme.text,
-        lineHeight: 1.75,
+        lineHeight: 1.9,
         fontFamily: "var(--copy-font)",
-        textAlign: "left"
+        textAlign: "center"
       }}>
-        <p style={{ margin: 0, color: theme.accent }}>
-          You actually made it to the end&mdash;unless you cheated and opened DevTools.
-        </p>
-        <p style={{ margin: 0 }}>
-          Thanks for taking the time to explore the site instead of just clicking my r&eacute;sum&eacute; and leaving. I put a lot of time into making this feel like more than a normal portfolio, so the fact that you found this is pretty cool!
-        </p>
-        <p style={{ margin: 0 }}>
-          If you ever want to talk about software, robotics, internships, project ideas, or something interesting you&apos;re building, feel free to reach out.
-        </p>
-        <p style={{ margin: 0, color: theme.textDim }}>
-          P.S. Replies may be delayed because of classes or debugging or me completely losing track of time.
-        </p>
-      </div>
+       You actually made it to the end—unless you cheated and opened DevTools.
+
+      Thanks for taking the time to explore the site instead of just clicking my résumé and leaving. I put a lot of time into making this feel like more than a normal portfolio, so the fact that you found this is pretty cool!
+
+      If you ever want to talk about software, robotics, internships, project ideas, or something interesting you’re building, feel free to reach out.
+
+      P.S. Replies may be delayed because of classes, debugging, or me completely losing track of time.
+                    </div>
     </div>
   </div>;
 }

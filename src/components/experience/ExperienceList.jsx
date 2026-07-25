@@ -23,7 +23,6 @@ function GuildLogo({ logo, theme }) {
 function ExperienceList({
   theme,
   beep,
-  claimQuestXp,
   fontScale,
   isMobile,
   pixelFont,
@@ -55,7 +54,6 @@ function ExperienceList({
         theme={theme}
         onClick={() => {
           setSelectedQuestId(quest.id);
-          claimQuestXp(quest);
           beep(340);
         }}
         title="Experience"
