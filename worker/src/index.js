@@ -101,4 +101,8 @@ export async function handleAssistantRequest(request, env, fetchImpl = fetch) {
   }
 }
 
-export default { fetch: handleAssistantRequest };
+export default {
+  fetch(request, env) {
+    return handleAssistantRequest(request, env, fetch);
+  }
+};
