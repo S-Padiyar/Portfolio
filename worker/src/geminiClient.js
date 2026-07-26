@@ -1,6 +1,6 @@
 import { SYSTEM_INSTRUCTION } from "./systemPrompt.js";
 
-const GEMINI_MODEL = "gemini-3.6-flash";
+const GEMINI_MODEL = "gemini-2.5-flash";
 
 /** Keep provider-specific request details behind one testable interface. */
 export async function requestGeminiAnswer({ apiKey, transcript, fetchImpl = fetch }) {
