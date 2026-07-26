@@ -43,6 +43,11 @@ export async function handleAssistantRequest(request, env, fetchImpl = fetch) {
     return jsonResponse({ error: "JSON requests are required." }, 415, allowedOrigin);
   }
 
+  if (!env.GEMINI_API_KEY) {
+    console.error("Missing GEMINI_API_KEY Worker secret.");
+    return jsonResponse({ error: "The assistant is not configured." }, 500, allowedOrigin);
+  }
+
   if (env.AI_RATE_LIMITER?.limit) {
     const rateLimitKey = request.headers.get("CF-Connecting-IP") || requestOrigin;
     const rateLimitResult = await env.AI_RATE_LIMITER.limit({ key: rateLimitKey });

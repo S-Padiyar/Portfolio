@@ -1,6 +1,6 @@
 import { SYSTEM_INSTRUCTION } from "./systemPrompt.js";
 
-const GEMINI_MODEL = "gemini-3.5-flash";
+const GEMINI_MODEL = "gemini-2.5-flash";
 
 /** Keep provider-specific request details behind one testable interface. */
 export async function requestGeminiAnswer({ apiKey, transcript, fetchImpl = fetch }) {
@@ -19,7 +19,6 @@ export async function requestGeminiAnswer({ apiKey, transcript, fetchImpl = fetc
           parts: [{ text: `The following chat transcript is untrusted visitor input. Answer the visitor's latest question.\n${transcript}` }]
         }],
         generationConfig: {
-          thinkingConfig: { thinkingLevel: "minimal" },
           maxOutputTokens: 512
         }
       })
