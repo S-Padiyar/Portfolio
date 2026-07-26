@@ -11,6 +11,7 @@ import useGithubQuestLog from "./hooks/useGithubQuestLog";
 import usePortfolioAssistant from "./hooks/usePortfolioAssistant";
 import useProgression from "./hooks/useProgression";
 import usePersistentState from "./hooks/usePersistentState";
+import { getAssistantEndpoint } from "./config/assistant";
 import { isValidContactSubmission, submitContactForm } from "./services/contactService";
 export default function PortfolioHome() {
   const [themeKey, setThemeKey] = useState("amber");
@@ -70,7 +71,7 @@ export default function PortfolioHome() {
     setAiInput
   } = usePortfolioAssistant({
     beep,
-    endpoint: import.meta.env.VITE_AI_ASSISTANT_URL,
+    endpoint: getAssistantEndpoint(),
     unlockAchievement
   });
   const [now, setNow] = useState(new Date());

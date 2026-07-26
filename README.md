@@ -52,13 +52,15 @@ Start the frontend:
 npm run dev
 ```
 
-The portfolio will still run if Botmay is unavailable. To connect Botmay, start the Worker in a second terminal:
+The portfolio will still run if Botmay is unavailable. To connect Botmay locally, start the Worker in a second terminal:
 
 ```bash
 npm run dev:botmay
 ```
 
 This uses a Node local adapter so Windows development does not depend on Cloudflare's `workerd` binary. Then set `VITE_AI_ASSISTANT_URL` in `.env.local`.
+
+Production uses the public Botmay fallback in `src/config/assistant.js`, so the static-assets website does not need a runtime variable for `VITE_AI_ASSISTANT_URL`.
 
 ## Environment variables
 
@@ -194,6 +196,7 @@ New live UI work should go in `src/components/`, not `src/views/`. The `src/view
 - Character profile: `src/components/profile/CharacterSheet.jsx`
 - Project cards: `src/data/projects.js`
 - Guild Hall experiences: `src/data/quests.js`
+- Botmay frontend endpoint fallback: `src/config/assistant.js`
 - Botmay knowledge: `worker/src/systemPrompt.js`
 - Assistant network call: `src/services/assistantClient.js`
 - Worker request handling: `worker/src/index.js`
