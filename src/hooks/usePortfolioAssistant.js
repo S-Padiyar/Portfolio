@@ -9,6 +9,7 @@ const WELCOME_MESSAGE = {
 const CONNECTION_ERROR_MESSAGE = "I couldn't connect right now. Please try again later.";
 const HIGH_DEMAND_MESSAGE = "The model is experiencing high demand right now. Please try again shortly.";
 const CONFIGURATION_ERROR_MESSAGE = "Botmay is deployed, but the assistant backend is not configured correctly yet.";
+const GEMINI_ERROR_MESSAGE = "Botmay reached Gemini, but Gemini rejected the request.";
 
 /** Manage the Botmay conversation and its single in-flight request. */
 export default function usePortfolioAssistant({ beep, endpoint, unlockAchievement }) {
@@ -46,6 +47,8 @@ export default function usePortfolioAssistant({ beep, endpoint, unlockAchievemen
         ? HIGH_DEMAND_MESSAGE
         : error.code === "WORKER_ERROR"
           ? `${CONFIGURATION_ERROR_MESSAGE} (${error.message})`
+          : error.code === "GEMINI_ERROR"
+            ? `${GEMINI_ERROR_MESSAGE} (${error.message})`
         : CONNECTION_ERROR_MESSAGE;
       setMessages(current => current.map(message => message.pending === pendingId
         ? { from: "ai", text: errorMessage }

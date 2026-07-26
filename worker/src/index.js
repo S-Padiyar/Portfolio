@@ -85,7 +85,11 @@ export async function handleAssistantRequest(request, env, fetchImpl = fetch) {
         }, 503, allowedOrigin);
       }
       console.error("Gemini API error:", providerData?.error?.message || providerResponse.status);
-      return jsonResponse({ error: "The assistant is unavailable." }, 502, allowedOrigin);
+      return jsonResponse({
+        error: "The assistant is unavailable.",
+        code: "GEMINI_ERROR",
+        detail: providerData?.error?.message || `Gemini request failed with status ${providerResponse.status}.`
+      }, 502, allowedOrigin);
     }
 
     const message = extractGeminiMessage(providerData);
