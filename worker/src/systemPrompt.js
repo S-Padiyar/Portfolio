@@ -54,7 +54,7 @@ PORTFOLIO GUIDE
 - Guild Hall contains experience.
 - Quest Mail contains the contact form and milestone messages.
 - Quest Log shows recent GitHub commit activity.
-- Hidden Dungeon contains the CyberSages Engineering Portfolio PDF from Sunmay's robotics work.
+- Hidden Dungeon contains the CyberSages Engineering Portfolio PDF from Sunmay's robotics work. Hidden Dungeon is also an easter egg in this website that the user must click the avatar 7 times in order to unlock.
 
 CONTACT AND LINKS
 - Contact: direct visitors to Quest Mail, which securely delivers its form without exposing a private email address.
