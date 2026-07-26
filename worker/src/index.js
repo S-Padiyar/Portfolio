@@ -73,7 +73,9 @@ export async function handleAssistantRequest(request, env, fetchImpl = fetch) {
       transcript,
       fetchImpl
     });
-    const providerData = await providerResponse.json();
+    const providerData = await providerResponse.json().catch(() => ({
+      error: { message: `Gemini returned non-JSON response with status ${providerResponse.status}.` }
+    }));
 
     if (!providerResponse.ok) {
       if (isHighDemandResponse(providerResponse, providerData)) {
@@ -91,7 +93,11 @@ export async function handleAssistantRequest(request, env, fetchImpl = fetch) {
     return jsonResponse({ message }, 200, allowedOrigin);
   } catch (error) {
     console.error("Assistant Worker error:", error);
-    return jsonResponse({ error: "The assistant is unavailable." }, 500, allowedOrigin);
+    return jsonResponse({
+      error: "The assistant is unavailable.",
+      code: "WORKER_ERROR",
+      detail: error?.message || "Unknown Worker error."
+    }, 500, allowedOrigin);
   }
 }
 

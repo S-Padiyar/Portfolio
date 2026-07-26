@@ -34,7 +34,7 @@ export async function requestAssistantReply(endpoint, messages, fetchImpl = fetc
   const data = await response.json();
   if (!response.ok) {
     throw new AssistantRequestError(
-      data.error || "The assistant request failed.",
+      data.detail || data.error || "The assistant request failed.",
       data.code
     );
   }
