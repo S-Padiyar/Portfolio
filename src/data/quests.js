@@ -37,8 +37,7 @@ export const GUILD_QUESTS = [
     ],
     bullets: [
       "Evaluated four prompting approaches across 90 Codeforces problems rated from 1600 to 2400 under Dr. Mihai Boicu.",
-      "Built an automated Java-generation and official-grading workflow, including a two-model critique process with as many as five revision rounds.",
-      "Led methodology, experiments, statistical analysis, and paper writing as first author.",
+      "Built an automated Java-solution generation workflow with a two-model critique process supporting up to five revision rounds, plus clipboard-assisted tools for manual Codeforces submission and verdict recording.",      "Led methodology, experiments, statistical analysis, and paper writing as first author.",
       "Presented the peer-reviewed IEEE paper at the 2025 MIT Undergraduate Research Technology Conference and the GMU Research Symposium."
     ],
     tags: "Python / AI Research / Java / Statistical Analysis",

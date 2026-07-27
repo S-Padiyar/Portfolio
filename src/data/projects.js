@@ -32,7 +32,7 @@ export const PROJECTS = [
     role: "Research lead and first author",
     highlights: [
       "Collected more than 90 Codeforces problems and organized reproducible datasets with ratings, tags, and cached problem statements.",
-      "Automated solution generation, browser submission, official judging, and verdict collection without manually editing model output.",
+      "Generated Java solutions automatically, then used a clipboard tool to speed up manual Codeforces submission and verdict logging without changing the model's code.",
       "Compared four prompting strategies; Structured Chain-of-Thought raised accepted solutions from 44.44% to 56.67%, with statistical testing in Python."
     ]
   },
