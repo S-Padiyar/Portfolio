@@ -1,8 +1,33 @@
+<div align="center">
+  <img src="public/images/logo-amber.png" alt="Sunmay Padiyar portfolio pixel-art crest" width="112" />
+
 # Sunmay Padiyar Portfolio
+
+  <p><strong>A game-inspired software engineering portfolio with projects, experience, skills, and an AI companion.</strong></p>
+</div>
 
 A game-inspired software engineering portfolio built with React, Vite, and a Cloudflare Worker-backed AI companion named Botmay.
 
 The site is meant to feel playful, but the codebase is organized like a maintainable frontend project: portfolio content lives in data files, external requests live in services, browser state lives in hooks, and reusable UI pieces live in focused component folders.
+
+<p align="center">
+  <img src="public/images/portfolio/skill-tree-current.png" alt="Portfolio Skill Tree showing code, cloud, robotics, and research branches" width="100%" />
+</p>
+
+<table>
+  <tr>
+    <td width="58%" align="center">
+      <img src="public/images/portfolio/botmay-companion.png" alt="Botmay, the Gemini-powered portfolio companion" width="100%" />
+      <br />
+      <sub><strong>Meet Botmay</strong> — an AI guide that helps visitors explore the portfolio.</sub>
+    </td>
+    <td width="42%" align="center">
+      <img src="public/images/portfolio/quest-log.png" alt="Quest Log showing recent GitHub activity" width="74%" />
+      <br />
+      <sub><strong>Follow the Quest Log</strong> — recent GitHub work presented in-world.</sub>
+    </td>
+  </tr>
+</table>
 
 ## What this includes
 
