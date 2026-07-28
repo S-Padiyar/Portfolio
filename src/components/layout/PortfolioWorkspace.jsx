@@ -39,7 +39,7 @@ function PortfolioWorkspace({ appearance, state, actions }) {
         <Sidebar theme={theme} active={active} avatarRef={avatarRef} beep={beep} commits={commits} commitsError={commitsError} companion={companion} fontScale={fontScale} handleAvatarClick={handleAvatarClick} handleNavClick={handleNavClick} hiddenRoomUnlocked={hiddenRoomUnlocked} isMobile={isMobile} isTablet={isTablet} level={level} pixelFont={pixelFont} setHiddenRoomOpen={setHiddenRoomOpen} themeKey={themeKey} xp={xp} xpGain={xpGain} />
 
         {/* Main content */}
-        <div style={{
+        <main id="main-content" style={{
       flex: 1,
       padding: isMobile ? 14 : spacing.xl,
       position: "relative",
@@ -60,7 +60,7 @@ function PortfolioWorkspace({ appearance, state, actions }) {
           </h1>
 
           <ContentPanel theme={theme} active={active} beep={beep} bodyFont={bodyFont} companion={companion} composeEmail={composeEmail} composeMsg={composeMsg} composeName={composeName} fontScale={fontScale} isMobile={isMobile} isTablet={isTablet} level={level} mailSent={mailSent} mailTab={mailTab} openLetter={openLetter} pixelFont={pixelFont} readLetters={readLetters} sendMail={sendMail} setComposeEmail={setComposeEmail} setComposeMsg={setComposeMsg} setComposeName={setComposeName} setMailTab={setMailTab} setSelectedProjectId={setSelectedProjectId} setSelectedQuestId={setSelectedQuestId} setSelectedSkillId={setSelectedSkillId} themeKey={themeKey} unlockedAchievements={unlockedAchievements} unreadCount={unreadCount} />
-        </div>
+        </main>
         {aiOpen && <CompanionPanel
           theme={theme}
           aiInput={aiInput}
