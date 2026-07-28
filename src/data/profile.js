@@ -30,7 +30,7 @@ export const EMPLOYER_VALUE = [
 ];
 
 export const DEVELOPER_LOADOUT = [
-  { icon: "monitor", label: "Languages", value: "Java, Python, JavaScript, TypeScript, C, C++, SQL, HTML, CSS" },
+  { icon: "monitor", label: "Languages", value: "Java, Python, JavaScript, C, C++, SQL, HTML, CSS" },
   { icon: "bolt", label: "Frontend", value: "React, Vite, Vue.js, Next.js, responsive UI, component systems" },
   { icon: "cloud", label: "Backend and cloud", value: "Node.js, Express, Cloudflare Workers, AWS, Redis, DynamoDB, REST APIs" },
   { icon: "gear", label: "Testing and tools", value: "Selenium, Selenium Grid, Healenium, Vitest, Node test runner, Docker, Git" },

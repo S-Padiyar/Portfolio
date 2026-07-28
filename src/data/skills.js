@@ -21,11 +21,11 @@ export const SKILL_NODES = [
     icon: "monitor",
     requires: ["core"],
     xp: 40,
-    desc: "Programming with Java, Python, JavaScript, TypeScript, C, C++, and SQL for web applications, automation, data processing, and embedded systems.",
+    desc: "Programming with Java, Python, JavaScript, C, C++, and SQL for web applications, automation, data processing, and embedded systems.",
     experiences: [
       "Java: FTC SDK autonomous routines, Road Runner pathing, launcher control, and arm mechanism logic",
       "Python: Codeforces AI evaluation automation, statistical analysis, and research data handling",
-      "JavaScript and TypeScript: React/Vite portfolio UI, Cloudflare Worker integration, and browser-side interactions",
+      "JavaScript: React/Vite portfolio UI, Cloudflare Worker integration, and browser-side interactions",
       "C/C++ and SQL: systems and database foundation from coursework and technical practice"
     ]
   },

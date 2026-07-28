@@ -24,7 +24,7 @@ RESEARCH AND PUBLICATION
 - Also presented the work at the GMU Research Symposium.
 
 PROJECTS IN THE TROPHY CASE
-- Sunmay Portfolio: React and TypeScript portfolio with responsive views, persistent settings, accessible dialogs, and a themed game-inspired interface.
+- Sunmay Portfolio: React and JavaScript portfolio with responsive views, persistent settings, accessible dialogs, and a themed game-inspired interface.
 - FTC Code: Java robotics code with odometry, heading control, autonomous routines, and an arm mechanism for the CyberSages team.
 - AI Evaluation Pipeline: Python research comparing prompting strategies across competitive programming tasks with visual analysis.
 - Portfolio details: includes Botmay, achievements, mailbox/contact flow, GitHub Quest Log, themed settings, Skill Tree, Trophy Case, Guild Hall, and Hidden Dungeon.
@@ -39,7 +39,7 @@ EXPERIENCE IN THE GUILD HALL
 - National Center for Simulation Scholarship: recognition for engineering work and leadership.
 
 SKILL TREE AREAS
-- React and TypeScript frontend development
+- React and JavaScript frontend development
 - Python and Java
 - Full-stack applications, APIs, authentication, and databases
 - Cloud deployment and production configuration
