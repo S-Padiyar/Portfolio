@@ -25,6 +25,7 @@ function ExperienceList({
   beep,
   fontScale,
   isMobile,
+  isTablet,
   pixelFont,
   setSelectedQuestId
 }) {
@@ -47,8 +48,10 @@ function ExperienceList({
 
     return <GalleryImage image={{ ...image, aspectRatio }} theme={theme} />;
   };
-  return <div style={{ position: "relative", maxWidth: 820, margin: "0 auto" }}>
-    <div style={{ display: "grid", gap: 16 }}>
+  const isLargeScreen = !isTablet;
+
+  return <div style={{ position: "relative", width: "100%", maxWidth: isLargeScreen ? 1100 : 820, margin: "0 auto" }}>
+    <div style={{ display: "grid", gap: isLargeScreen ? 22 : 16 }}>
       {GUILD_QUESTS.map(quest => <PixelFrame
         key={quest.id}
         theme={theme}
@@ -58,12 +61,12 @@ function ExperienceList({
         }}
         title="Experience"
         style={{
-          padding: 12,
+          padding: isLargeScreen ? 18 : 12,
           display: "grid",
-          gridTemplateColumns: isMobile ? "1fr" : "190px minmax(0, 1fr)",
-          gap: 12,
+          gridTemplateColumns: isMobile ? "1fr" : isLargeScreen ? "280px minmax(0, 1fr)" : "190px minmax(0, 1fr)",
+          gap: isLargeScreen ? 20 : 12,
           alignItems: "center",
-          minHeight: isMobile ? undefined : 150,
+          minHeight: isMobile ? undefined : isLargeScreen ? 210 : 150,
           position: "relative",
           background: theme.panel
         }}

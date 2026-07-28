@@ -11,6 +11,7 @@ function TopBar({
   fontScale,
   handleLogoDoubleClick,
   handleNavClick,
+  isMobile,
   isTablet,
   localTime,
   logoSparkle,
@@ -252,25 +253,27 @@ function TopBar({
       }}>
             <PixelIcon name="gear" size={16} color={settingsOpen === "settings" ? theme.bg : theme.accent} />
           </PixelFrame>
-          <div style={{
-        width: 2,
-        height: 22,
-        background: theme.border,
-        margin: "0 4px"
-      }} />
-          <div style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 6
-      }}>
-            <PixelIcon name="clock" size={12} color={theme.accent} />
-            <span style={{
-          fontFamily: pixelFont,
-          fontSize: `${14 * fontScale}px`,
-          color: theme.text,
-          lineHeight: 1
-        }}>{localTime()}</span>
-          </div>
+          {!isMobile && <>
+            <div style={{
+          width: 2,
+          height: 22,
+          background: theme.border,
+          margin: "0 4px"
+        }} />
+            <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 6
+        }}>
+              <PixelIcon name="clock" size={12} color={theme.accent} />
+              <span style={{
+            fontFamily: pixelFont,
+            fontSize: `${14 * fontScale}px`,
+            color: theme.text,
+            lineHeight: 1
+          }}>{localTime()}</span>
+            </div>
+          </>}
         </div>
       </div>;
 }

@@ -15,6 +15,7 @@ function Sidebar({
   handleAvatarClick,
   handleNavClick,
   hiddenRoomUnlocked,
+  isLargeScreen,
   isMobile,
   isTablet,
   level,
@@ -25,7 +26,7 @@ function Sidebar({
   xpGain
 }) {
   return <div style={{
-    width: isMobile ? "100%" : isTablet ? 180 : 220,
+    width: isMobile ? "100%" : isTablet ? 180 : isLargeScreen ? 320 : 220,
     padding: isMobile ? "16px" : "22px 16px",
     display: "flex",
     flexDirection: "column",
@@ -35,7 +36,7 @@ function Sidebar({
     background: theme.panel,
     flexShrink: 0
   }}>
-          <PlayerStatus theme={theme} avatarRef={avatarRef} companion={companion} fontScale={fontScale} handleAvatarClick={handleAvatarClick} level={level} pixelFont={pixelFont} themeKey={themeKey} xp={xp} xpGain={xpGain} />
+          <PlayerStatus theme={theme} avatarRef={avatarRef} companion={companion} fontScale={fontScale} handleAvatarClick={handleAvatarClick} isLargeScreen={isLargeScreen} level={level} pixelFont={pixelFont} themeKey={themeKey} xp={xp} xpGain={xpGain} />
 
           <div style={{
       width: "100%",
