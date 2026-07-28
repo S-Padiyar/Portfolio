@@ -7,7 +7,7 @@ export const SKILL_NODES = [
     icon: "bolt",
     requires: [],
     xp: 20,
-    desc: "The center of the tree: technical curiosity, systems thinking, communication, and the habit of turning vague requirements into working products.",
+    desc: "Software engineering fundamentals: requirements analysis, system design, implementation, testing, documentation, and technical communication.",
     experiences: [
       "Georgia Tech CS: data structures, algorithms, discrete math, computer organization, and computing and society",
       "Portfolio Website: React, Vite, Cloudflare Worker, Gemini API, tests, settings, achievements, mailbox, and GitHub activity",
@@ -21,7 +21,7 @@ export const SKILL_NODES = [
     icon: "monitor",
     requires: ["core"],
     xp: 40,
-    desc: "Practical programming across Java, Python, JavaScript, TypeScript, C/C++, and SQL in research, robotics, web applications, and coursework.",
+    desc: "Programming with Java, Python, JavaScript, TypeScript, C, C++, and SQL for web applications, automation, data processing, and embedded systems.",
     experiences: [
       "Java: FTC SDK autonomous routines, Road Runner pathing, launcher control, and arm mechanism logic",
       "Python: Codeforces AI evaluation automation, statistical analysis, and research data handling",
@@ -36,7 +36,7 @@ export const SKILL_NODES = [
     icon: "monitor",
     requires: ["programming-languages"],
     xp: 60,
-    desc: "Frontend product work with reusable components, responsive layouts, persistent preferences, accessible modals, and interaction-heavy UI.",
+    desc: "Frontend development with reusable components, responsive layouts, browser storage, accessible controls, modal interfaces, and client-side state.",
     experiences: [
       "Portfolio Website: game-inspired React interface with Skill Tree, Trophy Case, Guild Hall, mailbox, settings, achievements, and Botmay",
       "Stateful UX: saved font, theme, mail-read, achievement, and portfolio preference behavior in local storage",
@@ -50,7 +50,7 @@ export const SKILL_NODES = [
     icon: "monitor",
     requires: ["web-applications"],
     xp: 90,
-    desc: "Backend boundaries, API validation, environment configuration, secret handling, and service integrations that keep browser code safe.",
+    desc: "Backend services and APIs with request validation, environment configuration, secret management, CORS controls, rate limiting, and external integrations.",
     experiences: [
       "Botmay Worker: Cloudflare endpoint that keeps the Gemini API key out of frontend code",
       "Assistant backend: CORS validation, JSON-only requests, transcript limiting, high-demand error handling, and rate-limit checks",
@@ -65,7 +65,7 @@ export const SKILL_NODES = [
     icon: "cloud",
     requires: ["core"],
     xp: 50,
-    desc: "Cloud tooling, hosted services, environment variables, local Worker testing, and production-minded deployment boundaries.",
+    desc: "Cloud platforms and deployment tooling, including AWS services, Cloudflare Workers, containers, managed databases, caching, and environment configuration.",
     experiences: [
       "NOVA Cloud LLC: Vue.js, Node.js, Express, Redis, DynamoDB, AWS services, Docker, and Selenium in a cloud-management platform",
       "AWS service context: work involving data across more than 40 AWS services for usage and cost-analysis workflows",
@@ -79,7 +79,7 @@ export const SKILL_NODES = [
     icon: "gear",
     requires: ["cloud-platforms"],
     xp: 75,
-    desc: "Automated checks that make UI, backend, and external-service code safer to change without breaking hidden behavior.",
+    desc: "Automated testing for user interfaces, APIs, services, and integrations using unit, component, browser, and end-to-end test suites.",
     experiences: [
       "NOVA Cloud LLC: mock backend for about 100 endpoints and Selenium coverage for more than 50 routes",
       "Testing stack: Selenium Grid, Healenium, Docker, Vitest, React Testing Library, and Node test runner",
@@ -93,7 +93,7 @@ export const SKILL_NODES = [
     icon: "cloud",
     requires: ["automation-testing"],
     xp: 105,
-    desc: "End-to-end cloud system thinking: frontend UX, backend APIs, provider services, protected secrets, and reliable integration testing.",
+    desc: "Cloud system architecture covering frontend clients, backend APIs, provider services, databases, caches, credential protection, and integration testing.",
     experiences: [
       "NOVA Cloud LLC: client-facing cloud platform work across frontend, backend, cache, database, and AWS-service data",
       "AWS Bedrock context: AI-assisted cloud analysis workflows inside the internship stack",
@@ -107,7 +107,7 @@ export const SKILL_NODES = [
     icon: "gear",
     requires: ["core"],
     xp: 45,
-    desc: "Connecting motors, sensors, mechanisms, controls, and software so a physical robot behaves like one coordinated system.",
+    desc: "Hardware and software integration for motors, sensors, servos, control hubs, power systems, and mechanical subsystems.",
     experiences: [
       "CyberSages FTC Team #23541: custom mecanum-drive robot with motors, sensors, servos, control hubs, and power system",
       "Arm mechanism: robot software coordinated with physical constraints and mechanism behavior",
@@ -121,7 +121,7 @@ export const SKILL_NODES = [
     icon: "gear",
     requires: ["hardware-integration"],
     xp: 80,
-    desc: "Telemetry-driven control work with PID/PIDF tuning, odometry, autonomous movement, and repeatable mechanism behavior.",
+    desc: "Feedback and motion control using PID/PIDF tuning, telemetry, odometry, trajectory planning, position holding, and autonomous routines.",
     experiences: [
       "Road Runner: autonomous field trajectories with three-wheel dead-wheel odometry",
       "PID/PIDF: launcher velocity tuning, telemetry analysis, and repeatable ball launches",
@@ -136,7 +136,7 @@ export const SKILL_NODES = [
     icon: "briefcase",
     requires: ["control-systems"],
     xp: 110,
-    desc: "Leading technical decisions, coordinating teammates, raising support, documenting work, and shipping under competition deadlines.",
+    desc: "Technical planning, system-level decision-making, task coordination, engineering documentation, resource management, and deadline-based delivery.",
     experiences: [
       "CyberSages FTC Team #23541: founder, captain, and software lead across three seasons",
       "Team resources: secured more than $4,000 in grants and sponsorships",
@@ -150,7 +150,7 @@ export const SKILL_NODES = [
     icon: "bolt",
     requires: ["core"],
     xp: 50,
-    desc: "Turning questions about model behavior into measurable experiments with clear methodology, results, and limitations.",
+    desc: "Experimental AI research covering hypothesis design, benchmark selection, controlled evaluation, statistical analysis, and limitation reporting.",
     experiences: [
       "George Mason University: AI/ML research internship under Dr. Mihai Boicu",
       "Codeforces study: 90 problems rated 1600-2400 comparing No Prompt, Zero-Shot Chain-of-Thought, Prompt Chaining, and Structured Chain-of-Thought",
@@ -164,7 +164,7 @@ export const SKILL_NODES = [
     icon: "monitor",
     requires: ["ai-research"],
     xp: 80,
-    desc: "Building repeatable AI workflows that collect inputs, call model APIs, preserve outputs, and evaluate results against real judges.",
+    desc: "AI workflow engineering for input collection, model API calls, conversation state, output storage, automated evaluation, and iterative revision.",
     experiences: [
       "Evaluation pipeline: problem extraction, prompt execution, conversation history, result saving, and official verdict tracking",
       "Automated grading: browser submission to Codeforces with Java 21 outputs and recorded time, memory, and verdicts",
@@ -178,7 +178,7 @@ export const SKILL_NODES = [
     icon: "briefcase",
     requires: ["ai-engineering"],
     xp: 100,
-    desc: "Explaining technical research through papers, diagrams, charts, abstracts, presentations, and reviewer-friendly writing.",
+    desc: "Technical research communication through papers, abstracts, diagrams, charts, tables, presentations, and methodology documentation.",
     experiences: [
       "IEEE paper: first author on peer-reviewed LLM prompting research",
       "MIT URTC 2025: presented the prompting-strategy research to a formal research audience",

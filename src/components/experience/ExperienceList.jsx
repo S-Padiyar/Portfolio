@@ -83,10 +83,10 @@ function ExperienceList({
           display: "grid",
           gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) 50px",
           gap: 10,
-          alignItems: "center",
+          alignItems: "stretch",
           minWidth: 0
         }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 9, minWidth: 0 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 9, minWidth: 0, height: "100%" }}>
           <div style={{
             display: "grid",
             gap: 4
@@ -98,6 +98,7 @@ function ExperienceList({
           <div style={{
             marginTop: "auto",
             alignSelf: "center",
+            paddingTop: 15,
             color: theme.accent,
             fontFamily: uiFont,
             fontSize: `${10 * fontScale}px`,

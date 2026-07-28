@@ -7,7 +7,7 @@ import { spacing } from "@/constants/layout";
 
 function PortfolioWorkspace({ appearance, state, actions }) {
   const {
-    theme, bodyFont, fontScale, isLargeScreen, isMobile, isTablet, pixelFont, readableFont,
+    theme, bodyFont, fontScale, isMobile, isTablet, pixelFont, readableFont,
     themeKey
   } = appearance;
   const {
@@ -36,7 +36,7 @@ function PortfolioWorkspace({ appearance, state, actions }) {
         {settingsOpen && <SettingsPanel theme={theme} beep={beep} fontScale={fontScale} isMobile={isMobile} pixelFont={pixelFont} readableFont={readableFont} setFontScale={setFontScale} setReadableFont={setReadableFont} setSettingsOpen={setSettingsOpen} setSoundOn={setSoundOn} setThemeKey={setThemeKey} settingsView={settingsOpen} soundOn={soundOn} themeKey={themeKey} unlockAchievement={unlockAchievement} unlockedAchievements={unlockedAchievements} />}
 
         {/* Left sidebar */}
-        <Sidebar theme={theme} active={active} avatarRef={avatarRef} beep={beep} commits={commits} commitsError={commitsError} companion={companion} fontScale={fontScale} handleAvatarClick={handleAvatarClick} handleNavClick={handleNavClick} hiddenRoomUnlocked={hiddenRoomUnlocked} isLargeScreen={isLargeScreen} isMobile={isMobile} isTablet={isTablet} level={level} pixelFont={pixelFont} setHiddenRoomOpen={setHiddenRoomOpen} themeKey={themeKey} xp={xp} xpGain={xpGain} />
+        <Sidebar theme={theme} active={active} avatarRef={avatarRef} beep={beep} commits={commits} commitsError={commitsError} companion={companion} fontScale={fontScale} handleAvatarClick={handleAvatarClick} handleNavClick={handleNavClick} hiddenRoomUnlocked={hiddenRoomUnlocked} isMobile={isMobile} isTablet={isTablet} level={level} pixelFont={pixelFont} setHiddenRoomOpen={setHiddenRoomOpen} themeKey={themeKey} xp={xp} xpGain={xpGain} />
 
         {/* Main content */}
         <main id="main-content" style={{

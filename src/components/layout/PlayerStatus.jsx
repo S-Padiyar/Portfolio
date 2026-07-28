@@ -10,7 +10,6 @@ function PlayerStatus({
   companion,
   fontScale,
   handleAvatarClick,
-  isLargeScreen,
   level,
   pixelFont,
   themeKey,
@@ -147,8 +146,7 @@ function PlayerStatus({
             </div>
 
             <div style={{
-      width: isLargeScreen ? "calc(100% - 20px)" : "100%",
-      alignSelf: "center",
+      width: "100%",
       marginTop: 4,
       display: "flex",
       flexDirection: "column",

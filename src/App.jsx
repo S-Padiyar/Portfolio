@@ -54,7 +54,6 @@ export default function PortfolioHome() {
   const vw = useViewportWidth();
   const isMobile = vw < 700;
   const isTablet = vw < 980;
-  const isLargeScreen = vw >= 1920;
   const beep = useAudioBeep(soundOn);
   const {
     achievementToast,
@@ -201,7 +200,7 @@ export default function PortfolioHome() {
 
   // Keep the scene boundary readable by grouping values by responsibility.
   const sceneAppearance = {
-    theme: theme, bodyFont, fontScale, isLargeScreen, isMobile, isTablet, pixelFont, readableFont,
+    theme: theme, bodyFont, fontScale, isMobile, isTablet, pixelFont, readableFont,
     themeKey
   };
   const sceneState = {
