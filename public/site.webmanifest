@@ -4,7 +4,7 @@
   "description": "Sunmay Padiyar's software engineering portfolio.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#17130f",
-  "theme_color": "#17130f",
-  "icons": [{ "src": "/favicon.png", "sizes": "any", "type": "image/png" }]
+  "background_color": "#1c1410",
+  "theme_color": "#1c1410",
+  "icons": [{ "src": "/favicon-brown-large.png?v=5", "sizes": "256x256", "type": "image/png" }]
 }

@@ -47,7 +47,7 @@ export default function PortfolioProjects({
         onClick={() => { setSelectedProjectId(index); beep(340); }}
         title={`Open ${project.title}`}
         style={{
-          padding: "12px 12px 20px",
+          padding: "12px 12px 14px",
           display: "flex",
           flexDirection: "column",
           gap: 12,

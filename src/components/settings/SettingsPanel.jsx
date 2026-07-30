@@ -1,6 +1,6 @@
+import AchievementsPanel from "@/components/settings/AchievementsPanel";
 import PixelFrame from "@/components/ui/PixelFrame";
 import PixelIcon from "@/components/ui/PixelIcon";
-import { ACHIEVEMENTS } from "@/data/achievements";
 import { THEMES } from "@/data/themes";
 
 function SettingsPanel({
@@ -21,8 +21,6 @@ function SettingsPanel({
   unlockAchievement,
   unlockedAchievements
 }) {
-  const unlockedAchievementCount = ACHIEVEMENTS.filter(achievement => unlockedAchievements[achievement.id]).length;
-
   return <div style={{
     position: "absolute",
     top: 0,
@@ -209,73 +207,12 @@ function SettingsPanel({
               </div>
             </div>
 
-            <div style={{
-      display: settingsView === "achievements" ? "block" : "none"
-    }}>
-              <div style={{
-        fontSize: `${10 * fontScale}px`,
-        color: theme.textDim,
-        marginBottom: 6,
-        letterSpacing: "1px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        transform: "translateY(-6px)"
-      }}>
-                <span style={{
-          color: theme.textFaint,
-          fontSize: `${9 * fontScale}px`
-        }}>
-                  {unlockedAchievementCount}/{ACHIEVEMENTS.length}
-                </span>
-              </div>
-              <div style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 6
-      }}>
-                {ACHIEVEMENTS.map(a => {
-          const isUnlocked = !!unlockedAchievements[a.id];
-          return <PixelFrame key={a.id} theme={theme} style={{
-            padding: "8px 10px",
-            display: "flex",
-            flexDirection: "column",
-            gap: 3,
-            opacity: isUnlocked ? 1 : 0.35,
-            transition: "opacity 300ms ease"
-          }}>
-                      <div style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              gap: 6
-            }}>
-                        <span style={{
-                fontFamily: pixelFont,
-                fontSize: `${10 * fontScale}px`,
-                color: isUnlocked ? theme.accent : theme.textFaint,
-                letterSpacing: "0.5px"
-              }}>
-                          {isUnlocked ? a.label : "???"}
-                        </span>
-                        <span style={{
-                fontSize: `${9 * fontScale}px`,
-                color: theme.textFaint,
-                flexShrink: 0
-              }}>+{a.xp} XP</span>
-                      </div>
-                      <div style={{
-              fontFamily: "var(--copy-font)",
-              fontSize: `${11 * fontScale}px`,
-              color: theme.textDim,
-              lineHeight: 1.5
-            }}>
-                        {isUnlocked ? a.desc : "Locked. Keep exploring to find it."}
-                      </div>
-                    </PixelFrame>;
-        })}
-              </div>
-            </div>
+            {settingsView === "achievements" && <AchievementsPanel
+              theme={theme}
+              fontScale={fontScale}
+              pixelFont={pixelFont}
+              unlockedAchievements={unlockedAchievements}
+            />}
           </div>;
 }
 export default SettingsPanel;
